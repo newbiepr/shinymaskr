@@ -1500,7 +1500,7 @@ idolRoad.rewardDetail.unlockVoice.comment,%{voiceName}を追加,%{voiceName}를 
 idolRoad.rewardDetail.evolutionStage.name,特訓数＋1,"특훈 수＋1"
 idolRoad.rewardDetail.evolutionStage.comment,%{rarityText}プロデュースアイドルの特訓数を＋1,"%{rarityText} 프로듀스 아이돌의 특훈 수를＋1"
 idolRoad.rewardDetail.trustUp.name,%{charName}の\n信頼度Lv.上限＋%{num},"%{charName}의\n신뢰도Lv. 상한＋%{num}"
-idolRoad.rewardDetail.trustUp.comment,%{charName} の信頼度Lv.の上限が%{num}上昇,"%{charName} 의 신뢰도Lv. 의 상한이 %{num} 상승"
+idolRoad.rewardDetail.trustUp.comment,%{charName} の信頼度Lv.の上限が%{num}上昇,"%{charName}의 신뢰도Lv.의 상한이 %{num} 상승"
 idolRoad.rewardDetail.title.name,専用称号『%{titleName}』x１,전용 칭호 『%{titleName}』 x1
 idolRoad.rewardDetail.title.comment,%{charName} 専用称号『%{titleName}』を獲得,%{charName} 전용 칭호 『%{titleName}』를 획득
 idolRoad.rewardDetail.supportIdol.comment,%{rarityText}サポートアイドルです,%{rarityText} 서포트 아이돌입니다

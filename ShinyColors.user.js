@@ -2002,7 +2002,10 @@
 	    replaceMission(mission, 'comment');
 	    replaceMission(mission, 'afterAchievedComment');
 	    replaceMission(mission, 'beforeAchievedComment');
-
+	    if (mission.mission) {
+          replaceMission(mission.mission, 'title');
+	      replaceMission(mission.mission, 'comment');
+        }
 	    if (hasReward) {
 	      let reward = mission.lectureMissionReward;
 
