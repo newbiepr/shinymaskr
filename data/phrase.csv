@@ -1464,67 +1464,67 @@ beginnerMission.idolSelectConfirmPop.text,選択したプロデュースアイ�
 beginnerMission.idolSelectConfirmPop.txtNotice, 初心者ミッション開始後に選びなおすことはできません,초보자 미션 시작 후에 다시 선택할 수 없습니다 
 beginnerMission.clearedAlert.title,初心者ミッション達成,초보자 미션 달성
 beginnerMission.clearedAlert.text,以下のミッションを達成しました\n初心者ミッションページで報酬を受け取りましょう,아래의 미션을 달성했습니다\n초보자 미션 페이지에서 보수를 받읍시다 
-countUpCampaign.unit.fes_raid_laps,周,
-countUpCampaign.countUpText,%{unit}で%{title}達成,
-countUpCampaign.clearedFooterText.fes_raid_laps,コラボフェスの到達周数でボーナスをGET!,
-countUpCampaign.clearedFooterText.fan,プロデューサーズカップの累計獲得ファン数でボーナスをGET!,
-countUpCampaign.closeAt,集計期間: %{closeAt} まで,
-countUpCampaign.lastChallengeTitle,前回のチャレンジ結果,
-countUpCampaign.pCupAttention,休憩時間中のプロデュースなどで獲得したファン数も集計対象に含まれます,
-countUpCampaign.fanCount,約%{count}億,
-downLoad.confirmTitle,データダウンロード,
-evolution.confirm.comment,選択した対象を消費して、特訓をします\nよろしいですか？,
-evolution.confirm.maxStaffComment,最大特訓はづきさんを消費して、特訓をします\nよろしいですか？,
-evolution.confirm.notice,特訓はづきさんが含まれています\r本当によろしいですか？,
-evolution.confirm.checkDescription,特訓を有効にする,
-evolution.confirm.maxStaffNotice,1回以上特訓しているアイドルが選択されています\r特訓を開始した場合、余剰分の特訓回数は消失します,
-evolution.confirm.maxStaffNoticeLevel,Lv.2以上のサポートアイドルが選択されています\r特訓を開始した場合、余剰分のExpは消失します,
-evolution.normalInvalidBlockText,%{name}は\n他のアイドルや特訓はづきさんと\n一緒に使用することはできません,
-evolution.featuredInvalidBlockText,アイドルまたは他の特訓はづきさんと\n一緒に使用することはできません,
-evolution.featuredTrainingResultComment,%{name}の\r使用により、レベルが最大になりました,
-header.idolRoad,アイドルロード,
-idolDetail.fromGashaNoticeWithIdolRoad,最大特訓時、アイドルロード未進行の状態を表示しています。,
-item.limitNumSimple,最大所持数:,
-item.evolutionNotice,アイドルや他の特訓はづきさんと一緒に使うことはできません,
-item.evolutionNotice2,すでに1回以上特訓しているアイドルに使用した場合\r余剰分の特訓回数は消失します,
-item.evolutionNoticeLevel,すでにLv.2以上トレーニングしているアイドルに使用した場合\r余剰分のExpは消失します,
-idolRoad.needsProduceEnd.title,アイドルロード進行不可,
-idolRoad.needsProduceEnd.message1,%{idolName}は\n現在プロデュース中のため\nアイドルロードを進行する事ができません,
-idolRoad.needsProduceEnd.message2,プロデュースを完了するか\nプロデュースを終了してください,
-idolRoad.cantReceive.title,アイテム所持上限,
-idolRoad.cantReceive.message,獲得アイテムが所持上限を超えているため\nアイドルロードを進行する事ができません,
-idolRoad.rewardDetail.rarityUp.name,レアリティ上昇,
-idolRoad.rewardDetail.rarityUp.comment,%{beforeRarityText}プロデュースアイドルのレアリティが%{rarityText}に上昇,
-idolRoad.rewardDetail.unlockVoice.name,%{charName}\nホームボイス追加,
-idolRoad.rewardDetail.unlockVoice.comment,%{voiceName}を追加,
-idolRoad.rewardDetail.evolutionStage.name,特訓数＋1,
-idolRoad.rewardDetail.evolutionStage.comment,%{rarityText}プロデュースアイドルの特訓数を＋1,
-idolRoad.rewardDetail.trustUp.name,%{charName}の\n信頼度Lv.上限＋%{num},
-idolRoad.rewardDetail.trustUp.comment,%{charName} の信頼度Lv.の上限が%{num}上昇,
-idolRoad.rewardDetail.title.name,専用称号『%{titleName}』x１,
-idolRoad.rewardDetail.title.comment,%{charName} 専用称号『%{titleName}』を獲得,
-idolRoad.rewardDetail.supportIdol.comment,%{rarityText}サポートアイドルです,
-idolRoad.evolutionStageUnlockPop.title,特訓数増加,
-idolRoad.evolutionStageUnlockPop.message,アイドルロードの進行によって\n特訓段階が増加しました,
-idolRoad.evolutionStageNotEnoughPop.title,特訓数不足,
-idolRoad.evolutionStageNotEnoughPop.message1,特訓数が足りていない為\nアイドルロードを進行することが出来ません,
-idolRoad.evolutionStageNotEnoughPop.message2,%{idolName}\nの特訓数を4まで上昇させる事で\nアイドルロードの進行が可能になります,
-idolRoad.produceAttentionPop.title,アイドルロード進行不可,
-idolRoad.produceAttentionPop.message1,%{idolName}\nは現在プロデュース中の為\nアイドルロードを進行させることが出来ません,
-idolRoad.produceAttentionPop.message2,プロデュースを完了するか\nプロデュースを終了してください,
-idolRoad.rarityUpPop.title,レアリティ上昇,
-idolRoad.rarityUpPop.message,アイドルロードの進行によって\nレアリティが上昇しました,
-idolRoad.trustLimitUpPop.title,信頼度上限解放,
-idolRoad.trustLimitUpPop.message1,アイドルロードの進行によって,
-idolRoad.trustLimitUpPop.message2,[%{idolName}]の信頼度lv上限が%{limit},
-idolRoad.trustLimitUpPop.message3,に上昇しました,
-idolRoad.roadRewardDetail.received,獲得済み,
-idolRoad.roadRewardDetail.notReceived,あとミッション%{count}個達成で到達,
-idolRoad.popReceive.title,アイドルロード進行報酬,
-idolRoad.popReceive.comment,アイドルロード進行の報酬として\n以下を獲得しました,
-idolRoad.needsEvolution,%{idolName}を最大まで特訓しよう,
-idolRoad.canProcessText,あと%{canProceedCount}歩進めます,
-idolRoad.recommendProcessText,ミッションをクリアして進めよう,
-releasedCommentsPop.title,ボイス解放,
-releasedCommentsPop.message,を解放しました\r\rホーム画面にて聞くことができます\rアイドルアルバムで再生のON/OFFが可能です,
-training.resultTitleFeatured,トレーニング結果,
+countUpCampaign.unit.fes_raid_laps,周,주
+countUpCampaign.countUpText,%{unit}で%{title}達成,"%{unit}로 %{title} 달성"
+countUpCampaign.clearedFooterText.fes_raid_laps,コラボフェスの到達周数でボーナスをGET!,"콜라보페스의 도달주수로 보너스를 GET!"
+countUpCampaign.clearedFooterText.fan,プロデューサーズカップの累計獲得ファン数でボーナスをGET!,"프로듀서즈컵의 누계 획득 팬수로 보너스를 GET!"
+countUpCampaign.closeAt,集計期間: %{closeAt} まで,"집계기간: %{closeAt} 까지"
+countUpCampaign.lastChallengeTitle,前回のチャレンジ結果,전회 챌린지 결과
+countUpCampaign.pCupAttention,休憩時間中のプロデュースなどで獲得したファン数も集計対象に含まれます,"휴식시간중 프로듀스로 획득한 팬수도 집계대상에 포함됩니다"
+countUpCampaign.fanCount,約%{count}億,약 %{count}억
+downLoad.confirmTitle,データダウンロード,데이터 다운로드
+evolution.confirm.comment,選択した対象を消費して、特訓をします\nよろしいですか？,"선택한 대상을 소비해, 특훈을 합니다\n괜찮습니까?"
+evolution.confirm.maxStaffComment,最大特訓はづきさんを消費して、特訓をします\nよろしいですか？,"최대 특훈하즈키씨를 소비해, 특훈을 합니다\n괜찮습니까?"
+evolution.confirm.notice,特訓はづきさんが含まれています\r本当によろしいですか？,"특훈하즈키씨가 포함되어 있습니다\r정말로 괜찮습니까?"
+evolution.confirm.checkDescription,特訓を有効にする,특훈을 유효하게 한다
+evolution.confirm.maxStaffNotice,1回以上特訓しているアイドルが選択されています\r特訓を開始した場合、余剰分の特訓回数は消失します,"1회이상 특훈한 아이돌이 선택되고 있습니다\r특훈을 개시할 경우, 잉여분의 특훈 회수는 소실됩니다"
+evolution.confirm.maxStaffNoticeLevel,Lv.2以上のサポートアイドルが選択されています\r特訓を開始した場合、余剰分のExpは消失します,"Lv. 2이상의 서포트 아이돌이 선택되고 있습니다\r특훈을 개시할 경우, 잉여분의 Exp는 소실됩니다"
+evolution.normalInvalidBlockText,%{name}は\n他のアイドルや特訓はづきさんと\n一緒に使用することはできません,%{name}는\n다른 아이돌이나 특훈하즈키씨와\n함께 사용할 수 없습니다
+evolution.featuredInvalidBlockText,アイドルまたは他の特訓はづきさんと\n一緒に使用することはできません,아이돌 또는 다른 특훈하즈키씨와\n함께 사용할 수 없습니다
+evolution.featuredTrainingResultComment,%{name}の\r使用により、レベルが最大になりました,"%{name}의\r사용에 의해, 레벨이 최대가 되었습니다"
+header.idolRoad,アイドルロード,아이돌로드
+idolDetail.fromGashaNoticeWithIdolRoad,最大特訓時、アイドルロード未進行の状態を表示しています。,"최대 특훈시, 아이돌로드 미진행 상태를 표시합니다."
+item.limitNumSimple,最大所持数:,최대 소지수:
+item.evolutionNotice,アイドルや他の特訓はづきさんと一緒に使うことはできません,"아이돌이나 다른 특훈 하즈키씨와 함께 사용할 수 없습니다"
+item.evolutionNotice2,すでに1回以上特訓しているアイドルに使用した場合\r余剰分の特訓回数は消失します,"이미 1회 이상 특훈한 아이돌에 사용한 경우\r잉여분의 특훈 회수는 소실됩니다"
+item.evolutionNoticeLevel,すでにLv.2以上トレーニングしているアイドルに使用した場合\r余剰分のExpは消失します,"이미 Lv. 2 이상 트레이닝한 아이돌에 사용한 경우\r잉여분의 Exp는 소실됩니다"
+idolRoad.needsProduceEnd.title,アイドルロード進行不可,아이돌로드 진행 불가
+idolRoad.needsProduceEnd.message1,%{idolName}は\n現在プロデュース中のため\nアイドルロードを進行する事ができません,"%{idolName}는\n현재 프로듀스중이기 때문에\n아이돌로드를 진행할 수 없습니다"
+idolRoad.needsProduceEnd.message2,プロデュースを完了するか\nプロデュースを終了してください,"프로듀스를 완료하거나\n프로듀스를 종료해 주세요"
+idolRoad.cantReceive.title,アイテム所持上限,아이템 소지 상한
+idolRoad.cantReceive.message,獲得アイテムが所持上限を超えているため\nアイドルロードを進行する事ができません,"획득 아이템이 소지 상한을 넘기 때문에\n아이돌로드를 진행할 수 없습니다"
+idolRoad.rewardDetail.rarityUp.name,レアリティ上昇,레어리티 상승
+idolRoad.rewardDetail.rarityUp.comment,%{beforeRarityText}プロデュースアイドルのレアリティが%{rarityText}に上昇,%{beforeRarityText}프로듀스 아이돌의 레어리티가 %{rarityText}로 상승
+idolRoad.rewardDetail.unlockVoice.name,%{charName}\nホームボイス追加,%{charName}\n홈 음성 추가
+idolRoad.rewardDetail.unlockVoice.comment,%{voiceName}を追加,%{voiceName}를 추가
+idolRoad.rewardDetail.evolutionStage.name,特訓数＋1,"특훈 수＋1"
+idolRoad.rewardDetail.evolutionStage.comment,%{rarityText}プロデュースアイドルの特訓数を＋1,"%{rarityText} 프로듀스 아이돌의 특훈 수를＋1"
+idolRoad.rewardDetail.trustUp.name,%{charName}の\n信頼度Lv.上限＋%{num},"%{charName}의\n신뢰도Lv. 상한＋%{num}"
+idolRoad.rewardDetail.trustUp.comment,%{charName} の信頼度Lv.の上限が%{num}上昇,"%{charName} 의 신뢰도Lv. 의 상한이 %{num} 상승"
+idolRoad.rewardDetail.title.name,専用称号『%{titleName}』x１,전용 칭호 『%{titleName}』 x1
+idolRoad.rewardDetail.title.comment,%{charName} 専用称号『%{titleName}』を獲得,%{charName} 전용 칭호 『%{titleName}』를 획득
+idolRoad.rewardDetail.supportIdol.comment,%{rarityText}サポートアイドルです,%{rarityText} 서포트 아이돌입니다
+idolRoad.evolutionStageUnlockPop.title,特訓数増加,특훈 수 증가
+idolRoad.evolutionStageUnlockPop.message,アイドルロードの進行によって\n特訓段階が増加しました,아이돌로드 진행에 의해\n특훈 단계가 증가했습니다
+idolRoad.evolutionStageNotEnoughPop.title,特訓数不足,특훈 수 부족
+idolRoad.evolutionStageNotEnoughPop.message1,特訓数が足りていない為\nアイドルロードを進行することが出来ません,"특훈 수가 충분하지 않기 때문에\n아이돌로드를 진행할 수 없습니다"
+idolRoad.evolutionStageNotEnoughPop.message2,%{idolName}\nの特訓数を4まで上昇させる事で\nアイドルロードの進行が可能になります,"%{idolName}\n의 특훈수를 4까지 상승시켜\n아이돌로드의 진행이 가능합니다"
+idolRoad.produceAttentionPop.title,アイドルロード進行不可,아이돌로드 진행불가
+idolRoad.produceAttentionPop.message1,%{idolName}\nは現在プロデュース中の為\nアイドルロードを進行させることが出来ません,"%{idolName}\n는 현재 프로듀스중이기 때문에\n아이돌 로드를 진행시킬 수 없습니다"
+idolRoad.produceAttentionPop.message2,プロデュースを完了するか\nプロデュースを終了してください,프로듀스를 완료하거나\n프로듀스를 종료해주세요
+idolRoad.rarityUpPop.title,レアリティ上昇,레어리티 상승
+idolRoad.rarityUpPop.message,アイドルロードの進行によって\nレアリティが上昇しました,아이돌로드 진행에 의해\n레어리티가 상승했습니다
+idolRoad.trustLimitUpPop.title,信頼度上限解放,신뢰도 상한 해방
+idolRoad.trustLimitUpPop.message1,アイドルロードの進行によって,아이돌로드 진행에 의해
+idolRoad.trustLimitUpPop.message2,[%{idolName}]の信頼度lv上限が%{limit},[%{idolName}]의 신뢰도lv 상한이 %{limit}
+idolRoad.trustLimitUpPop.message3,に上昇しました,로 상승했습니다
+idolRoad.roadRewardDetail.received,獲得済み,획득이 끝난 상태
+idolRoad.roadRewardDetail.notReceived,あとミッション%{count}個達成で到達,다음 미션 %{count}개 달성으로 도달
+idolRoad.popReceive.title,アイドルロード進行報酬,아이돌로드 진행 보상
+idolRoad.popReceive.comment,アイドルロード進行の報酬として\n以下を獲得しました,아이돌로드 진행 보상으로\n이하를 획득했습니다
+idolRoad.needsEvolution,%{idolName}を最大まで特訓しよう,%{idolName}를 최대까지 특훈하자
+idolRoad.canProcessText,あと%{canProceedCount}歩進めます,다음 %{canProceedCount}걸음 나아갑니다
+idolRoad.recommendProcessText,ミッションをクリアして進めよう,미션을 클리어해서 진행하자
+releasedCommentsPop.title,ボイス解放,음성 해방
+releasedCommentsPop.message,を解放しました\r\rホーム画面にて聞くことができます\rアイドルアルバムで再生のON/OFFが可能です,"를 해방했습니다\r\r홈 화면에서 들을 수 있습니다\r아이돌 앨범에서 재생 ON/OFF가 가능합니다"
+training.resultTitleFeatured,トレーニング結果,트레이닝 결과
