@@ -40,7 +40,7 @@ images/ui/training/parts.json_image,training_parts.png,8
 images/ui/idol_list/parts_edit_mode.json_image,idol_list_edit.png,6
 images/ui/common/parts_filter.json_image,common_filter.png,2
 images/ui/fes/parts.json_image,fes_parts.png,23
-images/ui/idol_detail/parts.json_image,idol_detail_parts.png,11
+images/ui/idol_detail/parts.json_image,idol_detail_parts.png,12
 images/ui/start/parts.json_image,start_parts.png,9
 images/ui/idol_detail/parts_support.json_image,idol_detail_parts_support.png,6
 images/ui/fes/tension_check_title.png,tension_check_title.png,6
@@ -261,3 +261,9 @@ images/ui/tutorial/parts.json_image,tutorial_parts.png,8
 images/content/gasha/bg/0a0897f6698591c237eb5f7c062f71f8_2562.jpg,0a0897f6698591c237eb5f7c062f71f8_2562.jpg,1
 images/content/gasha/title/0a0897f6698591c237eb5f7c062f71f8_2562.png,0a0897f6698591c237eb5f7c062f71f8_2562.png,1
 images/ui/raid_deck/parts.json_image,raid_deck_parts.png,1
+images/ui/idol_road/parts.json_image,idol_road_parts.png,1
+images/ui/produce_staff_assist_event/parts_staff_assist.json_image,produce_staff_assist.png,1
+images/tips/idol_road/001.jpg,idol_road_001.jpg,1
+images/tips/idol_road/002.jpg,idol_road_002.jpg,1
+images/tips/idol_road/003.jpg,idol_road_003.jpg,1
+images/tips/idol_road/004.jpg,idol_road_004.jpg,1
