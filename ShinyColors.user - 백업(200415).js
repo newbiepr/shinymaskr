@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 테스트
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      0.10.11
+// @version      0.10.8
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -478,7 +478,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "0.10.11";
+	var version = "0.10.8";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -1278,8 +1278,8 @@
 	  });
 	};
 
-	const numRE = '([+-＋－]?[0-9０-９]{1,10}\\.?[0-9０-９]{0,4}?)';
-	const percentRE = '([+-＋－]?[0-9０-９]{1,10}\\.?[0-9０-９]{0,4}?[%％])';
+	const numRE = '([+-＋－]?\\d{1,10}\\.?\\d{0,4}?)';
+	const percentRE = '([+-＋－]?\\d{1,10}\\.?\\d{0,4}?[%％])';
 	const unknownRE = '(.+?)';
 
 	const parseRegExp = (str, list) => {
@@ -1933,10 +1933,182 @@
 	  };
 	};
 
+	let missionData = null;
+	let msPrms = null;
+
+	const ensureMissionData = async () => {
+	  if (!msPrms) {
+	    msPrms = getMission();
+	  }
+
+	  missionData = await msPrms;
+	  return missionData;
+	};
+
+	const replaceMission = (data, key) => {
+	  if (!data) return;
+	  const {
+	    expMap,
+	    wordMaps,
+	    textMap
+	  } = missionData;
+	  const text = fixWrap(data[key]);
+	  let _text = text;
+	  if (!text) return;
+
+	  if (textMap.has(text)) {
+	    data[key] = tagText(textMap.get(text));
+	  } else {
+	    _text = replaceText(text, expMap, wordMaps);
+
+	    if (text !== _text) {
+	      data[key] = tagText(_text);
+	    } else if (DEV) {
+	      saveUnknownMissions(data, key);
+	    }
+	  }
+	};
+
+	const processMission = list => {
+	  list.forEach(item => {
+	    replaceMission(item.mission, 'title');
+	    replaceMission(item.mission, 'comment');
+
+	    if (item.mission.missionReward.content) {
+	      replaceMission(item.mission.missionReward.content, 'name');
+	      replaceMission(item.mission.missionReward.content, 'comment');
+	    }
+	  });
+	};
+
+	const processRaidMission = list => {
+	  list.forEach(item => {
+	    let mission = item.fesRaidAccumulatedReward;
+	    replaceMission(mission, 'title');
+	    replaceMission(mission, 'comment');
+	    let content = mission.fesRaidAccumulatedRewardContent;
+
+	    if (content && content.content) {
+	      replaceMission(content.content, 'name');
+	      replaceMission(content.content, 'comment');
+	    }
+	  });
+	};
+
+	const fullMission = (list, hasReward = true) => {
+	  list && list.forEach(item => {
+	    let mission = item;
+	    replaceMission(mission, 'title');
+	    replaceMission(mission, 'comment');
+	    replaceMission(mission, 'afterAchievedComment');
+	    replaceMission(mission, 'beforeAchievedComment');
+	    if (mission.mission) {
+          replaceMission(mission.mission, 'title');
+	      replaceMission(mission.mission, 'comment');
+        }
+	    if (hasReward) {
+	      let reward = mission.lectureMissionReward;
+
+	      if (reward && reward.content) {
+	        replaceMission(reward.content, 'name');
+	        replaceMission(reward.content, 'comment');
+	      }
+	    }
+	  });
+	};
+
+	const unknownMissions = [];
+
+	const saveUnknownMissions = (data, key) => {
+	  if (!data[key]) return;
+	  const text = replaceWrap(data[key]);
+
+	  if (!unknownMissions.includes(text)) {
+	    unknownMissions.push(text);
+	  }
+ 	};
+ 
+	let win = window.unsafeWindow || window;
+
+	win.printUnknownMission = () => log(unknownMissions.join('\n'));
+
+	const transMission = async data => {
+	  await ensureMissionData();
+	  processMission(data.dailyUserMissions);
+	  processMission(data.weeklyUserMissions);
+	  data.eventUserMissions.forEach(item => {
+	    if (item && item.userMissions) {
+	      processMission(item.userMissions);
+	    }
+	  });
+	  processMission(data.normalUserMissions);
+	  processMission(data.specialUserMissions);
+	};
+
+	const reportMission = async data => {
+	  await ensureMissionData();
+	  processMission(data.reportUserMissions);
+	};
+
+	const beginnerMissionComplete = async data => {
+	  await ensureMissionData();
+	  let mission = data.beginnerMission;
+
+	  if (mission) {
+	    if (mission.clearedLectureMission) {
+	      processBeginnerMission([mission.clearedLectureMission]);
+	    }
+
+	    if (mission.progressLectureMission) {
+	      processBeginnerMission([mission.progressLectureMission]);
+	    }
+	  }
+	};
+
+	const fesRecomMission = async data => {
+	  await ensureMissionData();
+	  replaceMission(data.userRecommendedMission.mission, 'comment');
+	  replaceMission(data.userRecommendedMission.mission, 'title');
+	  data.accumulatedPresent.userGameEventAccumulatedPresents.forEach(item => {
+	    replaceMission(item.gameEventAccumulatedPresent, 'comment');
+	    replaceMission(item.gameEventAccumulatedPresent, 'title');
+	  });
+	};
+
+	const fesRaidMission = async data => {
+	  await ensureMissionData();
+	  processRaidMission(data.fesRaidBestScoreRewards);
+	  processRaidMission(data.fesRaidLapRewards);
+	  processRaidMission(data.fesRaidPointRewards);
+	};
+
+	const teachingMission = async data => {
+	  await ensureMissionData();
+	  data.teachingHints && data.teachingHints.forEach(item => {
+	    item.userProduceTeachingHints.forEach(hint => {
+	      replaceMission(hint.produceTeachingHint, 'title');
+	    });
+	  });
+	};
+
+	const beginnerMission = async data => {
+	  await ensureMissionData();
+	  fullMission(data.lectureMissions);
+	};
+
+	const idolRoadMission = async data => {
+	  await ensureMissionData();
+	  fullMission(data.userMissions);
+	  data.userIdols && data.userIdols.forEach(idol => {
+	    idol.userIdolRoad.idolRoad.idolRoadRewards.forEach(reward => {
+	      replaceMission(reward.content, 'name');
+	      replaceMission(reward.content, 'comment');
+	    });
+	  });
+	};
 
 	const userItemTypes = ['userRecoveryItems', 'userProduceItems', 'userExchangeItems', 'userLotteryTickets', 'userEvolutionItems', 'userGashaTickets', 'userScoutTickets', 'userEnhancementItems'];
 	const itemTypes = ['produceItem', 'recoveryItem', 'exchangeItem', 'lotteryTicket', 'evolutionItem', 'gashaTicket', 'scoutTicket', 'enhancementItem'];
-	let itemMaps;
 	let itemPrms;
 
 	const ensureItem = async () => {
@@ -1944,7 +2116,7 @@
 	    itemPrms = getItem();
 	  }
 
-	  itemMaps = await itemPrms;
+	  return await itemPrms;
 	};
 
 	let unknownItems = [];
@@ -1959,17 +2131,16 @@
 	  }
 	};
 
-	let win = window.unsafeWindow || window;
+	let win$1 = window.unsafeWindow || window;
 
-	win.printUnknowItems = () => log(unknownItems.join('\n'));
+	win$1.printUnknowItems = () => log(unknownItems.join('\n'));
 
-	const transItem = (item, key) => {
+	const transItem = (item, key, {
+	  itemMap,
+	  itemLimitMap,
+	  itemNoteMap
+	}) => {
 	  if (!item || typeof item[key] !== 'string') return;
-	  const {
-	    itemMap,
-	    itemLimitMap,
-	    itemNoteMap
-	  } = itemMaps;
 	  let text = fixWrap(item[key]);
 	  let limit = '';
 	  let note = '';
@@ -2014,38 +2185,38 @@
 	  }
 	};
 
-	const switchShop = shop => {
+	const switchShop = (shop, maps) => {
 	  if (shop && shop.shopMerchandises) {
 	    shop.shopMerchandises.forEach(item => {
-	      transItem(item, 'title');
-	      transItem(item, 'shopTitle');
-	      transItem(item, 'comment');
+	      transItem(item, 'title', maps);
+	      transItem(item, 'shopTitle', maps);
+	      transItem(item, 'comment', maps);
 	    });
 	  }
 	};
 
 	const transActiveItem = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 
 	  if (data && data.activeProduceItems && data.activeProduceItems && data.activeProduceItems[0] && data.activeProduceItems[0].produceItem) {
-	    transItem(data.activeProduceItems[0].produceItem, 'name');
-	    transItem(data.activeProduceItems[0].produceItem, 'comment');
+	    transItem(data.activeProduceItems[0].produceItem, 'name', maps);
+	    transItem(data.activeProduceItems[0].produceItem, 'comment', maps);
 	  }
 	};
 
 	const transShopItem = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 
 	  if (data) {
 	    if (Array.isArray(data.userShops)) {
 	      data.userShops.forEach(shop => {
-	        switchShop(shop);
+	        switchShop(shop, maps);
 	      });
 	    }
 
 	    if (Array.isArray(data.userEventShops)) {
 	      data.userEventShops.forEach(item => {
-	        switchShop(item.userShop);
+	        switchShop(item.userShop, maps);
 	      });
 	    }
 	  }
@@ -2054,279 +2225,88 @@
 	const transUserItem = async data => {
 	  let list = data;
 	  if (data.userProduceItems) list = data.userProduceItems;
-	  await ensureItem();
+	  const maps = await ensureItem();
 
 	  if (Array.isArray(list)) {
 	    list.forEach(obj => {
 	      const item = obj[itemTypes[0]] || obj[itemTypes[1]] || obj[itemTypes[2]] || obj[itemTypes[3]] || obj[itemTypes[4]] || obj[itemTypes[5]] || obj[itemTypes[6]] || obj[itemTypes[7]];
-	      transItem(item, 'name');
-	      transItem(item, 'comment');
+	      transItem(item, 'name', maps);
+	      transItem(item, 'comment', maps);
 	    });
 	  }
 	};
 
 	const transShopPurchase = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 
 	  if (data && data.shopMerchandise) {
-	    transItem(data.shopMerchandise, 'title');
-	    transItem(data.shopMerchandise, 'comment');
+	    transItem(data.shopMerchandise, 'title', maps);
+	    transItem(data.shopMerchandise, 'comment', maps);
 	  }
 	};
 
 	const transPresentItem = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 
 	  if (Array.isArray(data)) {
 	    data.forEach(obj => {
-	      transItem(obj.content, 'name');
+	      transItem(obj.content, 'name', maps);
 	    });
 	  }
 	};
 
 	const transReceivePresent = async data => {
-	  await ensureItem();
-	  transItem(data.receivedPresent, 'Name');
+	  const maps = await ensureItem();
+	  transItem(data.receivedPresent, 'Name', maps);
 	};
 
 	const transReceiveMission = async data => {
-	  await ensureItem();
-	  transItem(data.userMission.mission.missionReward.content, 'name');
+	  const maps = await ensureItem();
+	  transItem(data.userMission.mission.missionReward.content, 'name', maps);
 	};
 
 	const transLoginBonus = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 	  data.userLoginBonuses.forEach(item => {
 	    item.loginBonus.sheets.forEach(sheet => {
 	      sheet.rewards.forEach(reward => {
-	        transItem(reward.content, 'name');
+	        transItem(reward.content, 'name', maps);
 	      });
 	    });
 	  });
 	  data.userTotalBonuses.forEach(item => {
 	    item.rewards.forEach(reward => {
-	      transItem(reward.content, 'name');
+	      transItem(reward.content, 'name', maps);
 	    });
 	  });
 	};
 
 	const transFesReward = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 
 	  if (data.lastRankingResult) {
 	    if (Array.isArray(data.lastRankingResult.fesMatchGradeRewards)) {
 	      data.lastRankingResult.fesMatchGradeRewards.forEach(item => {
-	        transItem(item.content, 'name');
+	        transItem(item.content, 'name', maps);
 	      });
 	    }
 	  }
 	};
 
 	const transAccumulatedPresent = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 	  data.accumulatedPresent.userGameEventAccumulatedPresents.forEach(item => {
 	    item.gameEventAccumulatedPresent.rewards.forEach(reward => {
-	      transItem(reward.content, 'name');
+	      transItem(reward.content, 'name', maps);
 	    });
 	  });
 	};
 
 	const selectLoginBonus = async data => {
-	  await ensureItem();
+	  const maps = await ensureItem();
 	  data.rewards.forEach(reward => {
-	    transItem(reward.content, 'name');
+	    transItem(reward.content, 'name', maps);
 	  });
-	};
-
-	let missionMaps = null;
-	let msPrms = null;
-
-	const ensureMissionData = async () => {
-	  if (!msPrms) {
-	    msPrms = getMission();
-	  }
-
-	  await ensureItem();
-	  missionMaps = await msPrms;
-	};
-
-	const replaceMission = (data, key) => {
-	  let transed = false;
-	  if (!data || typeof data[key] !== 'string') return transed;
-	  const {
-	    expMap,
-	    wordMaps,
-	    textMap
-	  } = missionMaps;
-	  const text = fixWrap(data[key]);
-	  let _text = text;
-	  if (!text) return transed;
-
-	  if (textMap.has(text)) {
-	    transed = true;
-	    data[key] = tagText(textMap.get(text));
-	  } else {
-	    _text = replaceText(text, expMap, wordMaps);
-
-	    if (text !== _text) {
-	      transed = true;
-	      data[key] = tagText(_text);
-	    } else if (DEV) {
-	      saveUnknownMissions(data, key);
-	    }
-	  }
-
-	  return transed;
-	};
-
-	const processReward = (data, key) => {
-	  let transed = replaceMission(data, key);
-
-	  if (!transed) {
-	    transItem(data, key);
-	  }
-	};
-
-	const processMission = list => {
-	  list.forEach(item => {
-	    replaceMission(item.mission, 'title');
-	    replaceMission(item.mission, 'comment');
-
-	    if (item.mission.missionReward.content) {
-	      processReward(item.mission.missionReward.content, 'name');
-	      processReward(item.mission.missionReward.content, 'comment');
-	    }
-	  });
-	};
-
-	const processRaidMission = list => {
-	  list.forEach(item => {
-	    let mission = item.fesRaidAccumulatedReward;
-	    replaceMission(mission, 'title');
-	    replaceMission(mission, 'comment');
-	    let content = mission.fesRaidAccumulatedRewardContent;
-
-	    if (content && content.content) {
-	      processReward(content.content, 'name');
-	      processReward(content.content, 'comment');
-	    }
-	  });
-	};
-
-	const fullMission = (list, hasReward = true) => {
-	  list && list.forEach(item => {
-	    let mission = item.mission || item;
-	    replaceMission(mission, 'title');
-	    replaceMission(mission, 'comment');
-	    replaceMission(mission, 'afterAchievedComment');
-	    replaceMission(mission, 'beforeAchievedComment');
-
-	    if (hasReward) {
-	      let reward = mission.lectureMissionReward;
-
-	      if (reward && reward.content) {
-	        processReward(reward.content, 'name');
-	        processReward(reward.content, 'comment');
-	      }
-	    }
-	  });
-	};
-
-	const unknownMissions = [];
-
-	const saveUnknownMissions = (data, key) => {
-	  if (!data[key]) return;
-	  const text = replaceWrap(data[key]);
-
-	  if (!unknownMissions.includes(text)) {
-	    unknownMissions.push(text);
-	  }
-	};
-
-	let win$1 = window.unsafeWindow || window;
-
-	win$1.printUnknownMission = () => log(unknownMissions.join('\n'));
-
-	const transMission = async data => {
-	  await ensureMissionData();
-	  processMission(data.dailyUserMissions);
-	  processMission(data.weeklyUserMissions);
-	  data.eventUserMissions.forEach(item => {
-	    if (item && item.userMissions) {
-	      processMission(item.userMissions);
-	    }
-	  });
-	  processMission(data.normalUserMissions);
-	  processMission(data.specialUserMissions);
-	};
-
-	const reportMission = async data => {
-	  await ensureMissionData();
-	  processMission(data.reportUserMissions);
-	};
-
-	const beginnerMissionComplete = async data => {
-	  await ensureMissionData();
-	  let mission = data.beginnerMission;
-
-	  if (mission) {
-	    if (mission.clearedLectureMission) {
-	      fullMission([mission.clearedLectureMission]);
-	    }
-
-	    if (mission.progressLectureMission) {
-	      fullMission([mission.progressLectureMission]);
-	    }
-	  }
-	};
-
-	const fesRecomMission = async data => {
-	  await ensureMissionData();
-	  replaceMission(data.userRecommendedMission.mission, 'comment');
-	  replaceMission(data.userRecommendedMission.mission, 'title');
-	  data.accumulatedPresent.userGameEventAccumulatedPresents.forEach(item => {
-	    replaceMission(item.gameEventAccumulatedPresent, 'comment');
-	    replaceMission(item.gameEventAccumulatedPresent, 'title');
-	  });
-	};
-
-	const fesRaidMission = async data => {
-	  await ensureMissionData();
-	  processRaidMission(data.fesRaidBestScoreRewards);
-	  processRaidMission(data.fesRaidLapRewards);
-	  processRaidMission(data.fesRaidPointRewards);
-	};
-
-	const teachingMission = async data => {
-	  await ensureMissionData();
-	  data.teachingHints && data.teachingHints.forEach(item => {
-	    item.userProduceTeachingHints.forEach(hint => {
-	      replaceMission(hint.produceTeachingHint, 'title');
-	    });
-	  });
-	};
-
-	const beginnerMission = async data => {
-	  await ensureMissionData();
-	  fullMission(data.lectureMissions);
-	};
-
-	const idolRoadRewards = idol => {
-	  idol.userIdolRoad && idol.userIdolRoad.idolRoad.idolRoadRewards.forEach(reward => {
-	    processReward(reward.content, 'name');
-	    processReward(reward.content, 'comment');
-	  });
-	};
-
-	const idolRoadMission = async data => {
-	  await ensureMissionData();
-	  fullMission(data.userMissions, false);
-	  data.userIdols && data.userIdols.forEach(idolRoadRewards);
-	};
-
-	const idolRoadForward = async data => {
-	  await ensureMissionData();
-	  idolRoadRewards(data.userIdol);
 	};
 
 	const nounFixMap = new Map();
@@ -7038,7 +7018,6 @@
 	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, idolProfiles3]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, idolProfiles3, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, idolProfiles2]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, [reserveUserIdolsSkill, idolProfiles2]], [/^userFesIdols\/\d+$/, [userFesIdolsSkill, idolProfiles4]], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], 'storyTitle'], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, transActiveItem]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [idolProfiles5, beginnerMission]], ['tutorialIdols', [idolProfiles6]], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission]];
 	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, transUserItem], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^characterAlbums\/characters\/\d+$/, [idolProfiles, 'storyTitle']], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission]];
 	const requestOfPatch = [[/^userSupportIdols\/\d+$/, supportSkill], ['userFesDecks', userFesDeck]];
-	const requestOfPut = [['userIdolRoads', idolRoadForward]];
 	async function requestHook() {
 	  const request = await getRequest();
 	  if (!request || !request.get) return; // GET
@@ -7090,7 +7069,6 @@
 	    if (!type) return res;
 	    let data = res.body;
 	    requestLog('PUT', '#9C27B0', args, data);
-	    await requestRouter(data, type, requestOfPut);
 	    return res;
 	  };
 	}
