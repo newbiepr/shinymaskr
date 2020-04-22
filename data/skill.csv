@@ -10,6 +10,7 @@ Excellent$num倍アピール,Excellent $1배 어필,
 全ユニットにメランコリー効果$percent付与,전 유닛에 멜랑꼴리 효과 $1부여,
 ライバルにメランコリー効果$percent付与,라이벌에게 멜랑꼴리 효과 $1부여,
 全ユニットにリラックス効果$percent付与,전 유닛에 릴랙스 효과 $1부여,
+一定間隔で$nounに$num倍ダメージ,일정 간격으로 $1에 $2배 데미지
 $noun$percentUP,$1 $2UP,
 $noun$percent回復,$1 $2 회복,
 $noun$num回復,$1 $2 회복,
