@@ -270,7 +270,7 @@
 
 
 	const log = (...args) => {
-	  if (ENVIRONMENT === 'development') {
+	  if (DEV) {
 	    _console.log(...args);
 	  }
 	};
@@ -538,7 +538,7 @@
 	  });
 	  setFont();
 
-	  if (DEV) {
+	  if (DEV & ENVIRONMENT === 'development') {
 	    config.origin = 'https://newbiepr.github.io/shinymaskr';
 	  }
 	};
@@ -1894,10 +1894,12 @@
 	          } else if (type === 'name') {
 	            nameArr.push(pureRE(text));
 	            nameMap$1.set(text, trans);
-	          } else if (type === 'text') {
-	            textMap.set(text, trans);
-	          } else {
+	          } else if (type === 'exp') {
 	            reMap.set(text, trans);
+	          }
+
+	          if (type !== 'exp') {
+	            textMap.set(text, trans);
 	          }
 	        }
 	      }
