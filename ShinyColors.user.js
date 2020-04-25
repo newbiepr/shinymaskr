@@ -7165,7 +7165,7 @@
 	  const newLoadElement = async function (type) {
 	    try {
 	      const imageMap = await ensureImage();
-	      var originalUrl = this.url;
+	      var originalUrl = 'https://shinycolors.enza.fun' + this.url;
 
 	      if (type === 'image' && imageMap.has(this.name)) {
 	        const data = imageMap.get(this.name);
