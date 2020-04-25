@@ -699,7 +699,7 @@ idolDetail.headerTitle.support,サポートアイドル詳細,서포트 아이�
 idolDetail.headerTitle.fes,フェスアイドル詳細,페스아이돌 상세
 idolDetail.holdTapHint,※アイコンを長押しでアイドルの詳細が確認できます,※아이콘 오래 누르기로 아이돌 상세정보 확인가능
 idolDetail.skill.lockPanel,特訓%{evolutionStage}段階目,특훈%{evolutionStage}단계째
-idolDetail.supportParameter.remainingExp,あと%{exp},앞으로%{exp}
+idolDetail.supportParameter.remainingExp,あと%{exp},앞으로 %{exp}
 idolDetail.totalFan.idolName,【%{name}】累計ファン人数,【%{name}】누계 팬 인원수
 idolDetail.produceDeck.detailPop.title,プロデュースデッキアイドル詳細,프로듀스 덱 아이돌 상세
 idolDetail.produceDeck.detailPop.noSkillName,未設定,미설정

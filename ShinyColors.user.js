@@ -4259,6 +4259,10 @@
 			console.log(storyTitleList);
 			console.log("title console log");
 	  }
+	        if (config.story === 'edit') {
+	          saveData2(storyTitleList, 'storyTitle');
+	          showStoryTool(storyCache);
+	        }
 //	  if (config.commuTitle == "download") {
 //	    const str = papaparse.unparse(storyTitleList);
 //	    tryDownload(str, "commuTitles");
@@ -7046,7 +7050,7 @@
 	  }
 	};
 
-	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, idolProfiles3]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, idolProfiles3, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, idolProfiles2]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, [reserveUserIdolsSkill, idolProfiles2]], [/^userFesIdols\/\d+$/, [userFesIdolsSkill, idolProfiles4]], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], ['userProduceTeachings', teachingMission2], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], 'storyTitle'], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, transActiveItem]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [idolProfiles5, beginnerMission]], ['tutorialIdols', [idolProfiles6]], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission]];
+	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, idolProfiles3, 'storyTitle']], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, idolProfiles3, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, idolProfiles2, 'storyTitle']], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, [reserveUserIdolsSkill, idolProfiles2]], [/^userFesIdols\/\d+$/, [userFesIdolsSkill, idolProfiles4]], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], ['userProduceTeachings', teachingMission2], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], 'storyTitle'], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, transActiveItem]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [idolProfiles5, beginnerMission]], ['tutorialIdols', [idolProfiles6]], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission]];
 	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, transUserItem], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^characterAlbums\/characters\/\d+$/, [idolProfiles, 'storyTitle']], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission]];
 	const requestOfPatch = [[/^userSupportIdols\/\d+$/, supportSkill], ['userFesDecks', userFesDeck]];
 	const requestOfPut = [['userIdolRoads', idolRoadForward]];
@@ -7688,7 +7692,7 @@
 
 	          storyCache.preview.set(_name, storyMap);
 	          savePreview(storyCache.preview);
-	          alert(`导入${_name}成功`);
+	          alert(`도입${_name}성공`);
 	        }
 	      };
 
@@ -7769,6 +7773,29 @@
 	    name: '',
 	    text: '',
 	    trans: ''
+	  });
+	  storyCache.name = name;
+	  storyCache.filename = `${filename}.csv`;
+	  storyCache.list = list;
+	};
+
+	const saveData2 = (data, name) => {
+	  const _name = name.replace('.json', '');
+
+	  const _cid = getCid(_name);
+
+	  const filename = storyTitle.get(_cid) || _name.replace(/\//g, '_');
+
+	  const list = [];
+	  data.forEach(item => {
+	    let text = trim(replaceWrap(item.title));
+
+	    if (text && text.trim()) {
+	      list.push({
+	        text,
+	        trans: ''
+	      });
+	    }
 	  });
 	  storyCache.name = name;
 	  storyCache.filename = `${filename}.csv`;
