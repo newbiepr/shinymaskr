@@ -286,3 +286,7 @@ images/ui/concert_result/parts_status.json_image,concert_result.png,6
 images/ui/init/parts.json_image,init.png,9
 images/ui/home_deck/parts_bg_change_layer.json_image,parts_bg_change_layer.png,1
 images/ui/comic/parts.json_image,comic_parts.png,7
+images/ui/option/parts.json_image,option.png,14
+images/ui/profile/parts.json_image,profile.png,2
+images/ui/item/parts.json_image,item_parts.png,9
+images/ui/item/parts_seasonal_present.json_image,item_parts_seasonal_present.png,1
