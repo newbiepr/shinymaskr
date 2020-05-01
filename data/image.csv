@@ -285,3 +285,5 @@ images/ui/option/parts.json_image,option.png,15
 images/ui/profile/parts.json_image,profile.png,3
 images/ui/item/parts.json_image,item_parts.png,10
 images/ui/item/parts_seasonal_present.json_image,item_parts_seasonal_present.png,2
+images/content/limit_break_skills/icon.json_image,limit_break_skills_icon.png,9
+images/ui/idol_detail/parts_trust.json_image,idol_detail_parts_trust.png,2
