@@ -7,8 +7,11 @@
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
 // @match        https://shinycolors.enza.fun/*
 // @run-at       document-end
+// @grant        GM_xmlhttpRequest
+// @grant        GM_registerMenuCommand
+// @grant        GM_unregisterMenuCommand
 // @updateURL    https://newbiepr.github.io/shinymaskr/ShinyColors.user.js
-// @supportURL   https://github.com/newbiepr/shinycolors-trans-kr/issues
+// @supportURL   https://github.com/newbiepr/shinymaskr/issues
 // ==/UserScript==
 (function () {
 	'use strict';
@@ -585,9 +588,80 @@
 	  }
 	};
 
+	const menuCommand = {
+	  story: {
+	    normal: '커뮤 추출 열기',
+	    edit: '커뮤 추출 닫기',
+	    id: 0,
+	    callback: () => {
+	      if (config.story === 'normal') {
+	        config.story = 'edit';
+	      } else {
+	        const btnClose = document.getElementById('btn-close-sczh');
+
+	        if (btnClose) {
+	          btnClose.click();
+	        } else {
+	          config.story = 'normal';
+	        }
+	      }
+	    }
+	  },
+	  bgm: {
+	    on: '백그라운드 BGM 끄기',
+	    off: '백그라운드 BGM 켜기',
+	    id: 0,
+	    callback: () => {
+	      config.bgm = config.bgm !== 'off' ? 'off' : 'on';
+	    }
+	  },
+	  origin: {
+	    id: 0,
+	    title: '접속할 한패 서버 URL 수정(함부로 건들면 한패깨짐)',
+	    callback: () => {
+	      const origin = prompt('접속할 URL 입력，아무것도 입력하지 않으면 기본값 자동 설정', config.origin);
+
+	      if (origin !== null) {
+	        config.origin = trim(origin);
+	      }
+	    }
+	  }
+	};
+
+	const menuCommandCb = cb => {
+	  cb();
+	  saveConfig();
+	  setAllGMMenuCommand();
+	};
+
+	const setGMMenuCommand = type => {
+	  const value = config[type];
+	  const data = menuCommand[type];
+	  const text = data.title || data[value];
+	  const id = data.id;
+
+	  if (id) {
+	    window.GM_unregisterMenuCommand(id);
+	  }
+
+	  data.id = window.GM_registerMenuCommand(text, () => {
+	    menuCommandCb(data.callback);
+	  });
+	};
+
+	const setAllGMMenuCommand = () => {
+	  if (!window.GM_registerMenuCommand || !window.GM_unregisterMenuCommand) return;
+	  const menuCommandList = ['bgm', 'story', 'origin'];
+	  menuCommandList.forEach(type => {
+	    setGMMenuCommand(type);
+	  });
+	};
+
+
 	getLocalConfig();
 	getLocalHash();
 	getConfigFromHash();
+	setAllGMMenuCommand();
 	window.addEventListener('hashchange', getConfigFromHash);
 
 	const {
