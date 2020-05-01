@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      0.11.3
+// @version      0.11.4
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -481,7 +481,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "0.11.3";
+	var version = "0.11.4";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -8081,10 +8081,14 @@
 	  }
 	};
 
-	if (window.unsafeWindow) {
-	  window.unsafeWindow.addEventListener('load', start);
+	if (document.readyState != 'loading') {
+	  start();
 	} else {
-	  window.addEventListener('load', start);
+	  if (window.unsafeWindow) {
+	    window.unsafeWindow.addEventListener('DOMContentLoaded', start);
+	  } else {
+	    window.addEventListener('DOMContentLoaded', start);
+	  }
 	}
 
 }());
