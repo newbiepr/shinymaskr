@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         샤니마스 한글 패치 테스트
+// @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
 // @version      0.11.3
 // @description  샤니마스 한글 패치 스크립트입니다.
