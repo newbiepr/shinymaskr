@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      0.11.4
+// @version      0.11.6
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -361,6 +361,23 @@
 	    }
 	  });
 	};
+ 
+	const uniqueStoryId = () => {
+	  const idMap = new Map();
+	  return id => {
+	    if (id && !/^0+$/.test(id) && id !== 'select') {
+	      if (idMap.has(id)) {
+	        const count = idMap.get(id);
+	        idMap.set(id, count + 1);
+	        return `${id}-${count}`;
+	      } else {
+	        idMap.set(id, 0);
+	      }
+	    }
+
+	    return id;
+	  };
+	};
 
 	const sess = (key, data) => {
 	  try {
@@ -481,7 +498,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "0.11.4";
+	var version = "0.11.6";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -1059,14 +1076,15 @@
 	const getStoryMap = csv => {
 	  const list = parseCsv(csv);
 	  const storyMap = new Map();
+	  const getId = uniqueStoryId();
 	  list.forEach(item => {
-	    const id = trim(item.id);
+	    const id = getId(trim(item.id));
 	    const text = trimWrap(item.text);
 	    const trans = trimWrap(item.trans, true);
 	    const name = trim(item.name);
 
 	    if (text && trans) {
-	      if (id && !/^0+$/.test(id) && !storyMap.has(id) && id !== 'select') {
+	      if (id && !/^0+$/.test(id) && id !== 'select') {
 	        storyMap.set(id, tagText(trans));
 	      } else {
 	        if (id === 'select') {
@@ -7890,16 +7908,18 @@
 
 	const transStory = (data, storyMap, nameMap) => {
 	  if (!Array.isArray(data)) return;
+	  const getId = uniqueStoryId();
 	  data.forEach(item => {
 	    transSpeaker(item, nameMap);
 
 	    if (item.text) {
+	      const id = getId(item.id);
 	      const text = fixWrap(item.text);
 
 	      if (storyMap.has(text)) {
 	        item.text = storyMap.get(text);
-	      } else if (item.id && storyMap.has(`${item.id}`)) {
-	        item.text = storyMap.get(`${item.id}`);
+	      } else if (id && storyMap.has(`${id}`)) {
+	        item.text = storyMap.get(`${id}`);
 	      }
 	    }
 
