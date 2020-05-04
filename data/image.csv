@@ -299,3 +299,7 @@ images/content/comics/web/icon/10193.jpg,comics/icon/10193.jpg,1
 images/ui/produce_ending/parts_true_lesson.json_image,true_lesson.png,2
 images/ui/character_birthday_page/parts.json_image,birthday_page.png,2
 images/ui/concert/parts_pause.json_image,concert_pause.png,8
+images/ui/title_setting/parts.json_image,title_setting.png,9
+images/ui/gasha/parts_provide_rate.json_image,provide_rate.png,4
+images/ui/jewel_purchase/parts.json_image,jewel_purchase.png,3
+images/ui/gasha/parts_scout_ticket.json_image,scout_ticket.png,3
