@@ -1048,7 +1048,7 @@ individualRanking.accumulatedPresentListPop.needFan,%{fan} 人,%{fan} 명
 individualRanking.accumulatedPresentGetPopup.title,累計ファン数達成報酬,누계 팬수달성 보상
 individualRanking.accumulatedPresentGetPopup.text,以下のアイテムがプレゼントBOXに送られました,이하의 아이템이 선물 BOX에 보내졌습니다
 individualRanking.characterRankingOutOfTermPop.title,集計期間外,집계 기간외
-individualRanking.characterRankingOutOfTermPop.text,現在は\n「%{name}」\nのランキング集計期間外です\n\nお休み時間　%{openTime} 〜 %{closeTime}\n\n集計期間外にプロデュースや営業を達成しても\nイベントランキングのファン数には加算されません,"현재는\n「%{name}」\n의 랭킹집계기간 외 입니다\n\n휴식시간　%{openTime} 〜 %{closeTime}\n\n집계기간 외에 프로듀스나 영업을 달성해도\n이벤트 랭킹 팬 수에는 가산되지 않습니다"
+individualRanking.characterRankingOutOfTermPop.text,現在は\n「%{name}」\nのランキング集計期間外です\n\nお休み時間　%{openTime} 〜 %{closeTime}\n\n集計期間外にプロデュースや営業を達成しても\nイベントランキングのファン数には加算されません,현재는\n「%{name}」\n의 랭킹집계기간 외 입니다\n\n휴식시간　%{openTime} 〜 %{closeTime}\n\n집계기간 외에 프로듀스나 영업을 달성해도\n이벤트 랭킹 팬 수에는 가산되지 않습니다
 staffItemPointSimple,シール,씰
 trust.rewardPop.innerLabel,信頼度はすべてのプロデュースアイドルで共通となります。,신뢰도는 모든 프로듀스 아이돌에 공통이 됩니다
 trust.rewardPop.level,信頼度\rLv.%{level},신뢰도\rLv.%{level}
@@ -1419,7 +1419,7 @@ pushNotification.title,シャニマス,샤니마스
 tutorial.staffMessage,初めにプロデュースするアイドルを選んであげてください♪\nチュートリアル後には他のアイドルもプロデュースできますよ～,처음에 프로듀스할 아이돌을 골라주세요♪\n튜토리얼 후에는 다른 아이돌도 프로듀스 할 수 있어요~
 tutorial.unitDescription.1,小さな光を宿す少女たちで結成された、新世代のアイドルユニット。\n今はまだかすかな輝きでも、時にぶつかり時に支え合いながら、\n一等星を目指して歩んでいく！,자그마한 빛을 품고있는 소녀들로 결성된 신세대 아이돌 유닛.\n지금은 아직 희미한 반짝임이라도 때론 서로 부딪히고 때론 서로 도와가며\n일등성을 목표로 나아간다!
 tutorial.unitDescription.2,胸に燻る焔を「ウタ」に、孤独な泪を「ネガイ」に変える、\n新世界の革命的アイドルユニット。\nゴシックなドレスを纏い、彼女たちは希望を謳い続ける―。,"가슴에 피울 불꽃을 「노래」로, 고독한 눈물을 ""소원""으로 바꾸는\n신세계의 혁명적 아이돌 유닛.\n고딕풍의 드레스를 감싸고 그녀들은 희망을 계속 노래한다─"
-tutorial.unitDescription.3,"個性と個性がぶつかり合う全力系アイドルユニット。\n全身全霊でアイドル道を突き進む彼女達の姿こそ、\"クライマックス\"の証。\nファンもプロデューサーも世界も巻き込んでアイドル界のてっぺんを目指す！！",개성과 개성이 맞부딪치는 전력계 아이돌 유닛.\n혼신의 노력으로 아이돌의 길을 뚫고 전진하는 그녀들의 모습이야말로 클라이맥스의 증표.\n팬도 프로듀서도 세계도 모두 휩쓸며 아이돌계의 정상을 노린다
+tutorial.unitDescription.3,"個性と個性がぶつかり合う全力系アイドルユニット。\n全身全霊でアイドル道を突き進む彼女達の姿こそ、\""クライマックス\""の証。\nファンもプロデューサーも世界も巻き込んでアイドル界のてっぺんを目指す！！",개성과 개성이 맞부딪치는 전력계 아이돌 유닛.\n혼신의 노력으로 아이돌의 길을 뚫고 전진하는 그녀들의 모습이야말로 클라이맥스의 증표.\n팬도 프로듀서도 세계도 모두 휩쓸며 아이돌계의 정상을 노린다
 tutorial.unitDescription.4,ポップでハッピーな3人組アイドルユニット。\nアルストロメリアの花言葉「未来への憧れ」を胸に抱き、\n今日もシアワセなパフォーマンスで会場に笑顔を咲かせます！,"팝하며 해피한 3인조 아이돌 유닛.\n알스트로메리아의 꽃말 「미래를 향한 동경」을 가슴에 품고,\n오늘도 행복한 퍼포먼스로 공연장에 미소를 꽃피운다!"
 tutorial.unitDescription.5,実在と非実在を行き来するカリスマ的アイドルユニット。\nアイドルというアバターを身に纏い、歌うは真実か、狂気か。\n解き放たれた迷光が、今日も世界を奔る。,실재와 비실재를 오가는 카리스마적 아이돌 유닛.\n아이돌이라는 아바타를 몸에 두르고 노래하는 것은 진실인가 광기인가.\n풀려난 미광이 오늘도 세계를 누빈다.
 tutorial.unitDescription.6,幼なじみ４人で結成された、透明感あふれるアイドルユニット\n誰かになる必要なんてない――\n走り出す波を追って、少女たちは碧い風になる,소꿉친구 4명으로 결성된 투명감 넘치는 아이돌 유닛.\n누군가가 될 필요는 없어.\n달리기 시작하는 파도를 따라 소녀들은 푸른 바람이 된다.
@@ -1465,17 +1465,17 @@ beginnerMission.idolSelectConfirmPop.txtNotice, 初心者ミッション開始�
 beginnerMission.clearedAlert.title,初心者ミッション達成,초보자 미션 달성
 beginnerMission.clearedAlert.text,以下のミッションを達成しました\n初心者ミッションページで報酬を受け取りましょう,아래의 미션을 달성했습니다\n초보자 미션 페이지에서 보수를 받읍시다 
 countUpCampaign.unit.fes_raid_laps,周,주
-countUpCampaign.countUpText,%{unit}で%{title}達成,"%{unit}로 %{title} 달성"
-countUpCampaign.clearedFooterText.fes_raid_laps,コラボフェスの到達周数でボーナスをGET!,"콜라보페스의 도달주수로 보너스를 GET!"
-countUpCampaign.clearedFooterText.fan,プロデューサーズカップの累計獲得ファン数でボーナスをGET!,"프로듀서즈컵의 누계 획득 팬수로 보너스를 GET!"
-countUpCampaign.closeAt,集計期間: %{closeAt} まで,"집계기간: %{closeAt} 까지"
+countUpCampaign.countUpText,%{unit}で%{title}達成,%{unit}로 %{title} 달성
+countUpCampaign.clearedFooterText.fes_raid_laps,コラボフェスの到達周数でボーナスをGET!,콜라보페스의 도달주수로 보너스를 GET!
+countUpCampaign.clearedFooterText.fan,プロデューサーズカップの累計獲得ファン数でボーナスをGET!,프로듀서즈컵의 누계 획득 팬수로 보너스를 GET!
+countUpCampaign.closeAt,集計期間: %{closeAt} まで,집계기간: %{closeAt} 까지
 countUpCampaign.lastChallengeTitle,前回のチャレンジ結果,전회 챌린지 결과
-countUpCampaign.pCupAttention,休憩時間中のプロデュースなどで獲得したファン数も集計対象に含まれます,"휴식시간중 프로듀스로 획득한 팬수도 집계대상에 포함됩니다"
+countUpCampaign.pCupAttention,休憩時間中のプロデュースなどで獲得したファン数も集計対象に含まれます,휴식시간중 프로듀스로 획득한 팬수도 집계대상에 포함됩니다
 countUpCampaign.fanCount,約%{count}億,약 %{count}억
 downLoad.confirmTitle,データダウンロード,데이터 다운로드
 evolution.confirm.comment,選択した対象を消費して、特訓をします\nよろしいですか？,"선택한 대상을 소비해, 특훈을 합니다\n괜찮습니까?"
 evolution.confirm.maxStaffComment,最大特訓はづきさんを消費して、特訓をします\nよろしいですか？,"최대 특훈하즈키씨를 소비해, 특훈을 합니다\n괜찮습니까?"
-evolution.confirm.notice,特訓はづきさんが含まれています\r本当によろしいですか？,"특훈하즈키씨가 포함되어 있습니다\r정말로 괜찮습니까?"
+evolution.confirm.notice,特訓はづきさんが含まれています\r本当によろしいですか？,특훈하즈키씨가 포함되어 있습니다\r정말로 괜찮습니까?
 evolution.confirm.checkDescription,特訓を有効にする,특훈을 유효하게 한다
 evolution.confirm.maxStaffNotice,1回以上特訓しているアイドルが選択されています\r特訓を開始した場合、余剰分の特訓回数は消失します,"1회이상 특훈한 아이돌이 선택되고 있습니다\r특훈을 개시할 경우, 잉여분의 특훈 회수는 소실됩니다"
 evolution.confirm.maxStaffNoticeLevel,Lv.2以上のサポートアイドルが選択されています\r特訓を開始した場合、余剰分のExpは消失します,"Lv. 2이상의 서포트 아이돌이 선택되고 있습니다\r특훈을 개시할 경우, 잉여분의 Exp는 소실됩니다"
@@ -1485,32 +1485,32 @@ evolution.featuredTrainingResultComment,%{name}の\r使用により、レベル�
 header.idolRoad,アイドルロード,아이돌로드
 idolDetail.fromGashaNoticeWithIdolRoad,最大特訓時、アイドルロード未進行の状態を表示しています。,"최대 특훈시, 아이돌로드 미진행 상태를 표시합니다."
 item.limitNumSimple,最大所持数:,최대 소지수:
-item.evolutionNotice,アイドルや他の特訓はづきさんと一緒に使うことはできません,"아이돌이나 다른 특훈 하즈키씨와 함께 사용할 수 없습니다"
-item.evolutionNotice2,すでに1回以上特訓しているアイドルに使用した場合\r余剰分の特訓回数は消失します,"이미 1회 이상 특훈한 아이돌에 사용한 경우\r잉여분의 특훈 회수는 소실됩니다"
-item.evolutionNoticeLevel,すでにLv.2以上トレーニングしているアイドルに使用した場合\r余剰分のExpは消失します,"이미 Lv. 2 이상 트레이닝한 아이돌에 사용한 경우\r잉여분의 Exp는 소실됩니다"
+item.evolutionNotice,アイドルや他の特訓はづきさんと一緒に使うことはできません,아이돌이나 다른 특훈 하즈키씨와 함께 사용할 수 없습니다
+item.evolutionNotice2,すでに1回以上特訓しているアイドルに使用した場合\r余剰分の特訓回数は消失します,이미 1회 이상 특훈한 아이돌에 사용한 경우\r잉여분의 특훈 회수는 소실됩니다
+item.evolutionNoticeLevel,すでにLv.2以上トレーニングしているアイドルに使用した場合\r余剰分のExpは消失します,이미 Lv. 2 이상 트레이닝한 아이돌에 사용한 경우\r잉여분의 Exp는 소실됩니다
 idolRoad.needsProduceEnd.title,アイドルロード進行不可,아이돌로드 진행 불가
-idolRoad.needsProduceEnd.message1,%{idolName}は\n現在プロデュース中のため\nアイドルロードを進行する事ができません,"%{idolName}는\n현재 프로듀스중이기 때문에\n아이돌로드를 진행할 수 없습니다"
-idolRoad.needsProduceEnd.message2,プロデュースを完了するか\nプロデュースを終了してください,"프로듀스를 완료하거나\n프로듀스를 종료해 주세요"
+idolRoad.needsProduceEnd.message1,%{idolName}は\n現在プロデュース中のため\nアイドルロードを進行する事ができません,%{idolName}는\n현재 프로듀스중이기 때문에\n아이돌로드를 진행할 수 없습니다
+idolRoad.needsProduceEnd.message2,プロデュースを完了するか\nプロデュースを終了してください,프로듀스를 완료하거나\n프로듀스를 종료해 주세요
 idolRoad.cantReceive.title,アイテム所持上限,아이템 소지 상한
-idolRoad.cantReceive.message,獲得アイテムが所持上限を超えているため\nアイドルロードを進行する事ができません,"획득 아이템이 소지 상한을 넘기 때문에\n아이돌로드를 진행할 수 없습니다"
+idolRoad.cantReceive.message,獲得アイテムが所持上限を超えているため\nアイドルロードを進行する事ができません,획득 아이템이 소지 상한을 넘기 때문에\n아이돌로드를 진행할 수 없습니다
 idolRoad.rewardDetail.rarityUp.name,レアリティ上昇,레어리티 상승
 idolRoad.rewardDetail.rarityUp.comment,%{beforeRarityText}プロデュースアイドルのレアリティが%{rarityText}に上昇,%{beforeRarityText}프로듀스 아이돌의 레어리티가 %{rarityText}로 상승
 idolRoad.rewardDetail.unlockVoice.name,%{charName}\nホームボイス追加,%{charName}\n홈 음성 추가
 idolRoad.rewardDetail.unlockVoice.comment,%{voiceName}を追加,%{voiceName}를 추가
-idolRoad.rewardDetail.evolutionStage.name,特訓数＋1,"특훈 수＋1"
-idolRoad.rewardDetail.evolutionStage.comment,%{rarityText}プロデュースアイドルの特訓数を＋1,"%{rarityText} 프로듀스 아이돌의 특훈 수를＋1"
-idolRoad.rewardDetail.trustUp.name,%{charName}の\n信頼度Lv.上限＋%{num},"%{charName}의\n신뢰도Lv. 상한＋%{num}"
-idolRoad.rewardDetail.trustUp.comment,%{charName} の信頼度Lv.の上限が%{num}上昇,"%{charName}의 신뢰도Lv.의 상한이 %{num} 상승"
+idolRoad.rewardDetail.evolutionStage.name,特訓数＋1,특훈 수＋1
+idolRoad.rewardDetail.evolutionStage.comment,%{rarityText}プロデュースアイドルの特訓数を＋1,%{rarityText} 프로듀스 아이돌의 특훈 수를＋1
+idolRoad.rewardDetail.trustUp.name,%{charName}の\n信頼度Lv.上限＋%{num},%{charName}의\n신뢰도Lv. 상한＋%{num}
+idolRoad.rewardDetail.trustUp.comment,%{charName} の信頼度Lv.の上限が%{num}上昇,%{charName}의 신뢰도Lv.의 상한이 %{num} 상승
 idolRoad.rewardDetail.title.name,専用称号『%{titleName}』x１,전용 칭호 『%{titleName}』 x1
 idolRoad.rewardDetail.title.comment,%{charName} 専用称号『%{titleName}』を獲得,%{charName} 전용 칭호 『%{titleName}』를 획득
 idolRoad.rewardDetail.supportIdol.comment,%{rarityText}サポートアイドルです,%{rarityText} 서포트 아이돌입니다
 idolRoad.evolutionStageUnlockPop.title,特訓数増加,특훈 수 증가
 idolRoad.evolutionStageUnlockPop.message,アイドルロードの進行によって\n特訓段階が増加しました,아이돌로드 진행에 의해\n특훈 단계가 증가했습니다
 idolRoad.evolutionStageNotEnoughPop.title,特訓数不足,특훈 수 부족
-idolRoad.evolutionStageNotEnoughPop.message1,特訓数が足りていない為\nアイドルロードを進行することが出来ません,"특훈 수가 충분하지 않기 때문에\n아이돌로드를 진행할 수 없습니다"
-idolRoad.evolutionStageNotEnoughPop.message2,%{idolName}\nの特訓数を4まで上昇させる事で\nアイドルロードの進行が可能になります,"%{idolName}\n의 특훈수를 4까지 상승시켜\n아이돌로드의 진행이 가능합니다"
+idolRoad.evolutionStageNotEnoughPop.message1,特訓数が足りていない為\nアイドルロードを進行することが出来ません,특훈 수가 충분하지 않기 때문에\n아이돌로드를 진행할 수 없습니다
+idolRoad.evolutionStageNotEnoughPop.message2,%{idolName}\nの特訓数を4まで上昇させる事で\nアイドルロードの進行が可能になります,%{idolName}\n의 특훈수를 4까지 상승시켜\n아이돌로드의 진행이 가능합니다
 idolRoad.produceAttentionPop.title,アイドルロード進行不可,아이돌로드 진행불가
-idolRoad.produceAttentionPop.message1,%{idolName}\nは現在プロデュース中の為\nアイドルロードを進行させることが出来ません,"%{idolName}\n는 현재 프로듀스중이기 때문에\n아이돌 로드를 진행시킬 수 없습니다"
+idolRoad.produceAttentionPop.message1,%{idolName}\nは現在プロデュース中の為\nアイドルロードを進行させることが出来ません,%{idolName}\n는 현재 프로듀스중이기 때문에\n아이돌 로드를 진행시킬 수 없습니다
 idolRoad.produceAttentionPop.message2,プロデュースを完了するか\nプロデュースを終了してください,프로듀스를 완료하거나\n프로듀스를 종료해주세요
 idolRoad.rarityUpPop.title,レアリティ上昇,레어리티 상승
 idolRoad.rarityUpPop.message,アイドルロードの進行によって\nレアリティが上昇しました,아이돌로드 진행에 의해\n레어리티가 상승했습니다
@@ -1526,35 +1526,92 @@ idolRoad.needsEvolution,%{idolName}を最大まで特訓しよう,%{idolName}를
 idolRoad.canProcessText,あと%{canProceedCount}歩進めます,다음 %{canProceedCount}걸음 나아갑니다
 idolRoad.recommendProcessText,ミッションをクリアして進めよう,미션을 클리어해서 진행하자
 releasedCommentsPop.title,ボイス解放,음성 해방
-releasedCommentsPop.message,を解放しました\r\rホーム画面にて聞くことができます\rアイドルアルバムで再生のON/OFFが可能です,"를 해방했습니다\r\r홈 화면에서 들을 수 있습니다\r아이돌 앨범에서 재생 ON/OFF가 가능합니다"
+releasedCommentsPop.message,を解放しました\r\rホーム画面にて聞くことができます\rアイドルアルバムで再生のON/OFFが可能です,를 해방했습니다\r\r홈 화면에서 들을 수 있습니다\r아이돌 앨범에서 재생 ON/OFF가 가능합니다
 training.resultTitleFeatured,トレーニング結果,트레이닝 결과
-"common.remainingText","あと",앞으로
-"errorDialog.characterFanRankingBreakTimeChangeTitle","お休み時間設定",휴식시간 설정
-"errorDialog.characterFanRankingBreakTimeChangeError","設定可能時間外です\n画面を更新します",설정가능시간외입니다\n화면을 갱신합니다
-"fes.deckMemberBonusStatus.positionBonus","ポジションボーナス %{value}%",포지션 보너스 %{value}%
-"fes.deckMemberBonusStatus.unitBonus","ユニットボーナス %{value}%",유닛 보너스 %{value}%
-"fes.deckMemberBonusStatus.passiveSkillBonus","パッシブ発動率 %{value}%UP",패시브 발동률 %{value}%UP
-"fes.deckMemberBonusEffect.positionBonus","ポジションボーナス",포지션 보너스
-"fes.deckMemberBonusEffect.unitBonus","ユニットボーナス",유닛 보너스
-"header.produceTeachingHintSetting","目標表示設定",목표표시설정
-"homeDeck.randomSetting.title","ホームユニットランダム表示設定",홈 유닛 랜덤 표시 설정
-"homeDeck.randomSetting.notice","ランダム設定がONの場合、アイドルは常にランダムで抽選されます","랜덤설정이 ON일 경우 아이돌은 항상 랜덤으로 선택됩니다"
-"homeDeck.randomSetting.zoomTypes.label","距離",거리
-"homeDeck.randomSetting.zoomTypes.values.short","近距離",근거리
-"homeDeck.randomSetting.zoomTypes.values.middle","通常",통상
-"homeDeck.randomSetting.zoomTypes.values.long","遠距離",원거리
-"homeDeck.randomSetting.zoomTypes.values.super_long","超遠距離",초원거리
-"homeDeck.randomSetting.bgTypes.label","背景・その他",배경·기타
-"homeDeck.randomSetting.bgTypes.values.image","背景",배경
-"homeDeck.randomSetting.bgTypes.values.effect","エフェクト",이펙트
-"homeDeck.randomSetting.bgTypes.values.music","BGM",BGM
-"homeDeck.randomSetting.costumeTypes.label","衣装",의상
-"homeDeck.randomSetting.costumeTypes.values.plain","私服衣装",사복 의상
-"homeDeck.randomSetting.costumeTypes.values.concert","ライブ衣装",라이브 의상
-"homeDeck.loadAlertPop.title","確認",확인
-"homeDeck.loadAlertPop.comment","５人表示を行う場合\r「ホームユニット」および「ホーム画面」での\r描画に負荷がかかります","5명을 표시할 경우\r「홈 유닛」 및 「홈 화면」에서의\r묘사에 부하가 걸립니다"
-"homeDeck.loadAlertPop.checkComment","今後、この警告を表示しない","앞으로 이 경고를 표시하지 않음"
-"produceAreaSelect.produceTeachingHintSettingConfirmationPopupTitle","研修設定確認",연수 설정 확인
-"produceAreaSelect.produceTeachingHintSettingPopupTitle","研修設定",연수 설정
-"individualRanking.breakTimePop.title","お休み時間設定",휴식시간 설정
-"individualRanking.changeBreakTimePop.title","お休み時間変更",휴식 시간 변경
+common.remainingText,あと,앞으로
+errorDialog.characterFanRankingBreakTimeChangeTitle,お休み時間設定,휴식시간 설정
+errorDialog.characterFanRankingBreakTimeChangeError,設定可能時間外です\n画面を更新します,설정가능시간외입니다\n화면을 갱신합니다
+fes.deckMemberBonusStatus.positionBonus,ポジションボーナス %{value}%,포지션 보너스 %{value}%
+fes.deckMemberBonusStatus.unitBonus,ユニットボーナス %{value}%,유닛 보너스 %{value}%
+fes.deckMemberBonusStatus.passiveSkillBonus,パッシブ発動率 %{value}%UP,패시브 발동률 %{value}%UP
+fes.deckMemberBonusEffect.positionBonus,ポジションボーナス,포지션 보너스
+fes.deckMemberBonusEffect.unitBonus,ユニットボーナス,유닛 보너스
+header.produceTeachingHintSetting,目標表示設定,목표표시설정
+homeDeck.randomSetting.title,ホームユニットランダム表示設定,홈 유닛 랜덤 표시 설정
+homeDeck.randomSetting.notice,ランダム設定がONの場合、アイドルは常にランダムで抽選されます,랜덤설정이 ON일 경우 아이돌은 항상 랜덤으로 선택됩니다
+homeDeck.randomSetting.zoomTypes.label,距離,거리
+homeDeck.randomSetting.zoomTypes.values.short,近距離,근거리
+homeDeck.randomSetting.zoomTypes.values.middle,通常,통상
+homeDeck.randomSetting.zoomTypes.values.long,遠距離,원거리
+homeDeck.randomSetting.zoomTypes.values.super_long,超遠距離,초원거리
+homeDeck.randomSetting.bgTypes.label,背景・その他,배경·기타
+homeDeck.randomSetting.bgTypes.values.image,背景,배경
+homeDeck.randomSetting.bgTypes.values.effect,エフェクト,이펙트
+homeDeck.randomSetting.bgTypes.values.music,BGM,BGM
+homeDeck.randomSetting.costumeTypes.label,衣装,의상
+homeDeck.randomSetting.costumeTypes.values.plain,私服衣装,사복 의상
+homeDeck.randomSetting.costumeTypes.values.concert,ライブ衣装,라이브 의상
+homeDeck.loadAlertPop.title,確認,확인
+homeDeck.loadAlertPop.comment,５人表示を行う場合\r「ホームユニット」および「ホーム画面」での\r描画に負荷がかかります,5명을 표시할 경우\r「홈 유닛」 및 「홈 화면」에서의\r묘사에 부하가 걸립니다
+homeDeck.loadAlertPop.checkComment,今後、この警告を表示しない,앞으로 이 경고를 표시하지 않음
+produceAreaSelect.produceTeachingHintSettingConfirmationPopupTitle,研修設定確認,연수 설정 확인
+produceAreaSelect.produceTeachingHintSettingPopupTitle,研修設定,연수 설정
+individualRanking.breakTimePop.title,お休み時間設定,휴식시간 설정
+individualRanking.changeBreakTimePop.title,お休み時間変更,휴식 시간 변경
+ability.locked,未解放,미해방
+ability.shortageOfInspirations,不足,부족
+ability.acquired,習得済み,습득 끝
+ability.noSkillMessage,習得しているアビリティはありません,습득한 어빌리티는 없습니다
+ability.emptyNotice,習得可能なアビリティはありません,습득 가능한 어빌리티는 없습니다
+ability.confirmPop.title,アビリティ習得,어빌리티 습득
+ability.confirmPop.comment,以下の「ひらめき」を消費して\nアビリティを習得しますか？,이하의 「영감」을 소비하고\n어빌리티를 습득하시겠습니까?
+ability.releaseCommentText,%{comment}で解放,%{comment}로 해방
+commonMenu.dataLinkPop.titleForAppleLinked,enza連携,enza연계
+idolList.infoSwitch.wing,デフォルト(W.I.N.G.用),디폴트(W.I.N.G.용)
+idolList.infoSwitch.fan_meeting,アイデア(ファン感謝祭用),아이디어(팬 감사제용)
+idolList.infoSwitch.3rd_produce_area,ひらめき(G.R.A.D.用),영감(G.R.A.D.용)
+header.ability,アビリティ習得,어빌리티 습득
+header.abilityViewMode,アビリティ一覧,어빌리티 목록
+header.produceBlock,ブロック選択,블록 선택
+producerBirthday.homeDialog.title,HAPPY BIRTHDAY,HAPPY BIRTHDAY
+producerBirthday.homeDialog.description,アイドルからのメッセージがあります\n%{name} に会いに行きますか？,아이돌에서 온 메시지가 있습니다\n%{name} 를 만나러 가시겠습니까?
+producerBirthday.homeDialog.notification,誕生日のメッセージコミュを再生します,생일 메세지 커뮤를 재생합니다
+producerBirthday.homeDialog.notificationSecondLine,本日中はホーム画面のバナーから遷移することができます,오늘 중으로 홈 화면 배너에서 이동하실 수 있습니다
+producerBirthday.title,プロデューサー誕生日,프로듀서 생일
+producerBirthday.staffComment,お誕生日おめでとうございます♪\nみなさんからお祝いがあるそうですよ～,생일 축하합니다♪\n모두에게서 축하가 있을거라고 하네요~
+producerBirthday.confirmDialog.title,確認,확인
+producerBirthday.confirmDialog.description,%{name} に会いに行きますか？,%{name} 를 만나러 가시겠습니까?
+producerBirthday.confirmDialog.notification,誕生日のメッセージコミュを再生します,생일 메세지 커뮤를 재생합니다
+producerBirthday.notBirthdayDialog.title,エラー,에러-
+producerBirthday.notBirthdayDialog.description,誕生日期間が過ぎているため\nコミュを再生することができません,생일기간이 지나서\n커뮤를 재생할 수 없습니다
+produceBlock.confirmPop.title,確認,확인 
+produceBlock.confirmPop.description,シーズン%{seasonNum}のプロデュース先に\n%{blockName}を選択しますか？,시즌%{seasonNum}의 프로듀스 전에\n%{blockName}을 선택하시겠습니까?
+produceBlock.confirmPop.notice,選択したブロックはシーズン終了まで変更できません,선택하신 블록은 시즌 종료까지 변경할 수 없습니다
+produceAction.surplusInspirationDialog.title,ひらめき獲得,영감 획득
+produceAction.surplusInspirationDialog.descriptions.first,獲得できるひらめきが上限枠を超えました,획득할 수 있는 영감이 상한선을 넘었습니다
+produceAction.surplusInspirationDialog.descriptions.second.left,獲得するひらめきを,획득하는 영감을
+produceAction.surplusInspirationDialog.descriptions.second.center,%{acquirableNum}つ,%{acquirableNum}개
+produceAction.surplusInspirationDialog.descriptions.second.right,選択してください,선택해 주세요
+produceSeasonResult.season,シーズン%{seasonNum},시즌%{seasonNum}
+profile.pfRecommendTwoLines,名前を変更するには\nデータ連携が必要です,이름을 변경하려면\n데이터 연동이 필요합니다
+profile.pfAccountRecommend,名前を変更するには、enza連携が必要です,이름을 변경하려면 enza 연계가 필요합니다
+profile.pfAccountRecommendTwoLines,名前を変更するには\nenza連携が必要です,이름을 변경하려면\nenza연계가 필요합니다 
+profile.birthdayNotSet,未設定,미설정
+profile.birthdayFormat,m月d日,m월d일
+profile.birthdayEditDialog.title,プロデューサー誕生日設定,프로듀서 생일 설정
+profile.birthdayEditDialog.description,誕生日を設定すると\rアイドルから誕生日を祝ってもらえます,생일을 설정하면\r아이돌로부터 생일을 축하받을 수 있습니다
+profile.birthdayEditDialog.birthday,誕生日,생일 메세지 커뮤를 재생합니다
+profile.birthdayEditDialog.dateFormat,d日,d일
+profile.birthdayEditDialog.monthFormat,m月,m월d일
+profile.birthdayEditDialog.notification,誕生日は月に1回まで変更できます,생일은 한달에 한번 까지 변경할 수 있습니다
+profile.birthdayEditLeapDayDialog.title,確認,확인
+profile.birthdayEditLeapDayDialog.description,うるう年が入力されました,윤년이 입력 되었습니다
+profile.birthdayEditLeapDayDialog.notification,うるう年ではない年の場合、前日を誕生日とします,윤년이 아닌 해의 경우 전날을 생일로 합니다
+profile.birthdayEditReachedUpdateLimitDialog.title,エラー,에러-
+profile.birthdayEditReachedUpdateLimitDialog.description,変更可能な回数が最大に達しています,변경 가능한 횟수가 최대에 달하고 있습니다
+profile.birthdayEditReachedUpdateLimitDialog.notification,誕生日は月に1回まで変更できます,생일은 한달에 한번 까지 변경할 수 있습니다
+profile.birthdayEditInvalidParamterDialog.description,日付の入力が不正です\r正しい日付を入力してください,날짜 입력이 잘못됐습니다\r올바른 날짜를 입력해주세요
+profile.birthdayEditSuccessDialog.title,プロデューサー誕生日,프로듀서 생일
+profile.birthdayEditSuccessDialog.birthdayFormat,m月d日,m월d일
+profile.birthdayEditSuccessDialog.textTop,プロデューサー誕生日を,프로듀서 생일을
+profile.birthdayEditSuccessDialog.textBottom,に設定しました,로 설정했습니다
