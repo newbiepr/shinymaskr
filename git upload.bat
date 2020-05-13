@@ -1,4 +1,4 @@
 git pull origin master
 git add .
-git commit -m "version update"
+git commit -m "small update"
 git push origin master 
