@@ -5,14 +5,14 @@ images/ui/my_page/parts.json_image,my_page.parts.png,29
 images/ui/present_box/parts.json_image,present_box_parts.png,8
 images/ui/mission/parts.json_image,mission_parts.png,15
 images/ui/produce_event/parts_promise.json_image,promise_parts.png,7
-images/ui/produce_action/gradation/parts.json_image,gradation_parts.png,6
+images/ui/produce_action/gradation/parts.json_image,gradation_parts.png,7
 images/content/my_page/banner_border/gasha.png,gasha.png,2
 images/content/my_page/banner_border/campaign.png,campaign.png,2
 images/content/my_page/banner_border/update.png,update.png,2
 images/content/my_page/banner_border/event_end.png,event_end.png,2
 images/ui/idol_portal/parts.json_image,idol_portal_parts.png,8
 images/ui/produce_commu/parts_commu.json_image,commu_parts.png,7
-images/ui/produce_top/parts.json_image,top_parts.png,16
+images/ui/produce_top/parts.json_image,top_parts.png,17
 images/ui/start/start_notice.jpg,start_notice.jpg,8
 images/ui/idol_list/parts.json_image,idol_list_parts.png,13
 images/ui/produce_action/parts.json_image,produce_action.png,15
@@ -35,7 +35,7 @@ images/ui/common/parts_sort_buttons.json_image,parts_sort_buttons.png,4
 images/ui/produce_idol_rank/parts_idol_rank.json_image,parts_idol_rank.png,7
 images/ui/evolution/parts.json_image,evolution_parts.png,7
 images/ui/produce_deck/parts_deck_edit.json_image,parts_deck_edit.png,11
-images/ui/produce_action/parts_wing.json_image,parts_wing.png,2
+images/ui/produce_action/parts_wing.json_image,parts_wing.png,3
 images/ui/training/parts.json_image,training_parts.png,9
 images/ui/idol_list/parts_edit_mode.json_image,idol_list_edit.png,7
 images/ui/common/parts_filter.json_image,common_filter.png,4
@@ -308,3 +308,4 @@ images/tips/true_end_teaching/skill_board/005.jpg,skill_board_005.png,3
 images/content/gasha/bg/92fe31b95ab4fbcb3ba0cccbd0519b94_2762.jpg,content/gasha/yusuke/92fe31b95ab4fbcb3ba0cccbd0519b94_2762.jpg,1
 images/content/gasha/title/92fe31b95ab4fbcb3ba0cccbd0519b94_2762.png,content/gasha/yusuke/92fe31b95ab4fbcb3ba0cccbd0519b94_2762.png,1
 images/content/gasha/title/584f0c7d65a96d87cd919461234cd144_5351.png,content/gasha/yusuke/584f0c7d65a96d87cd919461234cd144_5351.png,1
+images/ui/concert_result/parts.json_image,concert_result_parts.png,7
