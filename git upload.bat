@@ -1,4 +1,4 @@
 git pull origin master
 git add .
-git commit -m "image update"
+git commit -m "option update"
 git push origin master 
