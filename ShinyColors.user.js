@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      0.11.6
+// @version      0.11.8
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -498,7 +498,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "0.11.6";
+	var version = "0.11.8";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -847,9 +847,11 @@
 	  return phraseMap;
 	};
 
+	let OFFSET = 10;
+
 	const setIdList = (id, offset) => {
-	  let start = id - 2;
-	  let end = id + 2;
+	  let start = id - offset;
+	  let end = id + offset;
 	  let list = [];
 
 	  for (let i = start; i <= end; i++) {
@@ -863,7 +865,7 @@
 	};
 
 	const findModule = (id, conditionFunc) => {
-	  let idList = setIdList(id);
+	  let idList = setIdList(id, OFFSET);
 	  let module;
 
 	  for (let i = 0; i < idList.length; i++) {
