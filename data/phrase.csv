@@ -1565,7 +1565,6 @@ ability.noSkillMessage,習得しているアビリティはありません,습�
 ability.emptyNotice,習得可能なアビリティはありません,습득 가능한 어빌리티는 없습니다
 ability.confirmPop.title,アビリティ習得,어빌리티 습득
 ability.confirmPop.comment,以下の「ひらめき」を消費して\nアビリティを習得しますか？,이하의 「영감」을 소비하고\n어빌리티를 습득하시겠습니까?
-ability.releaseCommentText,%{comment}で解放,%{comment}로 해방
 commonMenu.dataLinkPop.titleForAppleLinked,enza連携,enza연계
 idolList.infoSwitch.wing,デフォルト(W.I.N.G.用),디폴트(W.I.N.G.용)
 idolList.infoSwitch.fan_meeting,アイデア(ファン感謝祭用),아이디어(팬 감사제용)
