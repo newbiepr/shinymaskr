@@ -7,13 +7,16 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup --config ./script/build.js --environment BUILD:development",
+    "build_dev": "rollup --config ./script/build.js --environment BUILD:development,DEV",
     "data": "node ./script/cleanDist.js && cross-env PUBLISH=skip node ./script/deploy.js",
-    "dev": "yarn data && rollup --config ./script/build.js --environment BUILD:development,DEV && yarn server",
+    "dev": "yarn data && yarn build_dev && yarn server",
     "dev-card": "yarn data && rollup --config ./script/build.js --environment BUILD:development,DEV,CARD && yarn server",
     "dev-text": "yarn data && rollup --config ./script/build.js --environment BUILD:development,DEV,TEXT && yarn server",
     "server": "node ./script/server.js",
     "deploy": "node ./script/cleanDist.js && rollup --config ./script/build.js && node ./script/deploy.js",
-    "deploy_action": "cross-env CUSTOM_DOMAIN=true GITHUB_ACTION=true yarn deploy"
+    "font": "node script/fontmin.js",
+    "deployc": "cross-env CUSTOM_DOMAIN=true node script/deployWithGroup.js",
+    "travis_deploy": "cross-env CUSTOM_DOMAIN=true TRAVIS=true yarn deploy"
   },
   "dependencies": {
     "core-js": "3",
