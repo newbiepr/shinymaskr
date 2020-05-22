@@ -13,7 +13,7 @@
 // @connect      api.interpreter.caiyunai.com
 // @connect      translate.google.cn
 // @connect      fanyi.baidu.com
-// @updateURL    https://github.com/newbiepr/shinymaskr/raw/gh-pages/ShinyColors.user.js
+// @updateURL    https://newbiepr.github.io/shinymaskr/ShinyColors.user.js
 // @supportURL   https://github.com/newbiepr/shinymaskr/issues
 // ==/UserScript==
 (function () {
