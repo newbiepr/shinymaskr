@@ -1,0 +1,9 @@
+id,name,text,trans
+select,,"他の演劇部員にも
+話を聞けるかな？","다른 연극부원들에게도
+이야기를 들을 수 있을까?"
+select,,"俺のほうでも
+調べてみるよ","내 쪽에서도
+조사해볼게"
+info,special_communications/490101103.json,
+译者,,
