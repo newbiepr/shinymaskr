@@ -743,80 +743,12 @@
 	  }
 	};
 
-	let data = null;
-
-	const getLocalData = async type => {
-	  // if (DEV) return false
-	  if (!data) {
-	    try {
-	      const str = sessionStorage.getItem('sczh:data');
-	      if (!str) return false;
-	      data = JSON.parse(str);
-	    } catch (err) {
-	      console.error(err);
-	      return false;
-	    }
-	  }
-
-	  let key = type;
-
-	  if (!/(\.csv|\.json)/.test(type)) {
-	    key = `${type}.csv`;
-	  }
-
-	  const {
-	    hashes
-	  } = await getHash;
-	  const newHash = hashes[key];
-	  const savedHash = data.hashes[key];
-
-	  if (savedHash && savedHash === newHash) {
-	    return data[type];
-	  } else {
-	    data.hashes[key] = newHash;
-	    return false;
-	  }
-	};
-
-	const setLocalData = (type, value) => {
-	  // if (DEV) return false
-	  if (!data || !data.hashes) data = {
-	    hashes: config.hashes
-	  };
-	  let key = type;
-
-	  if (!/(\.csv|\.json)/.test(type)) {
-	    key = `${type}.csv`;
-	  }
-
-	  const newHash = config.hashes[key];
-
-	  if (newHash) {
-	    data.hashes[key] = newHash;
-	  }
-
-	  data[type] = value;
-	  const str = JSON.stringify(data);
-
-	  try {
-	    sessionStorage.setItem('sczh:data', str);
-	  } catch (err) {
-	    console.error(err);
-	  }
-	};
-
 	const phraseMap = new Map();
 	let loaded = false;
 
 	const getPhrase = async (full = false) => {
 	  if (!loaded) {
-	    let csv = await getLocalData('phrase');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/phrase.csv');
-	      setLocalData('phrase', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/phrase.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.id) {
@@ -943,13 +875,7 @@
 
 	const getItem = async () => {
 	  if (!loaded$1) {
-	    let csv = await getLocalData('item');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/item.csv');
-	      setLocalData('item', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/item.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.text) {
@@ -983,13 +909,7 @@
 
 	const getName = async () => {
 	  if (!loaded$2) {
-	    let csv = await getLocalData('name');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/name.csv');
-	      setLocalData('name', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/name.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      const name = trim(item.name);
@@ -1010,13 +930,7 @@
 
 	const getCommMap = async () => {
 	  if (!loaded$3) {
-	    let csv = await getLocalData('common');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/common.csv');
-	      setLocalData('common', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/common.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.text) {
@@ -1074,15 +988,8 @@
 
 	const getStory = async name => {
 	  if (!storyIndex) {
-	    let storyIndexStr = await getLocalData('story.json');
-
-	    if (!storyIndexStr) {
-	      const storyIndexData = await fetchWithHash('/story.json');
-	      storyIndex = new Map(storyIndexData);
-	      setLocalData('story.json', JSON.stringify(storyIndex));
-	    } else {
-	      storyIndex = new Map(JSON.parse(storyIndexStr));
-	    }
+	    const storyIndexData = await fetchWithHash('/story.json');
+	    storyIndex = new Map(storyIndexData);
 	  }
 
 	  if (storyIndex.has(name)) {
@@ -1102,13 +1009,7 @@
 
 	const getCommStory = async () => {
 	  if (!commStoryLoaded) {
-	    let csv = await getLocalData('comm-story');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/comm-story.csv');
-	      setLocalData('comm-story', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/comm-story.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.text) {
@@ -1131,13 +1032,7 @@
 
 	const getTypeTextMap = async () => {
 	  if (!loaded$4) {
-	    let csv = await getLocalData('type-text');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/type-text.csv');
-	      setLocalData('type-text', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/type-text.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.text) {
@@ -1371,13 +1266,7 @@
 	  } = supportSkillCache;
 
 	  if (!loaded) {
-	    let csv = await getLocalData('support-skill');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/support-skill.csv');
-	      setLocalData('support-skill', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/support-skill.csv');
 	    const list = parseCsv(csv);
 	    const reMap = new Map();
 	    sortWords(list, 'text').forEach(item => {
@@ -1441,13 +1330,7 @@
 	  } = skillCache;
 
 	  if (!loaded) {
-	    let csv = await getLocalData('skill');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/skill.csv');
-	      setLocalData('skill', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/skill.csv');
 	    const list = parseCsv(csv);
 	    const reMap = new Map();
 	    sortWords(list, 'text').forEach(item => {
@@ -1939,13 +1822,7 @@
 
 	const getMission = async (full = false) => {
 	  if (!loaded$5) {
-	    let csv = await getLocalData('mission-re');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/mission-re.csv');
-	      setLocalData('mission-re', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/mission-re.csv');
 	    const list = parseCsv(csv);
 	    const nounArr = [];
 	    const nameArr = [];
@@ -2402,13 +2279,7 @@
 
 	const getTitle = async () => {
 	  if (!loaded$6) {
-	    let csv = await getLocalData('title');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/title.csv');
-	      setLocalData('title', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/title.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.text) {
@@ -5645,13 +5516,7 @@
 
 	const getImage = async () => {
 	  if (!loaded$7) {
-	    let csv = await getLocalData('image');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/image.csv');
-	      setLocalData('image', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/image.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.name) {
