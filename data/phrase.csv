@@ -1,4 +1,4 @@
-name,ja,zh
+id,text,trans
 common.remainingMinutes,あと%{minutes}分,앞으로 %{minutes}분
 common.remainingHours,あと%{hours}時間%{minutes}分,앞으로 %{hours}시간%{minutes}분
 fortuneResultTweet.text1.normal,今日の運勢は・・・【%{rankName}】！素敵な1日になりそう！\n\n,오늘의 운세는・・・【%{rankName}】! 멋진 하루가 될 것 같다!\n\n

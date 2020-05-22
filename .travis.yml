@@ -1,0 +1,22 @@
+if: commit_message =~ /(Upgrade|Trigger|Update|Add|Create|Fix|format)/
+language: node_js
+node_js:
+  - "10"
+cache: yarn
+before_install:
+  - git pull https://github.com/newbiepr/shinymaskr.git master
+jobs:
+  include:
+    - stage: deploy
+      if: repo = newbiepr/shinymaskr
+      script:
+        - yarn travis_deploy
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist
+  committer_from_gh: true
+  on:
+    branch: master
+    repo: newbiepr/shinymaskr
