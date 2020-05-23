@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      1.0.10
+// @version      1.0.11
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -333,7 +333,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "1.0.10";
+	var version = "1.0.11";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -1121,6 +1121,8 @@
 	  return _text;
 	};
 
+	const speakerList = ['めぐる', '凛世', '千雪', '咲耶', '夏葉', '恋鐘', '摩美々', '智代子', '果穂', '樹里', '灯織', '甘奈', '甜花', '真乃', '結華', '霧子', '愛依', '冬優子', 'あさひ', '雛菜', '透', '小糸', '円香'];
+
 	const fontCheck = (text, style, isType = false) => {
 	  if (!isString_1(text)) return text;
 	  let _text = text;
@@ -1132,6 +1134,8 @@
 	      _text = textInMap(text, typeTextMap$1, style);
 	      setTypeText(text);
 	    } else if (!isTyping(text) && !text.startsWith('\u200c')) {
+	      _text = textInMap(text, commMap, style);
+	    } else if (speakerList.includes(text)) {
 	      _text = textInMap(text, commMap, style);
 	    }
 	  }
@@ -6460,7 +6464,7 @@
 	    if (!type) return res;
 	    if (config.dev && type.includes('/assets/json/')) requestLog('STORY', '#ad37c2', args, res);
 
-	    if (type.includes('/produce_events/') || type.includes('/produce_communications/') || type.includes('/produce_communications_promises/') || type.includes('/produce_communication_promise_results/') || type.includes('/game_event_communications/') || type.includes('/special_communications/') || type.includes('/produce_communication_cheers/') || type.includes('/produce_communication_auditions/') || type.includes('/produce_communication_televisions/')) {
+	    if (type.includes('/produce_events/') || type.includes('/produce_communications/') || type.includes('/produce_communications_promises/') || type.includes('/produce_communication_promise_results/') || type.includes('/support_skills/') || type.includes('/mypage_communications/') || type.includes('/game_event_communications/') || type.includes('/special_communications/') || type.includes('/produce_communication_cheers/') || type.includes('/produce_communication_auditions/') || type.includes('/produce_communication_televisions/')) {
 	      try {
 	        const name = type.replace(/^\/assets\/json\//, '');
 	        let storyMap;
