@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      1.0.5
+// @version      1.0.8
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -436,7 +436,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "1.0.5";
+	var version = "1.0.8";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -627,7 +627,9 @@
 	  win.eval = new Proxy(win.eval, {
 	    apply(target, context, args) {
 	      for (let i = 0; i < source.length; i++) {
-	        if (args[0] && args[0].includes(source[i])) {
+	        var _args$;
+
+	        if ((_args$ = args[0]) === null || _args$ === void 0 ? void 0 : _args$.includes(source[i])) {
 	          args[0] = args[0].replace(source[i], result[i]);
 	        }
 	      }
@@ -691,7 +693,7 @@
 
 	      const type = res.headers.get('content-type');
 
-	      if (type && type.includes('json')) {
+	      if (type === null || type === void 0 ? void 0 : type.includes('json')) {
 	        return res.json();
 	      }
 
@@ -751,7 +753,7 @@
 	    let csv = await fetchWithHash('/data/phrase.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
-	      if (item && item.id) {
+	      if (item === null || item === void 0 ? void 0 : item.id) {
 	        const id = trimWrap(item.id);
 	        const trans = trimWrap(item.trans, true);
 
@@ -878,7 +880,7 @@
 	    let csv = await fetchWithHash('/data/item.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 	        const type = trim(item.type) || 'normal';
@@ -933,7 +935,7 @@
 	    let csv = await fetchWithHash('/data/common.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 
@@ -1012,7 +1014,7 @@
 	    let csv = await fetchWithHash('/data/comm-story.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 
@@ -1035,7 +1037,7 @@
 	    let csv = await fetchWithHash('/data/type-text.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 
@@ -1199,7 +1201,7 @@
 	  let _text = text;
 	  if (!text) return;
 
-	  if (textMap && textMap.has(text)) {
+	  if (textMap === null || textMap === void 0 ? void 0 : textMap.has(text)) {
 	    item[key] = tagText(textMap.get(text));
 	  } else {
 	    _text = replaceText(text, expMap, wordMaps);
@@ -1270,7 +1272,7 @@
 	    const list = parseCsv(csv);
 	    const reMap = new Map();
 	    sortWords(list, 'text').forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 	        const type = trim(item.type);
@@ -1334,7 +1336,7 @@
 	    const list = parseCsv(csv);
 	    const reMap = new Map();
 	    sortWords(list, 'text').forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 	        const type = trim(item.type);
@@ -1404,7 +1406,7 @@
 	    list.forEach((str, index) => {
 	      let rgs = str.match(/([＋+]+)$/);
 
-	      if (rgs && rgs[1]) {
+	      if (rgs === null || rgs === void 0 ? void 0 : rgs[1]) {
 	        arr.push(rgs[1]);
 	        list[index] = str.replace(/[＋+]+$/, '');
 	      } else {
@@ -1416,7 +1418,7 @@
 	};
 
 	const transSkill = (item, key, data) => {
-	  if (item && item[key]) {
+	  if (item === null || item === void 0 ? void 0 : item[key]) {
 	    let arr = item[key].split('/');
 	    arr.forEach((txt, index) => {
 	      let plusList = nameWithPlus(arr);
@@ -1432,6 +1434,8 @@
 	};
 
 	const supportSkill = async data => {
+	  var _obj$supportIdol, _sskill;
+
 	  let obj = data;
 	  if (data.gameData) return;
 	  if (data.userSupportIdol) obj = data.userSupportIdol;
@@ -1440,27 +1444,29 @@
 
 	  if (obj.supportSkills) {
 	    sskill = obj.supportSkills;
-	  } else if (obj.supportIdol && obj.supportIdol.supportSkills) {
+	  } else if ((_obj$supportIdol = obj.supportIdol) === null || _obj$supportIdol === void 0 ? void 0 : _obj$supportIdol.supportSkills) {
 	    sskill = obj.supportIdol.supportSkills;
 	  }
 
 	  const skillData = await getSupportSkill();
-	  sskill && sskill.forEach(item => {
+	  (_sskill = sskill) === null || _sskill === void 0 ? void 0 : _sskill.forEach(item => {
 	    transSkill(item, 'description', skillData);
 	    transSkill(item, 'name', skillData);
 	  });
-	  asskill && asskill.forEach(item => {
+	  asskill === null || asskill === void 0 ? void 0 : asskill.forEach(item => {
 	    transSkill(item, 'description', skillData);
 	    transSkill(item, 'name', skillData);
 	  });
 	};
 
 	const transEffects = (data, skillData) => {
-	  data.skillEffects && data.skillEffects.forEach(item => {
+	  var _data$skillEffects, _data$rivalMemoryAppe;
+
+	  (_data$skillEffects = data.skillEffects) === null || _data$skillEffects === void 0 ? void 0 : _data$skillEffects.forEach(item => {
 	    transSkill(item, 'effectName', skillData);
 	    transSkill(item, 'effectDescription', skillData);
 	  });
-	  data.rivalMemoryAppealEffects && data.rivalMemoryAppealEffects.forEach(item => {
+	  (_data$rivalMemoryAppe = data.rivalMemoryAppealEffects) === null || _data$rivalMemoryAppe === void 0 ? void 0 : _data$rivalMemoryAppe.forEach(item => {
 	    transSkill(item, 'effectName', skillData);
 	    transSkill(item, 'effectDescription', skillData);
 	  });
@@ -1514,15 +1520,17 @@
 	};
 
 	const shortProIdol = (data, skillData, panel = false) => {
+	  var _proIdol$activeSkills, _proIdol$passiveSkill, _proIdol$limitBreaks;
+
 	  let proIdol = data.userProduceIdol;
 	  if (!proIdol) return;
-	  proIdol.activeSkills && proIdol.activeSkills.forEach(item => {
+	  (_proIdol$activeSkills = proIdol.activeSkills) === null || _proIdol$activeSkills === void 0 ? void 0 : _proIdol$activeSkills.forEach(item => {
 	    commSkill(item, skillData);
 	  });
-	  proIdol.passiveSkills && proIdol.passiveSkills.forEach(item => {
+	  (_proIdol$passiveSkill = proIdol.passiveSkills) === null || _proIdol$passiveSkill === void 0 ? void 0 : _proIdol$passiveSkill.forEach(item => {
 	    commSkill(item, skillData);
 	  });
-	  proIdol.limitBreaks && proIdol.limitBreaks.forEach(item => {
+	  (_proIdol$limitBreaks = proIdol.limitBreaks) === null || _proIdol$limitBreaks === void 0 ? void 0 : _proIdol$limitBreaks.forEach(item => {
 	    commSkill(item, skillData);
 	  });
 
@@ -1540,17 +1548,19 @@
 	const fesRivalsSkill = (data, skillData) => {
 	  if (!data) return;
 	  data.forEach(rival => {
-	    rival.userFesDeck && rival.userFesDeck.userFesDeckMembers.forEach(member => {
+	    var _rival$userFesDeck, _rival$userRaidDeck, _rival$rival;
+
+	    (_rival$userFesDeck = rival.userFesDeck) === null || _rival$userFesDeck === void 0 ? void 0 : _rival$userFesDeck.userFesDeckMembers.forEach(member => {
 	      member.userFesIdol.activeSkills.forEach(skill => {
 	        transEffects(skill, skillData);
 	      });
 	    });
-	    rival.userRaidDeck && rival.userRaidDeck.userRaidDeckMembers.forEach(member => {
+	    (_rival$userRaidDeck = rival.userRaidDeck) === null || _rival$userRaidDeck === void 0 ? void 0 : _rival$userRaidDeck.userRaidDeckMembers.forEach(member => {
 	      member.userFesIdol.activeSkills.forEach(skill => {
 	        commSkill(skill, skillData, true);
 	      });
 	    });
-	    rival.rival && rival.rival.rivalSkills.forEach(skill => {
+	    (_rival$rival = rival.rival) === null || _rival$rival === void 0 ? void 0 : _rival$rival.rivalSkills.forEach(skill => {
 	      transEffects(skill, skillData);
 	    });
 	  });
@@ -1669,7 +1679,9 @@
 	  const skillData = await ensureSkillData();
 	  data.userFesDecks.forEach(deck => {
 	    deck.userFesDeckMembers.forEach(member => {
-	      member.userFesIdol && member.userFesIdol.activeSkills.forEach(item => {
+	      var _member$userFesIdol;
+
+	      (_member$userFesIdol = member.userFesIdol) === null || _member$userFesIdol === void 0 ? void 0 : _member$userFesIdol.activeSkills.forEach(item => {
 	        commSkill(item, skillData);
 	      });
 	    });
@@ -1680,7 +1692,9 @@
 	  const skillData = await ensureSkillData();
 	  data.userRaidDecks.forEach(deck => {
 	    deck.userRaidDeckMembers.forEach(member => {
-	      member.userFesIdol && member.userFesIdol.activeSkills.forEach(item => {
+	      var _member$userFesIdol2;
+
+	      (_member$userFesIdol2 = member.userFesIdol) === null || _member$userFesIdol2 === void 0 ? void 0 : _member$userFesIdol2.activeSkills.forEach(item => {
 	        commSkill(item, skillData);
 	      });
 	    });
@@ -1688,12 +1702,14 @@
 	};
 
 	const proSkillPanels = async data => {
+	  var _data$userProduceLimi;
+
 	  const skillData = await ensureSkillData();
 	  data.userProduceSupportIdols.forEach(item => {
 	    skillPanel(item.skillPanels, skillData);
 	  });
 	  shortProIdol(data, skillData, true);
-	  data.userProduceLimitedSkills && data.userProduceLimitedSkills.forEach(item => {
+	  (_data$userProduceLimi = data.userProduceLimitedSkills) === null || _data$userProduceLimi === void 0 ? void 0 : _data$userProduceLimi.forEach(item => {
 	    commSkill(item.passiveSkills, skillData);
 	    commSkill(item.skill, skillData);
 	  });
@@ -1710,6 +1726,8 @@
 	};
 
 	const fesMatchConcertSkill = async data => {
+	  var _data$userFesDeck, _data$userRaidDeck;
+
 	  const skillData = await ensureSkillData();
 
 	  const transDeckMember = member => {
@@ -1724,8 +1742,8 @@
 	    });
 	  };
 
-	  data.userFesDeck && data.userFesDeck.userFesDeckMembers.forEach(transDeckMember);
-	  data.userRaidDeck && data.userRaidDeck.userRaidDeckMembers.forEach(transDeckMember);
+	  (_data$userFesDeck = data.userFesDeck) === null || _data$userFesDeck === void 0 ? void 0 : _data$userFesDeck.userFesDeckMembers.forEach(transDeckMember);
+	  (_data$userRaidDeck = data.userRaidDeck) === null || _data$userRaidDeck === void 0 ? void 0 : _data$userRaidDeck.userRaidDeckMembers.forEach(transDeckMember);
 	  judegsSkill(data.judges, skillData);
 	  fesRivalsSkill(data.userFesRivals, skillData);
 	  fesRivalsSkill(data.userFesRaidRivals, skillData);
@@ -1829,7 +1847,7 @@
 	    const noteArr = [];
 	    const reMap = new Map();
 	    sortWords(list, 'text').forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 	        const type = trim(item.type);
@@ -1896,7 +1914,9 @@
 	    itemPrms = getItem();
 	  }
 
-	  itemMaps = await itemPrms;
+	  if (!itemMaps) {
+	    itemMaps = await itemPrms;
+	  }
 	};
 
 	let unknownItems = [];
@@ -1967,13 +1987,13 @@
 	};
 
 	const switchShop = shop => {
-	  if (shop && shop.shopMerchandises) {
-	    shop.shopMerchandises.forEach(item => {
-	      transItem(item, 'title');
-	      transItem(item, 'shopTitle');
-	      transItem(item, 'comment');
-	    });
-	  }
+	  var _shop$shopMerchandise;
+
+	  shop === null || shop === void 0 ? void 0 : (_shop$shopMerchandise = shop.shopMerchandises) === null || _shop$shopMerchandise === void 0 ? void 0 : _shop$shopMerchandise.forEach(item => {
+	    transItem(item, 'title');
+	    transItem(item, 'shopTitle');
+	    transItem(item, 'comment');
+	  });
 	};
 
 	const transShopItem = async data => {
@@ -2010,11 +2030,8 @@
 
 	const transShopPurchase = async data => {
 	  await ensureItem();
-
-	  if (data && data.shopMerchandise) {
-	    transItem(data.shopMerchandise, 'title');
-	    transItem(data.shopMerchandise, 'comment');
-	  }
+	  transItem(data === null || data === void 0 ? void 0 : data.shopMerchandise, 'title');
+	  transItem(data === null || data === void 0 ? void 0 : data.shopMerchandise, 'comment');
 	};
 
 	const transPresentItem = async data => {
@@ -2081,6 +2098,20 @@
 	  });
 	};
 
+	const produceActiveItem = async data => {
+	  var _data$activeProduceIt;
+
+	  await ensureItem();
+	  data === null || data === void 0 ? void 0 : (_data$activeProduceIt = data.activeProduceItems) === null || _data$activeProduceIt === void 0 ? void 0 : _data$activeProduceIt.forEach(item => {
+	    transItem(item.produceItem, 'name');
+	    transItem(item.produceItem, 'comment');
+	  });
+	};
+
+	const homeProduceActiveItem = async data => {
+	  await produceActiveItem(data.userProduce);
+	};
+
 	let missionMaps = null;
 	let msPrms = null;
 
@@ -2131,7 +2162,7 @@
 	};
 
 	const processMission = list => {
-	  list.forEach(item => {
+	  list === null || list === void 0 ? void 0 : list.forEach(item => {
 	    replaceMission(item.mission, 'title');
 	    replaceMission(item.mission, 'comment');
 
@@ -2149,7 +2180,7 @@
 	    replaceMission(mission, 'comment');
 	    let content = mission.fesRaidAccumulatedRewardContent;
 
-	    if (content && content.content) {
+	    if (content === null || content === void 0 ? void 0 : content.content) {
 	      processReward(content.content, 'name');
 	      processReward(content.content, 'comment');
 	    }
@@ -2157,7 +2188,7 @@
 	};
 
 	const fullMission = (list, hasReward = true) => {
-	  list && list.forEach(item => {
+	  list === null || list === void 0 ? void 0 : list.forEach(item => {
 	    let mission = item.mission || item;
 	    replaceMission(mission, 'title');
 	    replaceMission(mission, 'comment');
@@ -2167,7 +2198,7 @@
 	    if (hasReward) {
 	      let reward = mission.lectureMissionReward;
 
-	      if (reward && reward.content) {
+	      if (reward === null || reward === void 0 ? void 0 : reward.content) {
 	        processReward(reward.content, 'name');
 	        processReward(reward.content, 'comment');
 	      }
@@ -2191,13 +2222,13 @@
 	win$1.printUnknownMission = () => log(unknownMissions.join('\n'));
 
 	const transMission = async data => {
+	  var _data$eventUserMissio;
+
 	  await ensureMissionData();
 	  processMission(data.dailyUserMissions);
 	  processMission(data.weeklyUserMissions);
-	  data.eventUserMissions.forEach(item => {
-	    if (item && item.userMissions) {
-	      processMission(item.userMissions);
-	    }
+	  (_data$eventUserMissio = data.eventUserMissions) === null || _data$eventUserMissio === void 0 ? void 0 : _data$eventUserMissio.forEach(item => {
+	    processMission(item === null || item === void 0 ? void 0 : item.userMissions);
 	  });
 	  processMission(data.normalUserMissions);
 	  processMission(data.specialUserMissions);
@@ -2241,8 +2272,10 @@
 	};
 
 	const teachingMission = async data => {
+	  var _data$teachingHints;
+
 	  await ensureMissionData();
-	  data.teachingHints && data.teachingHints.forEach(item => {
+	  (_data$teachingHints = data.teachingHints) === null || _data$teachingHints === void 0 ? void 0 : _data$teachingHints.forEach(item => {
 	    item.userProduceTeachingHints.forEach(hint => {
 	      replaceMission(hint.produceTeachingHint, 'title');
 	    });
@@ -2255,16 +2288,20 @@
 	};
 
 	const idolRoadRewards = idol => {
-	  idol.userIdolRoad && idol.userIdolRoad.idolRoad.idolRoadRewards.forEach(reward => {
+	  var _idol$userIdolRoad;
+
+	  (_idol$userIdolRoad = idol.userIdolRoad) === null || _idol$userIdolRoad === void 0 ? void 0 : _idol$userIdolRoad.idolRoad.idolRoadRewards.forEach(reward => {
 	    processReward(reward.content, 'name');
 	    processReward(reward.content, 'comment');
 	  });
 	};
 
 	const idolRoadMission = async data => {
+	  var _data$userIdols;
+
 	  await ensureMissionData();
 	  fullMission(data.userMissions, false);
-	  data.userIdols && data.userIdols.forEach(idolRoadRewards);
+	  (_data$userIdols = data.userIdols) === null || _data$userIdols === void 0 ? void 0 : _data$userIdols.forEach(idolRoadRewards);
 	};
 
 	const idolRoadForward = async data => {
@@ -2282,7 +2319,7 @@
 	    let csv = await fetchWithHash('/data/title.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
-	      if (item && item.text) {
+	      if (item === null || item === void 0 ? void 0 : item.text) {
 	        const text = trimWrap(item.text);
 	        const trans = trimWrap(item.trans, true);
 	        const type = trim(item.type) || 'text';
@@ -2352,7 +2389,7 @@
 	  if (!storyTitle.has(id)) storyTitle.set(id, text);
 	};
 
-	const transTitle = (item, key) => {
+	const transTitle = (item = {}, key) => {
 	  let text = item[key];
 	  replaceItem(item, key, titleMaps);
 
@@ -2421,6 +2458,103 @@
 	    saveTitle(item.id, `${item.name} ${item.title}`);
 	  });
 	  transTitle(data.gameEvent, 'name');
+	};
+
+	const profileMap = new Map();
+	let profileLoaded = false;
+
+	const getProfile = async () => {
+	  if (!profileLoaded) {
+	    let csv = await fetchWithHash('/data/profile.csv');
+	    const list = parseCsv(csv);
+	    list.forEach(item => {
+	      const name = trim(item.name);
+
+	      if (name) {
+	        profileMap.set(name, item);
+	      }
+	    });
+	    profileLoaded = true;
+	  }
+
+	  return profileMap;
+	};
+
+	let profilePrms = null;
+
+	const ensureProfile = async () => {
+	  if (!profilePrms) {
+	    profilePrms = getProfile();
+	  }
+
+	  return await profilePrms;
+	};
+
+	const transProfileProperty = (data, item, profile) => {
+	  if (item == "unit_name" && profile[item]) {
+	    data.unit.name = profile[item];
+	    return;
+	  }
+
+	  if (profile[item]) {
+	    data[item] = profile[item];
+	  }
+	};
+
+	const transProfile = (data, idolProfile) => {
+	  transProfileProperty(data, 'arm', idolProfile);
+	  transProfileProperty(data, 'birthDay', idolProfile);
+	  transProfileProperty(data, 'characterVoice', idolProfile);
+	  transProfileProperty(data, 'firstName', idolProfile);
+	  transProfileProperty(data, 'hobby', idolProfile);
+	  transProfileProperty(data, 'nameKana', idolProfile);
+	  transProfileProperty(data, 'place', idolProfile);
+	  transProfileProperty(data, 'arm', idolProfile);
+	  transProfileProperty(data, 'specialty', idolProfile);
+	  transProfileProperty(data, 'starSign', idolProfile);
+	  transProfileProperty(data, 'unit_name', idolProfile);
+	};
+
+	const idolProfiles = async data => {
+	  const profiles = await ensureProfile();
+
+	  if (data.name) {
+	    const idolProfile = profiles.get(data.name);
+	    transProfile(data, idolProfile);
+	  }
+
+	  if (data.beginnerMissionUnits) {
+	    data.beginnerMissionUnits.forEach(unit => {
+	      unit.idols.forEach(idol => {
+	        const idolProfile = profiles.get(idol.idol.character.name);
+	        transProfile(idol.idol.character, idolProfile);
+	      });
+	    });
+	  }
+
+	  if (data.units) {
+	    data.units.forEach(unit => {
+	      unit.idols.forEach(idol => {
+	        const idolProfile = profiles.get(idol.character.name);
+	        transProfile(idol.character, idolProfile);
+	      });
+	    });
+	  }
+	};
+
+	const request$1 = (url, option) => {
+	  const {
+	    method = 'GET',
+	    headers,
+	    data
+	  } = option;
+	  return fetch(url, {
+	    body: data,
+	    headers,
+	    method,
+	    mode: 'cors',
+	    referrer: 'no-referrer'
+	  }).then(res => res.json());
 	};
 
 	var has = Object.prototype.hasOwnProperty;
@@ -2794,31 +2928,8 @@
 	  });
 	};
 
-	const produceIdolName = async data => {
-	  const nameMap = await getName();
-
-	  if (data.userProduceIdol) {
-	    const char = data.userProduceIdol.userIdol.idol.character;
-
-	    if (nameMap.has(char.name)) {
-	      char.name = nameMap.get(char.name);
-	    }
-
-	    if (nameMap.has(char.firstName)) {
-	      char.firstName = tagText(nameMap.get(char.firstName));
-	    }
-	  }
-	};
-
-	const produceEventTitle = async data => {
-	  await ensureTitle();
-	  data.produceEvents.forEach(event => {
-	    transTitle(event, 'title');
-	    saveTitle(event.id, event.title);
-	  });
-	};
-
 	const autoTransText = async (data, key = 'comment') => {
+	  if (!data) return;
 	  const name = data.map(item => item[key]).join('').trim();
 	  await autoTrans(data, name, true);
 	};
@@ -2995,11 +3106,9 @@
 
 	const produceReporterAnswer = async data => {
 	  try {
-	    let revent = data.produceReporterEvent;
+	    var _data$produceReporter;
 
-	    if (revent && revent.produceReporterEventAnswers) {
-	      await autoTransText(revent.produceReporterEventAnswers, 'comment2');
-	    }
+	    await autoTransText((_data$produceReporter = data.produceReporterEvent) === null || _data$produceReporter === void 0 ? void 0 : _data$produceReporter.produceReporterEventAnswers, 'comment2');
 	  } catch (e) {
 	    log(e);
 	  }
@@ -3024,6 +3133,39 @@
 	    });
 	    await autoTransText(list);
 	  }
+	};
+
+	const produceIdolName = async data => {
+	  const nameMap = await getName();
+
+	  if (data.userProduceIdol) {
+	    const char = data.userProduceIdol.userIdol.idol.character;
+
+	    if (nameMap.has(char.name)) {
+	      char.name = nameMap.get(char.name);
+	    }
+
+	    if (nameMap.has(char.firstName)) {
+	      char.firstName = tagText(nameMap.get(char.firstName));
+	    }
+	  }
+	};
+
+	const produceEventTitle = async data => {
+	  var _data$produceEvents;
+
+	  await ensureTitle();
+	  (_data$produceEvents = data.produceEvents) === null || _data$produceEvents === void 0 ? void 0 : _data$produceEvents.forEach(event => {
+	    transTitle(event, 'title');
+	    saveTitle(event.id, event.title);
+	  });
+	};
+
+	const homeProduceTitle = async data => {
+	  var _data$userProduce;
+
+	  await ensureTitle();
+	  transTitle(data === null || data === void 0 ? void 0 : (_data$userProduce = data.userProduce) === null || _data$userProduce === void 0 ? void 0 : _data$userProduce.produce, 'title');
 	};
 
 	function collectCardName (data) {
@@ -5451,8 +5593,8 @@
 	  }
 	};
 
-	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, userSupportIdolsTitle]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, userIdolsTitle]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, reserveUserIdolsSkill], [/^userFesIdols\/\d+$/, userFesIdolsSkill], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], albumTopTitle], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', beginnerMission], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission]];
-	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete]], [/^characterAlbums\/characters\/\d+$/, [characterAlbumTitle, albumTrustLevel]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, transUserItem], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [produceEventTitle, ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill, produceIdolName]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill, produceEventTitle]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment, produceIdolName]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission], [/^produceMarathons\/\d+\/top$/, marathonTitle]];
+	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, userSupportIdolsTitle]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, userIdolsTitle]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, reserveUserIdolsSkill], [/^userFesIdols\/\d+$/, userFesIdolsSkill], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], albumTopTitle], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, produceActiveItem]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [beginnerMission, idolProfiles]], ['tutorialIdols', idolProfiles], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission]];
+	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete, homeProduceActiveItem, homeProduceTitle]], [/^characterAlbums\/characters\/\d+$/, [characterAlbumTitle, idolProfiles, albumTrustLevel]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, transUserItem], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [produceEventTitle, ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill, produceIdolName]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill, produceEventTitle]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill, produceEventTitle]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment, produceIdolName]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission], [/^produceMarathons\/\d+\/top$/, marathonTitle]];
 	const requestOfPatch = [[/^userSupportIdols\/\d+$/, supportSkill], ['userFesDecks', userFesDeck]];
 	const requestOfPut = [['userIdolRoads', idolRoadForward]];
 	async function requestHook() {
@@ -5519,7 +5661,7 @@
 	    let csv = await fetchWithHash('/data/image.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
-	      if (item && item.name) {
+	      if (item === null || item === void 0 ? void 0 : item.name) {
 	        const name = trim(item.name);
 	        const url = trim(item.url);
 	        const version = trim(item.version) || '1';
@@ -6097,9 +6239,10 @@
 	};
 
 	const getCid = name => {
+	  var _res$;
+
 	  const res = name.match(/\/(\d+)$/);
-	  if (res && res[1]) return res[1];
-	  return '';
+	  return (_res$ = res === null || res === void 0 ? void 0 : res[1]) !== null && _res$ !== void 0 ? _res$ : '';
 	};
 
 	const saveData = (data, name) => {
@@ -6113,7 +6256,7 @@
 	  data.forEach(item => {
 	    let text = trim(replaceWrap$1(item.text));
 
-	    if (text && text.trim()) {
+	    if (text === null || text === void 0 ? void 0 : text.trim()) {
 	      list.push({
 	        id: item.id || '0000000000000',
 	        name: item.speaker || '',
