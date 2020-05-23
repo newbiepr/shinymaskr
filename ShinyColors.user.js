@@ -722,7 +722,7 @@
 	  document.body.removeChild(eleLink);
 	};
 
-	const replaceWrap$1 = text => {
+	const replaceWrap = text => {
 	  if (isString_1(text)) {
 	    return text.replace(/\r?\n/g, '\\n').replace(/\r/g, '\\n');
 	  }
@@ -1954,7 +1954,7 @@
 	const collectItems = text => {
 	  if (!text) return;
 
-	  let _text = replaceWrap$1(text);
+	  let _text = replaceWrap(text);
 
 	  if (!unknownItems.includes(_text)) {
 	    unknownItems.push(_text);
@@ -2240,7 +2240,7 @@
 
 	const saveUnknownMissions = (data, key) => {
 	  if (!data[key]) return;
-	  const text = replaceWrap$1(data[key]);
+	  const text = replaceWrap(data[key]);
 
 	  if (!unknownMissions.includes(text)) {
 	    unknownMissions.push(text);
@@ -2401,7 +2401,7 @@
 	const collectTitles = text => {
 	  if (!text) return;
 
-	  let _text = replaceWrap$1(text);
+	  let _text = replaceWrap(text);
 
 	  if (!unknownTitles.includes(_text)) {
 	    unknownTitles.push(_text);
@@ -2938,7 +2938,7 @@
 	  if ( (config.dev || !name || printText)) {
 	    let mergedList = [];
 	    textList.forEach((text, index) => {
-	      mergedList.push(replaceWrap$1(text));
+	      mergedList.push(replaceWrap(text));
 	    }); //	    let _log = log
 	    //	    if (!name || printText) _log = log2
 	    //	    _log(mergedList.join('\n'))
@@ -2948,7 +2948,7 @@
 	    const duplicatelist = ['プロデューサーさん\n見守っていてくれますか？', 'プロデューサーさま、\n凛世を、お導きください……', 'お疲れ様です、プロデューサーさん\n今日もいっぱい頑張りますね♡', 'プロデューサーさまに……\n見ていただける……\nそれだけで……', 'プロデューサー？\nどうしました？', 'お疲れ様です\n今日もよろしくお願いします', '……'];
 	    const duplicatecheck = [];
 	    duplicatelist.forEach(sentence => {
-	      duplicatecheck.push(replaceWrap$1(sentence));
+	      duplicatecheck.push(replaceWrap(sentence));
 	    });
 	    if (!korcheck.test(dataparam) && !typeTextMap.has(mergedList[0]) && !duplicatecheck.includes(mergedList[0])) await caiyunTrans(dataparam);
 	  }
@@ -6363,7 +6363,7 @@
 
 	  const list = [];
 	  data.forEach(item => {
-	    let text = trim(replaceWrap$1(item.text));
+	    let text = trim(replaceWrap(item.text));
 
 	    if (text === null || text === void 0 ? void 0 : text.trim()) {
 	      list.push({
@@ -6376,7 +6376,7 @@
 	      list.push({
 	        id: 'select',
 	        name: '',
-	        text: trim(replaceWrap$1(item.select)),
+	        text: trim(replaceWrap(item.select)),
 	        trans: ''
 	      });
 	    }
