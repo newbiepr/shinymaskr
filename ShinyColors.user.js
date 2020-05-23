@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      1.0.8
+// @version      1.0.10
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -226,109 +226,6 @@
 
 	var isString_1 = isString;
 
-	const tagText = text => {
-	  return `\u200b${text}`;
-	};
-
-	const restoreConsole = () => {
-	  const iframe = document.createElement('iframe');
-	  iframe.style.display = 'none';
-	  document.body.appendChild(iframe);
-	  return iframe.contentWindow.console;
-	};
-
-	const isDomain = str => {
-	  if (!/^https?:\/\//.test(str)) return false;
-	  if (/\s/.test(str.trim())) return false;
-	  return true;
-	};
-
-	const sleep = time => {
-	  return new Promise(rev => {
-	    setTimeout(rev, time);
-	  });
-	};
-
-	const trim = str => {
-	  if (!str) return '';
-
-	  let _str = str.replace(/[\u0020]+$/g, '');
-
-	  return _str.replace(/^[\u0020]+/g, '');
-	};
-
-	const trimWrap = (str, trans = false) => {
-	  let _str = trim(str).replace(/(\\r)?\\n/g, '\n').replace(/\\r/g, '\n');
-
-	  return trans ? _str : _str.replace(/\n{2,}/g, '\n');
-	};
-
-	const fixWrap = str => {
-	  return trim(str).replace(/\r/g, '\n').replace(/\n{2,}/g, '\n');
-	};
-
-	const pureRE = str => {
-	  return str.replace(/\?/g, '\\?').replace(/\./g, '\\.').replace(/\*/g, '\\*').replace(/\+/g, '\\+').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
-	};
-
-	let _console = restoreConsole();
-
-	const log = (...args) => {
-	  if (DEV) {
-	    _console.log(...args);
-	  }
-	};
-
-	const tryDownload = (content, filename) => {
-	  const eleLink = document.createElement('a');
-	  eleLink.download = filename;
-	  eleLink.style.display = 'none';
-	  const blob = new Blob([content], {
-	    type: 'text/csv'
-	  });
-	  eleLink.href = URL.createObjectURL(blob);
-	  document.body.appendChild(eleLink);
-	  eleLink.click();
-	  document.body.removeChild(eleLink);
-	};
-
-	const replaceWrap$1 = text => {
-	  if (isString_1(text)) {
-	    return text.replace(/\r?\n/g, '\\n').replace(/\r/g, '\\n');
-	  }
-
-	  return text;
-	};
-
-
-	const transSpeaker = (item, nameMap) => {
-	  // 원 개발자는 이 기능 사용하지 않음
-	  if (item.speaker) {
-	    const speaker = trim(item.speaker); //    if (speakerList.includes(speaker) && nameMap.has(speaker)) {
-
-	    if (nameMap.has(speaker)) {
-	      item.speaker = tagText(nameMap.get(speaker));
-	    }
-	  }
-	};
-
-	const uniqueStoryId = () => {
-	  const idMap = new Map();
-	  return id => {
-	    if (id && !/^0+$/.test(id) && id !== 'select') {
-	      if (idMap.has(id)) {
-	        const count = idMap.get(id);
-	        idMap.set(id, count + 1);
-	        return `${id}-${count}`;
-	      } else {
-	        idMap.set(id, 0);
-	      }
-	    }
-
-	    return id;
-	  };
-	};
-
 	/** `Object#toString` result references. */
 	var boolTag = '[object Boolean]';
 
@@ -436,7 +333,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "1.0.8";
+	var version = "1.0.10";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -449,7 +346,8 @@
 	  font1: 'yuanti',
 	  font2: 'heiti',
 	  auto: 'off',
-	  bgm: 'off'
+	  bgm: 'off',
+	  dev: false
 	};
 	const defaultConfig = Object.assign({}, config);
 	const fontList = ['yuanti', 'heiti', 'yuanti2'];
@@ -459,7 +357,7 @@
 	  YUAN_JA: 'HummingStd-E',
 	  YUAN_TRANS: `sczh-yuanti,HummingStd-E`
 	};
-	const _keys = ['origin', 'font1', 'font2', 'timeout', 'story', 'auto', 'bgm'];
+	const _keys = ['origin', 'font1', 'font2', 'timeout', 'story', 'auto', 'bgm', 'dev'];
 	const keys = DEV ? _keys.slice(1, _keys.length) : _keys;
 
 	const setFont = () => {
@@ -482,7 +380,7 @@
 	    origin
 	  } = setting;
 
-	  if (isDomain(origin)) {
+	  if (/^https?:\/\//.test(origin)) {
 	    config.origin = origin.trim();
 	  }
 
@@ -498,6 +396,10 @@
 
 	  if (DEV & ENVIRONMENT === 'development') {
 	    config.origin = 'http://localhost:15944';
+	  }
+
+	  if (DEV) {
+	    config.dev = true;
 	  }
 	};
 
@@ -577,8 +479,15 @@
 	      const origin = prompt('접속할 URL 입력，아무것도 입력하지 않으면 기본값 자동 설정', config.origin);
 
 	      if (origin !== null) {
-	        config.origin = trim(origin);
+	        config.origin = origin.trim();
 	      }
+	    }
+	  },
+	  dev: {
+	    id: 0,
+	    titles: ['개발자 모드 열기(개발자 전용기능)', '개발자 모드 닫기(켜두면 겜만 느려지니 닫으세요)'],
+	    callback: () => {
+	      config.dev = !config.dev;
 	    }
 	  }
 	};
@@ -592,7 +501,15 @@
 	const setGMMenuCommand = type => {
 	  const value = config[type];
 	  const data = menuCommand[type];
-	  const text = data.title || data[value];
+	  let text = '';
+
+	  if (isBoolean_1(value)) {
+	    let index = value ? 1 : 0;
+	    text = data.titles[index];
+	  } else {
+	    text = data.title || data[value];
+	  }
+
 	  const id = data.id;
 
 	  if (id) {
@@ -606,7 +523,7 @@
 
 	const setAllGMMenuCommand = () => {
 	  if (!window.GM_registerMenuCommand || !window.GM_unregisterMenuCommand) return;
-	  const menuCommandList = ['bgm', 'story', 'origin'];
+	  const menuCommandList = ['bgm', 'story', 'origin', 'dev'];
 	  menuCommandList.forEach(type => {
 	    setGMMenuCommand(type);
 	  });
@@ -743,6 +660,103 @@
 	    console.log(err);
 	    return {};
 	  }
+	};
+
+	const tagText = text => {
+	  return `\u200b${text}`;
+	};
+
+	const restoreConsole = () => {
+	  const iframe = document.createElement('iframe');
+	  iframe.style.display = 'none';
+	  document.body.appendChild(iframe);
+	  return iframe.contentWindow.console;
+	};
+
+	const sleep = time => {
+	  return new Promise(rev => {
+	    setTimeout(rev, time);
+	  });
+	};
+
+	const trim = str => {
+	  if (!str) return '';
+
+	  let _str = str.replace(/[\u0020]+$/g, '');
+
+	  return _str.replace(/^[\u0020]+/g, '');
+	};
+
+	const trimWrap = (str, trans = false) => {
+	  let _str = trim(str).replace(/(\\r)?\\n/g, '\n').replace(/\\r/g, '\n');
+
+	  return trans ? _str : _str.replace(/\n{2,}/g, '\n');
+	};
+
+	const fixWrap = str => {
+	  return trim(str).replace(/\r/g, '\n').replace(/\n{2,}/g, '\n');
+	};
+
+	const pureRE = str => {
+	  return str.replace(/\?/g, '\\?').replace(/\./g, '\\.').replace(/\*/g, '\\*').replace(/\+/g, '\\+').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+	};
+
+	let _console = restoreConsole();
+
+	const log = (...args) => {
+	  if (config.dev) {
+	    _console.log(...args);
+	  }
+	};
+
+	const tryDownload = (content, filename) => {
+	  const eleLink = document.createElement('a');
+	  eleLink.download = filename;
+	  eleLink.style.display = 'none';
+	  const blob = new Blob([content], {
+	    type: 'text/csv'
+	  });
+	  eleLink.href = URL.createObjectURL(blob);
+	  document.body.appendChild(eleLink);
+	  eleLink.click();
+	  document.body.removeChild(eleLink);
+	};
+
+	const replaceWrap$1 = text => {
+	  if (isString_1(text)) {
+	    return text.replace(/\r?\n/g, '\\n').replace(/\r/g, '\\n');
+	  }
+
+	  return text;
+	};
+
+
+	const transSpeaker = (item, nameMap) => {
+	  // 원 개발자는 이 기능 사용하지 않음
+	  if (item.speaker) {
+	    const speaker = trim(item.speaker); //    if (speakerList.includes(speaker) && nameMap.has(speaker)) {
+
+	    if (nameMap.has(speaker)) {
+	      item.speaker = tagText(nameMap.get(speaker));
+	    }
+	  }
+	};
+
+	const uniqueStoryId = () => {
+	  const idMap = new Map();
+	  return id => {
+	    if (id && !/^0+$/.test(id) && id !== 'select') {
+	      if (idMap.has(id)) {
+	        const count = idMap.get(id);
+	        idMap.set(id, count + 1);
+	        return `${id}-${count}`;
+	      } else {
+	        idMap.set(id, 0);
+	      }
+	    }
+
+	    return id;
+	  };
 	};
 
 	const phraseMap = new Map();
@@ -1059,7 +1073,7 @@
 
 	const setTypeText = text => {
 	  typeTextStack.push(text);
-	  if (DEV && SHOW_UPDATE_TEXT) log(typeTextStack);
+	  if (config.dev && SHOW_UPDATE_TEXT) log(typeTextStack);
 	  setTimeout(() => typeTextStack.shift(), 10000);
 	};
 
@@ -1148,7 +1162,7 @@
 
 	  aoba.Text.prototype.updateText = function (t) {
 	    if (this.localStyleID !== this._style.styleID && (this.dirty = !0, this._style.styleID), this.dirty || !t) {
-	      if (DEV && SHOW_UPDATE_TEXT) log(replaceWrap(this._text));
+	      if (config.dev && SHOW_UPDATE_TEXT) log(replaceWrap(this._text));
 	      const value = fontCheck(this._text, this._style);
 	      Reflect.set(this, '_text', value);
 	      return originUpdateText.call(this, t);
@@ -1387,13 +1401,16 @@
 	};
 
 	let skillDataPrms = null;
+	let skillData = null;
 
 	const ensureSkillData = async () => {
 	  if (!skillDataPrms) {
 	    skillDataPrms = getSkill();
 	  }
 
-	  return await skillDataPrms;
+	  if (!skillData) {
+	    skillData = await skillDataPrms;
+	  }
 	};
 
 	const nameWithPlus = (list, data) => {
@@ -1417,7 +1434,7 @@
 	  }
 	};
 
-	const transSkill = (item, key, data) => {
+	const transSkill = (item, key, data = skillData) => {
 	  if (item === null || item === void 0 ? void 0 : item[key]) {
 	    let arr = item[key].split('/');
 	    arr.forEach((txt, index) => {
@@ -1433,89 +1450,80 @@
 	  }
 	};
 
-	const supportSkill = async data => {
-	  var _obj$supportIdol, _sskill;
-
-	  let obj = data;
-	  if (data.gameData) return;
-	  if (data.userSupportIdol) obj = data.userSupportIdol;
-	  let sskill;
-	  const asskill = obj.acquiredSupportSkills;
-
-	  if (obj.supportSkills) {
-	    sskill = obj.supportSkills;
-	  } else if ((_obj$supportIdol = obj.supportIdol) === null || _obj$supportIdol === void 0 ? void 0 : _obj$supportIdol.supportSkills) {
-	    sskill = obj.supportIdol.supportSkills;
-	  }
-
-	  const skillData = await getSupportSkill();
-	  (_sskill = sskill) === null || _sskill === void 0 ? void 0 : _sskill.forEach(item => {
-	    transSkill(item, 'description', skillData);
-	    transSkill(item, 'name', skillData);
-	  });
-	  asskill === null || asskill === void 0 ? void 0 : asskill.forEach(item => {
-	    transSkill(item, 'description', skillData);
-	    transSkill(item, 'name', skillData);
+	const transSupportSkill = (list, sData) => {
+	  list === null || list === void 0 ? void 0 : list.forEach(item => {
+	    transSkill(item, 'description', sData);
+	    transSkill(item, 'name', sData);
 	  });
 	};
 
-	const transEffects = (data, skillData) => {
+	const supportSkill = async data => {
+	  var _data$userSupportIdol, _supportIdol$supportI;
+
+	  const sData = await getSupportSkill();
+	  const supportIdol = (_data$userSupportIdol = data.userSupportIdol) !== null && _data$userSupportIdol !== void 0 ? _data$userSupportIdol : data;
+	  transSupportSkill(supportIdol.acquiredSupportSkills, sData);
+	  transSupportSkill(supportIdol.supportSkills, sData);
+	  transSupportSkill((_supportIdol$supportI = supportIdol.supportIdol) === null || _supportIdol$supportI === void 0 ? void 0 : _supportIdol$supportI.supportSkills, sData);
+	};
+
+	const transEffects = data => {
 	  var _data$skillEffects, _data$rivalMemoryAppe;
 
 	  (_data$skillEffects = data.skillEffects) === null || _data$skillEffects === void 0 ? void 0 : _data$skillEffects.forEach(item => {
-	    transSkill(item, 'effectName', skillData);
-	    transSkill(item, 'effectDescription', skillData);
+	    transSkill(item, 'effectName');
+	    transSkill(item, 'effectDescription');
 	  });
 	  (_data$rivalMemoryAppe = data.rivalMemoryAppealEffects) === null || _data$rivalMemoryAppe === void 0 ? void 0 : _data$rivalMemoryAppe.forEach(item => {
-	    transSkill(item, 'effectName', skillData);
-	    transSkill(item, 'effectDescription', skillData);
+	    transSkill(item, 'effectName');
+	    transSkill(item, 'effectDescription');
 	  });
 	};
 
 	const commSkill = (data, skillData, transEffect = false) => {
 	  if (!data) return;
-	  transSkill(data, 'comment', skillData);
-	  transSkill(data, 'name', skillData);
+	  transSkill(data, 'comment');
+	  transSkill(data, 'name');
 
 	  if (transEffect) {
-	    transEffects(data, skillData);
+	    transEffects(data);
 	  }
 
 	  if (data.linkSkill) {
-	    transSkill(data.linkSkill, 'comment', skillData);
-	    transSkill(data.linkSkill, 'name', skillData);
+	    transSkill(data.linkSkill, 'comment');
+	    transSkill(data.linkSkill, 'name');
 
 	    if (transEffect) {
-	      transEffects(data.linkSkill, skillData);
+	      transEffects(data.linkSkill);
 	    }
 	  }
 	};
 
-	const exSkill = (data, skillData) => {
-	  transSkill(data, 'name', skillData);
-	  transSkill(data, 'description', skillData);
+	const exSkill = data => {
+	  transSkill(data, 'name');
+	  transSkill(data, 'description');
 	};
 
-	const skillPanel = (data, skillData) => {
+	const skillPanel = data => {
 	  if (!data) return;
 	  data.forEach(item => {
-	    transSkill(item, 'releaseConditions', skillData);
-	    transSkill(item.passiveSkills, 'comment', skillData);
-	    transSkill(item.passiveSkills, 'name', skillData);
-	    commSkill(item.skill, skillData);
-	    commSkill(item.concertActiveSkill, skillData);
+	    transSkill(item, 'releaseConditions');
+	    transSkill(item.passiveSkills, 'comment');
+	    transSkill(item.passiveSkills, 'name');
+	    commSkill(item.skill);
+	    commSkill(item.concertActiveSkill);
 
 	    if (item.activeSkills) {
 	      item.activeSkills.forEach(skill => {
-	        commSkill(skill, skillData);
+	        commSkill(skill);
 	      });
 	    }
 	  });
 	};
 
-	const memoryAppeal = (data, skillData) => {
+	const memoryAppeal = data => {
 	  data.forEach(item => {
-	    commSkill(item, skillData);
+	    commSkill(item);
 	  });
 	};
 
@@ -1525,34 +1533,34 @@
 	  let proIdol = data.userProduceIdol;
 	  if (!proIdol) return;
 	  (_proIdol$activeSkills = proIdol.activeSkills) === null || _proIdol$activeSkills === void 0 ? void 0 : _proIdol$activeSkills.forEach(item => {
-	    commSkill(item, skillData);
+	    commSkill(item);
 	  });
 	  (_proIdol$passiveSkill = proIdol.passiveSkills) === null || _proIdol$passiveSkill === void 0 ? void 0 : _proIdol$passiveSkill.forEach(item => {
-	    commSkill(item, skillData);
+	    commSkill(item);
 	  });
 	  (_proIdol$limitBreaks = proIdol.limitBreaks) === null || _proIdol$limitBreaks === void 0 ? void 0 : _proIdol$limitBreaks.forEach(item => {
-	    commSkill(item, skillData);
+	    commSkill(item);
 	  });
 
 	  if (panel) {
-	    skillPanel(proIdol.skillPanels, skillData);
+	    skillPanel(proIdol.skillPanels);
 	  }
 	};
 
-	const judegsSkill = (data, skillData) => {
+	const judegsSkill = data => {
 	  data.forEach(judge => {
 	    commSkill(judge.skill, skillData, true);
 	  });
 	};
 
-	const fesRivalsSkill = (data, skillData) => {
+	const fesRivalsSkill = data => {
 	  if (!data) return;
 	  data.forEach(rival => {
 	    var _rival$userFesDeck, _rival$userRaidDeck, _rival$rival;
 
 	    (_rival$userFesDeck = rival.userFesDeck) === null || _rival$userFesDeck === void 0 ? void 0 : _rival$userFesDeck.userFesDeckMembers.forEach(member => {
 	      member.userFesIdol.activeSkills.forEach(skill => {
-	        transEffects(skill, skillData);
+	        transEffects(skill);
 	      });
 	    });
 	    (_rival$userRaidDeck = rival.userRaidDeck) === null || _rival$userRaidDeck === void 0 ? void 0 : _rival$userRaidDeck.userRaidDeckMembers.forEach(member => {
@@ -1561,16 +1569,16 @@
 	      });
 	    });
 	    (_rival$rival = rival.rival) === null || _rival$rival === void 0 ? void 0 : _rival$rival.rivalSkills.forEach(skill => {
-	      transEffects(skill, skillData);
+	      transEffects(skill);
 	    });
 	  });
 	};
 
-	const audRivalsSkill = (data, skillData) => {
+	const audRivalsSkill = data => {
 	  data.forEach(rival => {
-	    transEffects(rival.rivalMemoryAppeal, skillData);
+	    transEffects(rival.rivalMemoryAppeal);
 	    rival.rivalSkills.forEach(skill => {
-	      transEffects(skill, skillData);
+	      transEffects(skill);
 	    });
 	  });
 	}; // ==================================================
@@ -1578,90 +1586,90 @@
 
 
 	const userIdolsSkill = async data => {
-	  const skillData = await ensureSkillData();
-	  skillPanel(data.idol.skillPanels, skillData);
-	  memoryAppeal(data.idol.memoryAppeals, skillData);
+	  await ensureSkillData();
+	  skillPanel(data.idol.skillPanels);
+	  memoryAppeal(data.idol.memoryAppeals);
 	  data.userIdolProduceExSkills.forEach(item => {
-	    exSkill(item.produceExSkill, skillData);
+	    exSkill(item.produceExSkill);
 	  });
 	};
 
 	const userProIdolsSkill = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.activeSkills.forEach(item => {
-	    commSkill(item, skillData);
+	    commSkill(item);
 	  });
-	  memoryAppeal(data.userIdol.idol.memoryAppeals, skillData);
+	  memoryAppeal(data.userIdol.idol.memoryAppeals);
 	  data.userProduceIdolProduceExSkills.forEach(item => {
-	    exSkill(item.produceExSkill, skillData);
+	    exSkill(item.produceExSkill);
 	  });
 	};
 
 	const reserveUserIdolsSkill = async data => {
-	  const skillData = await ensureSkillData();
-	  skillPanel(data.idol.skillPanels, skillData);
-	  memoryAppeal(data.idol.memoryAppeals, skillData);
+	  await ensureSkillData();
+	  skillPanel(data.idol.skillPanels);
+	  memoryAppeal(data.idol.memoryAppeals);
 	};
 
 	const userSptIdolsSkill = async data => {
-	  const skillData = await ensureSkillData();
-	  skillPanel(data.supportIdol.skillPanels, skillData);
+	  await ensureSkillData();
+	  skillPanel(data.supportIdol.skillPanels);
 	  data.userSupportIdolProduceExSkills.forEach(item => {
-	    exSkill(item.produceExSkill, skillData);
+	    exSkill(item.produceExSkill);
 	  });
 
 	  try {
 	    data.supportIdol.supportIdolActiveSkill.activeSkills.forEach(item => {
-	      transSkill(item, 'comment', skillData);
-	      transSkill(item, 'name', skillData);
+	      transSkill(item, 'comment');
+	      transSkill(item, 'name');
 	    });
 	  } catch (e) {}
 	};
 
 	const userProSptIdolsSkill = async data => {
-	  const skillData = await ensureSkillData();
-	  skillPanel(data.skillPanels, skillData);
+	  await ensureSkillData();
+	  skillPanel(data.skillPanels);
 	  data.userProduceSupportIdolProduceExSkills.forEach(item => {
-	    exSkill(item.produceExSkill, skillData);
+	    exSkill(item.produceExSkill);
 	  });
 
 	  try {
 	    data.userSupportIdol.supportIdol.supportIdolActiveSkill.activeSkills.forEach(item => {
-	      transSkill(item, 'comment', skillData);
-	      transSkill(item, 'name', skillData);
+	      transSkill(item, 'comment');
+	      transSkill(item, 'name');
 	    });
 	  } catch (e) {}
 	};
 
 	const reserveUserSptIdolsSkill = async data => {
-	  const skillData = await ensureSkillData();
-	  skillPanel(data.supportIdol.skillPanels, skillData);
+	  await ensureSkillData();
+	  skillPanel(data.supportIdol.skillPanels);
 
 	  try {
 	    data.supportIdol.supportIdolActiveSkill.activeSkills.forEach(item => {
-	      transSkill(item, 'comment', skillData);
-	      transSkill(item, 'name', skillData);
+	      transSkill(item, 'comment');
+	      transSkill(item, 'name');
 	    });
 	  } catch (e) {}
 	};
 
 	const userFesIdolsSkill = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  const fesIdol = data.userFesIdol;
 	  fesIdol.activeSkills.forEach(item => {
-	    commSkill(item, skillData);
+	    commSkill(item);
 	  });
-	  commSkill(fesIdol.memoryAppeal, skillData);
+	  commSkill(fesIdol.memoryAppeal);
 	  fesIdol.passiveSkills.forEach(item => {
-	    transSkill(item, 'comment', skillData);
-	    transSkill(item, 'name', skillData);
+	    transSkill(item, 'comment');
+	    transSkill(item, 'name');
 	  });
 	  fesIdol.userFesIdolProduceExSkills.forEach(item => {
-	    exSkill(item.produceExSkill, skillData);
+	    exSkill(item.produceExSkill);
 	  });
 	  fesIdol.userFesSupportIdols.forEach(sptIdol => {
 	    sptIdol.userFesSupportIdolProduceExSkills.forEach(item => {
-	      exSkill(item.produceExSkill, skillData);
+	      exSkill(item.produceExSkill);
 	    });
 	  });
 	};
@@ -1669,33 +1677,33 @@
 	const otherFesIdolSkill = userFesIdolsSkill;
 
 	const produceExSkillTop = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.userProduceExSkills.forEach(item => {
-	    exSkill(item.produceExSkill, skillData);
+	    exSkill(item.produceExSkill);
 	  });
 	};
 
 	const userFesDeck = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.userFesDecks.forEach(deck => {
 	    deck.userFesDeckMembers.forEach(member => {
 	      var _member$userFesIdol;
 
 	      (_member$userFesIdol = member.userFesIdol) === null || _member$userFesIdol === void 0 ? void 0 : _member$userFesIdol.activeSkills.forEach(item => {
-	        commSkill(item, skillData);
+	        commSkill(item);
 	      });
 	    });
 	  });
 	};
 
 	const userRaidDeck = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.userRaidDecks.forEach(deck => {
 	    deck.userRaidDeckMembers.forEach(member => {
 	      var _member$userFesIdol2;
 
 	      (_member$userFesIdol2 = member.userFesIdol) === null || _member$userFesIdol2 === void 0 ? void 0 : _member$userFesIdol2.activeSkills.forEach(item => {
-	        commSkill(item, skillData);
+	        commSkill(item);
 	      });
 	    });
 	  });
@@ -1704,31 +1712,31 @@
 	const proSkillPanels = async data => {
 	  var _data$userProduceLimi;
 
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.userProduceSupportIdols.forEach(item => {
-	    skillPanel(item.skillPanels, skillData);
+	    skillPanel(item.skillPanels);
 	  });
 	  shortProIdol(data, skillData, true);
 	  (_data$userProduceLimi = data.userProduceLimitedSkills) === null || _data$userProduceLimi === void 0 ? void 0 : _data$userProduceLimi.forEach(item => {
-	    commSkill(item.passiveSkills, skillData);
-	    commSkill(item.skill, skillData);
+	    commSkill(item.passiveSkills);
+	    commSkill(item.skill);
 	  });
 
 	  try {
-	    skillPanel(data.userProduceIdol.userIdol.idol.skillPanels, skillData);
+	    skillPanel(data.userProduceIdol.userIdol.idol.skillPanels);
 	  } catch (e) {}
 	};
 
 	const produceFinish = async data => {
 	  if (data.gameData) return;
-	  const skillData = await ensureSkillData();
-	  shortProIdol(data, skillData);
+	  await ensureSkillData();
+	  shortProIdol(data);
 	};
 
 	const fesMatchConcertSkill = async data => {
 	  var _data$userFesDeck, _data$userRaidDeck;
 
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 
 	  const transDeckMember = member => {
 	    member.userFesIdol.activeSkills.forEach(item => {
@@ -1736,21 +1744,21 @@
 	    });
 	    commSkill(member.userFesIdol.memoryAppeal, skillData, true);
 	    member.userFesIdol.passiveSkills.forEach(item => {
-	      transSkill(item, 'comment', skillData);
-	      transSkill(item, 'name', skillData);
-	      transEffects(item, skillData);
+	      transSkill(item, 'comment');
+	      transSkill(item, 'name');
+	      transEffects(item);
 	    });
 	  };
 
 	  (_data$userFesDeck = data.userFesDeck) === null || _data$userFesDeck === void 0 ? void 0 : _data$userFesDeck.userFesDeckMembers.forEach(transDeckMember);
 	  (_data$userRaidDeck = data.userRaidDeck) === null || _data$userRaidDeck === void 0 ? void 0 : _data$userRaidDeck.userRaidDeckMembers.forEach(transDeckMember);
-	  judegsSkill(data.judges, skillData);
-	  fesRivalsSkill(data.userFesRivals, skillData);
-	  fesRivalsSkill(data.userFesRaidRivals, skillData);
+	  judegsSkill(data.judges);
+	  fesRivalsSkill(data.userFesRivals);
+	  fesRivalsSkill(data.userFesRaidRivals);
 	};
 
 	const auditionSkill = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.userProduceSupportIdols.forEach(item => {
 	    commSkill(item.activeSkill, skillData, true);
 	  });
@@ -1763,8 +1771,8 @@
 	    commSkill(skill, skillData, true);
 	  });
 	  let audition = data.produceAudition || data.produceConcert;
-	  judegsSkill(audition.judges, skillData);
-	  audRivalsSkill(audition.rivals, skillData);
+	  judegsSkill(audition.judges);
+	  audRivalsSkill(audition.rivals);
 	};
 
 	const resumeGameSkill = async data => {
@@ -1802,33 +1810,55 @@
 	};
 
 	const produceResultSkill = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.produceExSkillRewards.forEach(reward => {
-	    exSkill(reward.produceExSkill, skillData);
+	    exSkill(reward.produceExSkill);
 	  });
 	};
 
 	const ideaNotesSkill = async data => {
 	  if (!data.userProduceIdeaNotes) return;
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 	  data.userProduceIdeaNotes.forEach(note => {
 	    let bonus = note.produceIdeaNote.produceIdeaNoteCompleteBonus;
-	    transSkill(bonus, 'title', skillData);
-	    transSkill(bonus, 'comment', skillData);
+	    transSkill(bonus, 'title');
+	    transSkill(bonus, 'comment');
 	    note.produceIdeaNote.produceIdeaNoteExtraBonuses.forEach(item => {
-	      transSkill(item, 'comment', skillData);
-	      transSkill(item, 'condition', skillData);
+	      transSkill(item, 'comment');
+	      transSkill(item, 'condition');
 	    });
 	  });
 	};
 
 	const noteResultSkill = async data => {
-	  const skillData = await ensureSkillData();
+	  await ensureSkillData();
 
 	  try {
 	    let item = data.lessonResult.userProduceIdeaNote.produceIdeaNote.produceIdeaNoteCompleteBonus;
-	    commSkill(item, skillData);
+	    commSkill(item);
 	  } catch (e) {}
+	};
+
+	const producesDecksSkill = async data => {
+	  var _data$userSupportIdol2;
+
+	  const sData = await getSupportSkill();
+	  (_data$userSupportIdol2 = data.userSupportIdols) === null || _data$userSupportIdol2 === void 0 ? void 0 : _data$userSupportIdol2.forEach(item => {
+	    var _item$supportIdol;
+
+	    transSupportSkill((_item$supportIdol = item.supportIdol) === null || _item$supportIdol === void 0 ? void 0 : _item$supportIdol.supportSkills, sData);
+	  });
+	};
+
+	const producesActionReadySkill = async data => {
+	  const sData = await getSupportSkill();
+	  data.userDecks.forEach(deck => {
+	    deck.userSupportIdols.forEach(item => {
+	      var _item$supportIdol2;
+
+	      transSupportSkill((_item$supportIdol2 = item.supportIdol) === null || _item$supportIdol2 === void 0 ? void 0 : _item$supportIdol2.supportSkills, sData);
+	    });
+	  });
 	};
 
 	let textMap = new Map();
@@ -1981,7 +2011,7 @@
 	    let trans = itemMap.get(text);
 	    trans = `${trans}${note}${exp}${limit}`;
 	    item[key] = tagText(trans);
-	  } else if (DEV) {
+	  } else if (config.dev) {
 	    collectItems(item[key]);
 	  }
 	};
@@ -2145,7 +2175,7 @@
 	    if (text !== _text) {
 	      transed = true;
 	      data[key] = tagText(_text);
-	    } else if (DEV) {
+	    } else if (config.dev) {
 	      saveUnknownMissions(data, key);
 	    }
 	  }
@@ -2393,7 +2423,7 @@
 	  let text = item[key];
 	  replaceItem(item, key, titleMaps);
 
-	  if (DEV && text === item[key]) {
+	  if (config.dev && text === item[key]) {
 	    collectTitles(text);
 	  }
 	};
@@ -2905,7 +2935,7 @@
 	  } = collectText(data, nameMap, typeTextMap);
 	  if (!textInfo.length || textList == "……" || textInfo.length > 15) return;
 
-	  if ( (DEV || !name || printText)) {
+	  if ( (config.dev || !name || printText)) {
 	    let mergedList = [];
 	    textList.forEach((text, index) => {
 	      mergedList.push(replaceWrap$1(text));
@@ -5551,7 +5581,7 @@
 	const logStyles = color => [`background-color:${color};color:#fff;padding:0 0.3em`, '', `color:${color};text-decoration:underline`];
 
 	const requestLog = (method, color, args, data) => {
-	  if (DEV) {
+	  if (config.dev) {
 	    let _data = data;
 
 	    if (data) {
@@ -5593,8 +5623,8 @@
 	  }
 	};
 
-	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, userSupportIdolsTitle]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, userIdolsTitle]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, reserveUserIdolsSkill], [/^userFesIdols\/\d+$/, userFesIdolsSkill], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], albumTopTitle], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, produceActiveItem]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [beginnerMission, idolProfiles]], ['tutorialIdols', idolProfiles], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission]];
-	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete, homeProduceActiveItem, homeProduceTitle]], [/^characterAlbums\/characters\/\d+$/, [characterAlbumTitle, idolProfiles, albumTrustLevel]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, transUserItem], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [produceEventTitle, ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill, produceIdolName]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill, produceEventTitle]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill, produceEventTitle]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment, produceIdolName]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission], [/^produceMarathons\/\d+\/top$/, marathonTitle]];
+	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, userSupportIdolsTitle]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, userIdolsTitle]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, reserveUserIdolsSkill], [/^userFesIdols\/\d+$/, userFesIdolsSkill], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], albumTopTitle], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, produceActiveItem]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [beginnerMission, idolProfiles]], ['tutorialIdols', idolProfiles], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission], [/^produces\/\d+\/decks$/, producesDecksSkill]];
+	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete, homeProduceActiveItem, homeProduceTitle]], [/^characterAlbums\/characters\/\d+$/, [characterAlbumTitle, idolProfiles, albumTrustLevel]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, [transUserItem, producesActionReadySkill]], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [produceEventTitle, ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill, produceIdolName]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill, produceEventTitle]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill, produceEventTitle]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment, produceIdolName]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission], [/^produceMarathons\/\d+\/top$/, marathonTitle]];
 	const requestOfPatch = [[/^userSupportIdols\/\d+$/, supportSkill], ['userFesDecks', userFesDeck]];
 	const requestOfPut = [['userIdolRoads', idolRoadForward]];
 	async function requestHook() {
@@ -5680,6 +5710,39 @@
 	  return imageMap;
 	};
 
+	const ignoreImageMap = new Map();
+	let ignoreLoaded = false;
+
+	const getIgnoreImage = async () => {
+	  if (!ignoreLoaded) {
+	    let csv = await fetchWithHash('/data/ignoreimage.csv');
+	    const list = parseCsv(csv);
+	    list.forEach(item => {
+	      if (item && item.name) {
+	        const name = trim(item.name);
+	        const version = trim(item.version) || '1';
+
+	        if (name) {
+	          ignoreImageMap.set(name, {
+	            version
+	          });
+	        }
+	      }
+	    });
+	    ignoreLoaded = true;
+	  }
+
+	  return ignoreImageMap;
+	};
+
+	const logStyles$1 = color => [`background-color:${color};color:#fff;padding:0 0.3em`, '', `color:${color};text-decoration:underline`];
+
+	const imageLog = (method, color, path, url) => {
+	  if (config.dev) {
+	    log(`%c${method}%c %c${path}`, ...logStyles$1(color), '\n=>', url);
+	  }
+	};
+
 	let imageDataPrms = null;
 
 	const ensureImage = async () => {
@@ -5690,31 +5753,56 @@
 	  return await imageDataPrms;
 	};
 
+	let ignoreImageDataPrms = null;
+
+	const ensureIgnoreImage = async () => {
+	  if (!ignoreImageDataPrms) {
+	    ignoreImageDataPrms = getIgnoreImage();
+	  }
+
+	  return await ignoreImageDataPrms;
+	};
+
 	let replaced = false;
 	async function resourceHook() {
 	  let aoba = await getAoba();
 	  if (!aoba || replaced) return;
-	  aoba.loaders.Resource.prototype = Object.assign({}, aoba.loaders.Resource.prototype);
 	  const originLoadElement = aoba.loaders.Resource.prototype._loadElement;
 
-	  aoba.loaders.Resource.prototype._loadElement = async function (type) {
-	    if (DEV && type === 'image' && RES_NAME && this.url.includes(RES_NAME)) {
-	      log(this.url, this.name);
-	    }
-
+	  const newLoadElement = async function (type) {
 	    try {
 	      const imageMap = await ensureImage();
+	      var originalUrl = this.url;
 
 	      if (type === 'image' && imageMap.has(this.name)) {
 	        const data = imageMap.get(this.name);
 
 	        if (this.url.endsWith(`v=${data.version}`)) {
-	          const imagePath = `image/${data.url}`;
-	          this.url = `${config.origin}/data/${imagePath}?v=${config.hashes[imagePath]}`;
+	          this.url = `${config.origin}/data/image/${data.url}?V=${config.hash}`;
 	          this.crossOrigin = true;
+
+	          if (config.dev) {
+	            imageLog('IMAGE', '#ed9636', this.name, originalUrl);
+	          }
 	        } else {
-	          log('%cimage version not match', 'color:#fc4175');
-	          log(this.name, this.url);
+	          if (config.dev) {
+	            imageLog('IMAGE-MISMATCH', '#ff00ff', this.name, originalUrl);
+	          }
+	        }
+	      } else {
+	        if (config.dev) {
+	          const ignoreImageMap = await ensureIgnoreImage();
+
+	          if (ignoreImageMap.has(this.name)) {
+	            const data = ignoreImageMap.get(this.name);
+
+	            if (!this.url.endsWith(`v=${data.version}`)) {
+	              imageLog('IMAGE-MISMATCH', '#ff0000', this.name, originalUrl);
+	            } // else don't print because ignored
+
+	          } else {
+	            imageLog('IMAGE-MISSING', '#ff0000', this.name, originalUrl);
+	          }
 	        }
 	      }
 	    } catch (e) {}
@@ -5722,6 +5810,27 @@
 	    return originLoadElement.call(this, type);
 	  };
 
+	  const Resource = new Proxy(aoba.loaders.Resource, {
+	    construct(target, args, newtarget) {
+	      var newObj = Reflect.construct(target, args, newtarget);
+	      var overrodeObj = new Proxy(newObj, {
+	        get(target, name, receiver) {
+	          if (name == '_loadElement') return newLoadElement;
+	          return Reflect.get(target, name, receiver);
+	        }
+
+	      });
+	      return overrodeObj;
+	    },
+
+	    get(target, name, receiver) {
+	      return Reflect.get(target, name, receiver);
+	    }
+
+	  });
+	  Object.defineProperty(aoba.loaders, 'Resource', {
+	    value: Resource
+	  });
 	  replaced = true;
 	}
 
@@ -6349,7 +6458,7 @@
 	    const res = await originLoad.apply(this, args);
 	    const type = args[0];
 	    if (!type) return res;
-	    if (DEV && type.includes('/assets/json/')) requestLog('STORY', '#ad37c2', args, res);
+	    if (config.dev && type.includes('/assets/json/')) requestLog('STORY', '#ad37c2', args, res);
 
 	    if (type.includes('/produce_events/') || type.includes('/produce_communications/') || type.includes('/produce_communications_promises/') || type.includes('/produce_communication_promise_results/') || type.includes('/game_event_communications/') || type.includes('/special_communications/') || type.includes('/produce_communication_cheers/') || type.includes('/produce_communication_auditions/') || type.includes('/produce_communication_televisions/')) {
 	      try {
