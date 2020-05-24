@@ -128,7 +128,6 @@ achievementRewardDialog.rewardNameNum,%{name} x %{num},
 beginnerMission.headerTitle,初心者ミッション,초심자 미션
 beginnerMission.detailPopTitle,初心者ミッション詳細,초심자 미션 상세
 beginnerMission.receivePopTitle,初心者ミッション達成,초심자 미션 달성
-downLoad.confirmTitle,データダウンロード,데이터 다운로드
 downLoad.confirmComment,ゲームデータを一括でダウンロードし、端末に保存します\r\rゲーム中の読み込み時間が減るため、より快適にプレイすることができます\r最大約 %{gb} GB のデバイスの空き容量が必要となります,게임 데이터를 일괄로 다운로드해、단말에 저장합니다\r\r게임중의 read 시간이 줄어들기 때문에、보다 쾌적하게 플레이 할 수가 있습니다\r최대 약%{gb} GB의 디바이스의 빈 용량이 필요합니다
 downLoad.persistMessageMobile,データダウンロードを開始するためには\\rアイドルマスターシャイニーカラーズのURL(shinycolors.enza.fun)を\\rホーム画面に追加、またはブックマークする必要があります,데이터 다운로드를 개시하기 위해서는\\r아이돌마스터 샤이니컬러즈의 URL(shinycolors.enza.fun)을\\r홈 화면에 추가、또는 북마크할 필요가 있습니다
 downLoad.persistMessagePc,データダウンロードを開始するためには\nアイドルマスターシャイニーカラーズのURL(shinycolors.enza.fun)を\nブックマークする必要があります,데이터 다운로드를 개시하기 위해서는\n아이돌마스터 샤이니컬러즈의 URL(shinycolors.enza.fun)을\n북마크할 필요가 있습니다
@@ -976,6 +975,7 @@ training.resultTitle,トレーニング成功,트레이닝 성공
 training.resultTitleGreat,トレーニング大成功,트레이닝 대성공
 trend.historyText,先週%{rank}位,지난 주%{rank}위
 trend.txtNextFan,あと  %{count}人,앞으로  %{count}명
+trend.staffComment,流行の結果にあわせて、\nオーディションを受けてみてください♪,"유행의 결과에 맞춰서,\n오디션을 봐 주세요♪"
 tutorial.openingMessage.mes0,「アイドル」,「아이돌」
 tutorial.openingMessage.mes1,それは,그것은
 tutorial.openingMessage.mes2,女の子達の永遠の憧れ,여자아이들의 영원한 동경
