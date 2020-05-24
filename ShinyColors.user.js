@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      1.0.12
+// @version      1.0.13
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -22,6 +22,7 @@
 	const ENVIRONMENT = "";
 	    const DEV = false;
 	    const SHOW_UPDATE_TEXT = false;
+	    const COLLECT_IMAGE_INFO = false;
 	    const COLLECT_CARD_RATE = false;
 	    const RES_NAME = '';
 
@@ -333,7 +334,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "1.0.12";
+	var version = "1.0.13";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -5776,106 +5777,6 @@
 	  return ignoreImageMap;
 	};
 
-	const logStyles$1 = color => [`background-color:${color};color:#fff;padding:0 0.3em`, '', `color:${color};text-decoration:underline`];
-
-	const imageLog = (method, color, path, url) => {
-	  if (config.dev) {
-	    log(`%c${method}%c %c${path}`, ...logStyles$1(color), '\n=>', url);
-	  }
-	};
-
-	let imageDataPrms = null;
-
-	const ensureImage = async () => {
-	  if (!imageDataPrms) {
-	    imageDataPrms = getImage();
-	  }
-
-	  return await imageDataPrms;
-	};
-
-	let ignoreImageDataPrms = null;
-
-	const ensureIgnoreImage = async () => {
-	  if (!ignoreImageDataPrms) {
-	    ignoreImageDataPrms = getIgnoreImage();
-	  }
-
-	  return await ignoreImageDataPrms;
-	};
-
-	let replaced = false;
-	async function resourceHook() {
-	  let aoba = await getAoba();
-	  if (!aoba || replaced) return;
-	  const originLoadElement = aoba.loaders.Resource.prototype._loadElement;
-
-	  const newLoadElement = async function (type) {
-	    try {
-	      const imageMap = await ensureImage();
-	      var originalUrl = this.url;
-
-	      if (type === 'image' && imageMap.has(this.name)) {
-	        const data = imageMap.get(this.name);
-
-	        if (this.url.endsWith(`v=${data.version}`)) {
-	          const imagePath = `image/${data.url}`;
-	          this.url = `${config.origin}/data/image/${data.url}?V=${config.hashes[imagePath]}`;
-	          this.crossOrigin = true;
-
-	          if (config.dev) {
-	            imageLog('IMAGE', '#ed9636', this.name, originalUrl);
-	          }
-	        } else {
-	          if (config.dev) {
-	            imageLog('IMAGE-MISMATCH', '#ff00ff', this.name, originalUrl);
-	          }
-	        }
-	      } else {
-	        if (config.dev) {
-	          const ignoreImageMap = await ensureIgnoreImage();
-
-	          if (ignoreImageMap.has(this.name)) {
-	            const data = ignoreImageMap.get(this.name);
-
-	            if (!this.url.endsWith(`v=${data.version}`)) {
-	              imageLog('IMAGE-MISMATCH', '#ff0000', this.name, originalUrl);
-	            } // else don't print because ignored
-
-	          } else {
-	            imageLog('IMAGE-MISSING', '#ff0000', this.name, originalUrl);
-	          }
-	        }
-	      }
-	    } catch (e) {}
-
-	    return originLoadElement.call(this, type);
-	  };
-
-	  const Resource = new Proxy(aoba.loaders.Resource, {
-	    construct(target, args, newtarget) {
-	      var newObj = Reflect.construct(target, args, newtarget);
-	      var overrodeObj = new Proxy(newObj, {
-	        get(target, name, receiver) {
-	          if (name == '_loadElement') return newLoadElement;
-	          return Reflect.get(target, name, receiver);
-	        }
-
-	      });
-	      return overrodeObj;
-	    },
-
-	    get(target, name, receiver) {
-	      return Reflect.get(target, name, receiver);
-	    }
-
-	  });
-	  Object.defineProperty(aoba.loaders, 'Resource', {
-	    value: Resource
-	  });
-	  replaced = true;
-	}
-
 	/**
 	 * Gets the timestamp of the number of milliseconds that have elapsed since
 	 * the Unix epoch (1 January 1970 00:00:00 UTC).
@@ -6176,6 +6077,145 @@
 	}
 
 	var debounce_1 = debounce;
+
+	const getImageInfo = async () => {
+	  let aoba = await getAoba();
+	  let obj = JSON.parse(sessionStorage.getItem('sczh:image-info')) || {};
+	  let res = aoba.loader.resources;
+
+	  for (let name in res) {
+	    let item = res[name];
+
+	    if (item.type === 3 && item.name.endsWith('.json_image')) {
+	      let data = {};
+	      let jsonKey = item.name.replace(/_image$/, '');
+	      data.name = item.name.replace(/\.json_image$/, '');
+	      data.url = item.url;
+	      data.frames = {};
+
+	      for (let key in res[jsonKey].data.frames) {
+	        let info = res[jsonKey].data.frames[key];
+	        data.frames[key] = {
+	          frame: info.frame,
+	          rotated: info.rotated
+	        };
+	      }
+
+	      obj[data.name] = data;
+	    }
+	  }
+
+	  sessionStorage.setItem('sczh:image-info', JSON.stringify(obj));
+	};
+
+	let win$3 = window.unsafeWindow || window;
+
+	win$3.dlImageInfo = () => tryDownload(sessionStorage.getItem('sczh:image-info'), 'image-info.json');
+
+	const dbGetImageInfo = debounce_1(getImageInfo, 1000);
+
+	const logStyles$1 = color => [`background-color:${color};color:#fff;padding:0 0.3em`, '', `color:${color};text-decoration:underline`];
+
+	const imageLog = (method, color, path, url) => {
+	  if (config.dev) {
+	    log(`%c${method}%c %c${path}`, ...logStyles$1(color), '\n=>', url);
+	  }
+	};
+
+	let imageDataPrms = null;
+
+	const ensureImage = async () => {
+	  if (!imageDataPrms) {
+	    imageDataPrms = getImage();
+	  }
+
+	  return await imageDataPrms;
+	};
+
+	let ignoreImageDataPrms = null;
+
+	const ensureIgnoreImage = async () => {
+	  if (!ignoreImageDataPrms) {
+	    ignoreImageDataPrms = getIgnoreImage();
+	  }
+
+	  return await ignoreImageDataPrms;
+	};
+
+	let replaced = false;
+	async function resourceHook() {
+	  let aoba = await getAoba();
+	  if (!aoba || replaced) return;
+	  const originLoadElement = aoba.loaders.Resource.prototype._loadElement;
+
+	  const newLoadElement = async function (type) {
+	    if (COLLECT_IMAGE_INFO) {
+	      dbGetImageInfo();
+	      return originLoadElement.call(this, type);
+	    }
+
+	    try {
+	      const imageMap = await ensureImage();
+	      var originalUrl = this.url;
+
+	      if (type === 'image' && imageMap.has(this.name)) {
+	        const data = imageMap.get(this.name);
+
+	        if (this.url.endsWith(`v=${data.version}`)) {
+	          const imagePath = `image/${data.url}`;
+	          this.url = `${config.origin}/data/image/${data.url}?V=${config.hashes[imagePath]}`;
+	          this.crossOrigin = true;
+
+	          if (config.dev) {//            버전 안맞는 이미지 확인 용도 외 로그 출력 주석 처리함
+	            //            imageLog('IMAGE','#ed9636', this.name, originalUrl)
+	          }
+	        } else {
+	          if (config.dev) {
+	            imageLog('IMAGE-MISMATCH', '#ff00ff', this.name, originalUrl);
+	          }
+	        }
+	      } else {
+	        if (config.dev) {
+	          const ignoreImageMap = await ensureIgnoreImage();
+
+	          if (ignoreImageMap.has(this.name)) {
+	            const data = ignoreImageMap.get(this.name);
+
+	            if (!this.url.endsWith(`v=${data.version}`)) {} //				  imageLog('IGNOREIMAGE-MISMATCH','#ff0000', this.name, originalUrl)
+	            // else don't print because ignored
+
+	          } else {//			imageLog('IMAGE-MISSING','#ff0000', this.name, originalUrl)
+	            }
+	        }
+	      }
+	    } catch (e) {}
+
+	    return originLoadElement.call(this, type);
+	  };
+
+	  const Resource = new Proxy(aoba.loaders.Resource, {
+	    construct(target, args, newtarget) {
+	      var newObj = Reflect.construct(target, args, newtarget);
+	      var overrodeObj = new Proxy(newObj, {
+	        get(target, name, receiver) {
+	          if (name == '_loadElement') return newLoadElement;
+	          return Reflect.get(target, name, receiver);
+	        }
+
+	      });
+	      return overrodeObj;
+	    },
+
+	    get(target, name, receiver) {
+	      return Reflect.get(target, name, receiver);
+	    }
+
+	  });
+	  Object.defineProperty(aoba.loaders, 'Resource', {
+	    value: Resource
+	  });
+	  replaced = true;
+	}
 
 	const html = `
   <style>
