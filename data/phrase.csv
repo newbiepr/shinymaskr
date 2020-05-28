@@ -1564,11 +1564,12 @@ ability.acquired,習得済み,습득 끝
 ability.noSkillMessage,習得しているアビリティはありません,습득한 어빌리티는 없습니다
 ability.emptyNotice,習得可能なアビリティはありません,습득 가능한 어빌리티는 없습니다
 ability.confirmPop.title,アビリティ習得,어빌리티 습득
-ability.confirmPop.comment,以下の「ひらめき」を消費して\nアビリティを習得しますか？,이하의 「영감」을 소비하고\n어빌리티를 습득하시겠습니까?
+ability.confirmPop.comment,以下の「ひらめき」を消費して\nアビリティを習得しますか？,이하의 「히라메키」를 소비하고\n어빌리티를 습득하시겠습니까?
+ability.releaseCommentText,%{comment}で解放,%{comment}(으)로 해방
 commonMenu.dataLinkPop.titleForAppleLinked,enza連携,enza연계
 idolList.infoSwitch.wing,デフォルト(W.I.N.G.用),디폴트(W.I.N.G.용)
 idolList.infoSwitch.fan_meeting,アイデア(ファン感謝祭用),아이디어(팬 감사제용)
-idolList.infoSwitch.3rd_produce_area,ひらめき(G.R.A.D.用),영감(G.R.A.D.용)
+idolList.infoSwitch.3rd_produce_area,ひらめき(G.R.A.D.用),히라메키(G.R.A.D.용)
 header.ability,アビリティ習得,어빌리티 습득
 header.abilityViewMode,アビリティ一覧,어빌리티 목록
 header.produceBlock,ブロック選択,블록 선택
@@ -1586,9 +1587,9 @@ producerBirthday.notBirthdayDialog.description,誕生日期間が過ぎている
 produceBlock.confirmPop.title,確認,확인 
 produceBlock.confirmPop.description,シーズン%{seasonNum}のプロデュース先に\n%{blockName}を選択しますか？,시즌%{seasonNum}의 프로듀스 전에\n%{blockName}을 선택하시겠습니까?
 produceBlock.confirmPop.notice,選択したブロックはシーズン終了まで変更できません,선택하신 블록은 시즌 종료까지 변경할 수 없습니다
-produceAction.surplusInspirationDialog.title,ひらめき獲得,영감 획득
-produceAction.surplusInspirationDialog.descriptions.first,獲得できるひらめきが上限枠を超えました,획득할 수 있는 영감이 상한선을 넘었습니다
-produceAction.surplusInspirationDialog.descriptions.second.left,獲得するひらめきを,획득하는 영감을
+produceAction.surplusInspirationDialog.title,ひらめき獲得,히라메키 획득
+produceAction.surplusInspirationDialog.descriptions.first,獲得できるひらめきが上限枠を超えました,획득할 수 있는 히라메키가 상한선을 넘었습니다
+produceAction.surplusInspirationDialog.descriptions.second.left,獲得するひらめきを,획득하는 히라메키를
 produceAction.surplusInspirationDialog.descriptions.second.center,%{acquirableNum}つ,%{acquirableNum}개
 produceAction.surplusInspirationDialog.descriptions.second.right,選択してください,선택해 주세요
 produceSeasonResult.season,シーズン%{seasonNum},시즌%{seasonNum}

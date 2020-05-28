@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         샤니마스 한글 패치 임시
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
-// @version      1.0.13
+// @version      1.1.0
 // @description  샤니마스 한글 패치 스크립트입니다.
 // @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
@@ -334,7 +334,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "1.0.13";
+	var version = "1.1.0";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -694,9 +694,12 @@
 	  let data;
 
 	  try {
+	    var _data, _data$moduleId;
+
 	    let str = localStorage.getItem('sczh:manifest');
 	    if (str) data = JSON.parse(str);
 	    if (Date.now() - data.time > config.cacheTime * 60 * 1000) data = false;
+	    fixModule((_data = data) === null || _data === void 0 ? void 0 : (_data$moduleId = _data.moduleId) === null || _data$moduleId === void 0 ? void 0 : _data$moduleId.INJECT);
 	  } catch (e) {}
 
 	  if (!data) {
@@ -740,7 +743,6 @@
 	  getManifest().then(data => {
 	    config.newVersion = data.version;
 	    config.hashes = data.hashes;
-	    fixModule(data.moduleId.INJECT);
 	    rev(data);
 	  }).catch(rej);
 	});
@@ -1504,7 +1506,7 @@
 	  });
 	};
 
-	const commSkill = (data, skillData, transEffect = false) => {
+	const commSkill = (data, transEffect = false) => {
 	  if (!data) return;
 	  transSkill(data, 'comment');
 	  transSkill(data, 'name');
@@ -1551,12 +1553,15 @@
 	  });
 	};
 
-	const shortProIdol = (data, skillData, panel = false) => {
-	  var _proIdol$activeSkills, _proIdol$passiveSkill, _proIdol$limitBreaks;
+	const shortProIdol = (data, panel = false) => {
+	  var _proIdol$activeSkills, _proIdol$abilities, _proIdol$passiveSkill, _proIdol$limitBreaks;
 
 	  let proIdol = data.userProduceIdol;
 	  if (!proIdol) return;
 	  (_proIdol$activeSkills = proIdol.activeSkills) === null || _proIdol$activeSkills === void 0 ? void 0 : _proIdol$activeSkills.forEach(item => {
+	    commSkill(item);
+	  });
+	  (_proIdol$abilities = proIdol.abilities) === null || _proIdol$abilities === void 0 ? void 0 : _proIdol$abilities.forEach(item => {
 	    commSkill(item);
 	  });
 	  (_proIdol$passiveSkill = proIdol.passiveSkills) === null || _proIdol$passiveSkill === void 0 ? void 0 : _proIdol$passiveSkill.forEach(item => {
@@ -1573,7 +1578,7 @@
 
 	const judegsSkill = data => {
 	  data.forEach(judge => {
-	    commSkill(judge.skill, skillData, true);
+	    commSkill(judge.skill, true);
 	  });
 	};
 
@@ -1589,7 +1594,7 @@
 	    });
 	    (_rival$userRaidDeck = rival.userRaidDeck) === null || _rival$userRaidDeck === void 0 ? void 0 : _rival$userRaidDeck.userRaidDeckMembers.forEach(member => {
 	      member.userFesIdol.activeSkills.forEach(skill => {
-	        commSkill(skill, skillData, true);
+	        commSkill(skill, true);
 	      });
 	    });
 	    (_rival$rival = rival.rival) === null || _rival$rival === void 0 ? void 0 : _rival$rival.rivalSkills.forEach(skill => {
@@ -1636,51 +1641,51 @@
 	};
 
 	const userSptIdolsSkill = async data => {
+	  var _data$userSupportIdol2, _data$supportIdol, _data$supportIdol$sup, _data$supportIdol$sup2;
+
 	  await ensureSkillData();
 	  skillPanel(data.supportIdol.skillPanels);
-	  data.userSupportIdolProduceExSkills.forEach(item => {
+	  (_data$userSupportIdol2 = data.userSupportIdolProduceExSkills) === null || _data$userSupportIdol2 === void 0 ? void 0 : _data$userSupportIdol2.forEach(item => {
 	    exSkill(item.produceExSkill);
 	  });
-
-	  try {
-	    data.supportIdol.supportIdolActiveSkill.activeSkills.forEach(item => {
-	      transSkill(item, 'comment');
-	      transSkill(item, 'name');
-	    });
-	  } catch (e) {}
+	  (_data$supportIdol = data.supportIdol) === null || _data$supportIdol === void 0 ? void 0 : (_data$supportIdol$sup = _data$supportIdol.supportIdolActiveSkill) === null || _data$supportIdol$sup === void 0 ? void 0 : (_data$supportIdol$sup2 = _data$supportIdol$sup.activeSkills) === null || _data$supportIdol$sup2 === void 0 ? void 0 : _data$supportIdol$sup2.forEach(item => {
+	    transSkill(item, 'comment');
+	    transSkill(item, 'name');
+	  });
 	};
 
 	const userProSptIdolsSkill = async data => {
+	  var _data$userProduceSupp, _data$userSupportIdol3, _data$userSupportIdol4, _data$userSupportIdol5, _data$userSupportIdol6;
+
 	  await ensureSkillData();
 	  skillPanel(data.skillPanels);
-	  data.userProduceSupportIdolProduceExSkills.forEach(item => {
+	  (_data$userProduceSupp = data.userProduceSupportIdolProduceExSkills) === null || _data$userProduceSupp === void 0 ? void 0 : _data$userProduceSupp.forEach(item => {
 	    exSkill(item.produceExSkill);
 	  });
-
-	  try {
-	    data.userSupportIdol.supportIdol.supportIdolActiveSkill.activeSkills.forEach(item => {
-	      transSkill(item, 'comment');
-	      transSkill(item, 'name');
-	    });
-	  } catch (e) {}
+	  (_data$userSupportIdol3 = data.userSupportIdol) === null || _data$userSupportIdol3 === void 0 ? void 0 : (_data$userSupportIdol4 = _data$userSupportIdol3.supportIdol) === null || _data$userSupportIdol4 === void 0 ? void 0 : (_data$userSupportIdol5 = _data$userSupportIdol4.supportIdolActiveSkill) === null || _data$userSupportIdol5 === void 0 ? void 0 : (_data$userSupportIdol6 = _data$userSupportIdol5.activeSkills) === null || _data$userSupportIdol6 === void 0 ? void 0 : _data$userSupportIdol6.forEach(item => {
+	    transSkill(item, 'comment');
+	    transSkill(item, 'name');
+	  });
 	};
 
 	const reserveUserSptIdolsSkill = async data => {
+	  var _data$supportIdol2, _data$supportIdol2$su, _data$supportIdol2$su2;
+
 	  await ensureSkillData();
 	  skillPanel(data.supportIdol.skillPanels);
-
-	  try {
-	    data.supportIdol.supportIdolActiveSkill.activeSkills.forEach(item => {
-	      transSkill(item, 'comment');
-	      transSkill(item, 'name');
-	    });
-	  } catch (e) {}
+	  (_data$supportIdol2 = data.supportIdol) === null || _data$supportIdol2 === void 0 ? void 0 : (_data$supportIdol2$su = _data$supportIdol2.supportIdolActiveSkill) === null || _data$supportIdol2$su === void 0 ? void 0 : (_data$supportIdol2$su2 = _data$supportIdol2$su.activeSkills) === null || _data$supportIdol2$su2 === void 0 ? void 0 : _data$supportIdol2$su2.forEach(item => {
+	    transSkill(item, 'comment');
+	    transSkill(item, 'name');
+	  });
 	};
 
 	const userFesIdolsSkill = async data => {
 	  await ensureSkillData();
 	  const fesIdol = data.userFesIdol;
 	  fesIdol.activeSkills.forEach(item => {
+	    commSkill(item);
+	  });
+	  fesIdol.abilities.forEach(item => {
 	    commSkill(item);
 	  });
 	  commSkill(fesIdol.memoryAppeal);
@@ -1734,21 +1739,18 @@
 	};
 
 	const proSkillPanels = async data => {
-	  var _data$userProduceLimi;
+	  var _data$userProduceLimi, _data$userProduceIdol, _data$userProduceIdol2, _data$userProduceIdol3;
 
 	  await ensureSkillData();
 	  data.userProduceSupportIdols.forEach(item => {
 	    skillPanel(item.skillPanels);
 	  });
-	  shortProIdol(data, skillData, true);
+	  shortProIdol(data, true);
 	  (_data$userProduceLimi = data.userProduceLimitedSkills) === null || _data$userProduceLimi === void 0 ? void 0 : _data$userProduceLimi.forEach(item => {
 	    commSkill(item.passiveSkills);
 	    commSkill(item.skill);
 	  });
-
-	  try {
-	    skillPanel(data.userProduceIdol.userIdol.idol.skillPanels);
-	  } catch (e) {}
+	  skillPanel((_data$userProduceIdol = data.userProduceIdol) === null || _data$userProduceIdol === void 0 ? void 0 : (_data$userProduceIdol2 = _data$userProduceIdol.userIdol) === null || _data$userProduceIdol2 === void 0 ? void 0 : (_data$userProduceIdol3 = _data$userProduceIdol2.idol) === null || _data$userProduceIdol3 === void 0 ? void 0 : _data$userProduceIdol3.skillPanels);
 	};
 
 	const produceFinish = async data => {
@@ -1764,9 +1766,15 @@
 
 	  const transDeckMember = member => {
 	    member.userFesIdol.activeSkills.forEach(item => {
-	      commSkill(item, skillData, true);
+	      commSkill(item, true);
 	    });
-	    commSkill(member.userFesIdol.memoryAppeal, skillData, true);
+	    member.userFesIdol.abilities.forEach(item => {
+	      commSkill(item);
+	    });
+	    member.userFesIdol.concertAbilities.forEach(item => {
+	      commSkill(item);
+	    });
+	    commSkill(member.userFesIdol.memoryAppeal, true);
 	    member.userFesIdol.passiveSkills.forEach(item => {
 	      transSkill(item, 'comment');
 	      transSkill(item, 'name');
@@ -1782,17 +1790,28 @@
 	};
 
 	const auditionSkill = async data => {
+	  var _data$fanActiveSkills, _proIdol$abilities2, _proIdol$concertAbili;
+
 	  await ensureSkillData();
+	  (_data$fanActiveSkills = data.fanActiveSkills) === null || _data$fanActiveSkills === void 0 ? void 0 : _data$fanActiveSkills.forEach(item => {
+	    commSkill(item, true);
+	  });
 	  data.userProduceSupportIdols.forEach(item => {
-	    commSkill(item.activeSkill, skillData, true);
+	    commSkill(item.activeSkill, true);
 	  });
 	  let proIdol = data.userProduceIdol;
 	  proIdol.activeSkills.forEach(skill => {
-	    commSkill(skill, skillData, true);
+	    commSkill(skill, true);
 	  });
-	  commSkill(proIdol.memoryAppeal, skillData, true);
+	  (_proIdol$abilities2 = proIdol.abilities) === null || _proIdol$abilities2 === void 0 ? void 0 : _proIdol$abilities2.forEach(skill => {
+	    commSkill(skill, true);
+	  });
+	  (_proIdol$concertAbili = proIdol.concertAbilities) === null || _proIdol$concertAbili === void 0 ? void 0 : _proIdol$concertAbili.forEach(skill => {
+	    commSkill(skill, true);
+	  });
+	  commSkill(proIdol.memoryAppeal, true);
 	  proIdol.passiveSkills.forEach(skill => {
-	    commSkill(skill, skillData, true);
+	    commSkill(skill, true);
 	  });
 	  let audition = data.produceAudition || data.produceConcert;
 	  judegsSkill(audition.judges);
@@ -1855,19 +1874,18 @@
 	};
 
 	const noteResultSkill = async data => {
-	  await ensureSkillData();
+	  var _data$lessonResult, _data$lessonResult$us, _data$lessonResult$us2;
 
-	  try {
-	    let item = data.lessonResult.userProduceIdeaNote.produceIdeaNote.produceIdeaNoteCompleteBonus;
-	    commSkill(item);
-	  } catch (e) {}
+	  await ensureSkillData();
+	  let item = (_data$lessonResult = data.lessonResult) === null || _data$lessonResult === void 0 ? void 0 : (_data$lessonResult$us = _data$lessonResult.userProduceIdeaNote) === null || _data$lessonResult$us === void 0 ? void 0 : (_data$lessonResult$us2 = _data$lessonResult$us.produceIdeaNote) === null || _data$lessonResult$us2 === void 0 ? void 0 : _data$lessonResult$us2.produceIdeaNoteCompleteBonus;
+	  commSkill(item);
 	};
 
 	const producesDecksSkill = async data => {
-	  var _data$userSupportIdol2;
+	  var _data$userSupportIdol7;
 
 	  const sData = await getSupportSkill();
-	  (_data$userSupportIdol2 = data.userSupportIdols) === null || _data$userSupportIdol2 === void 0 ? void 0 : _data$userSupportIdol2.forEach(item => {
+	  (_data$userSupportIdol7 = data.userSupportIdols) === null || _data$userSupportIdol7 === void 0 ? void 0 : _data$userSupportIdol7.forEach(item => {
 	    var _item$supportIdol;
 
 	    transSupportSkill((_item$supportIdol = item.supportIdol) === null || _item$supportIdol === void 0 ? void 0 : _item$supportIdol.supportSkills, sData);
@@ -1882,6 +1900,45 @@
 
 	      transSupportSkill((_item$supportIdol2 = item.supportIdol) === null || _item$supportIdol2 === void 0 ? void 0 : _item$supportIdol2.supportSkills, sData);
 	    });
+	  });
+	};
+
+	const produceAbilitiySkill = async data => {
+	  await ensureSkillData();
+	  data.userProduceIdol.activeSkills.forEach(item => {
+	    commSkill(item);
+	  });
+	  data.userProduceIdol.abilities.forEach(item => {
+	    commSkill(item);
+	  });
+	  data.userProduceAbilities.forEach(item => {
+	    commSkill(item.ability);
+	    transSkill(item.ability, 'acquireComment');
+	    item.ability.produceAbilityAcquireConditionComments.forEach(comm => {
+	      transSkill(comm, 'name');
+	    });
+	    transSkill(item.ability, 'releaseComment');
+	  });
+	};
+
+	const finishAbility = async data => {
+	  var _data$concertEvent, _data$concertEvent$ab;
+
+	  await ensureSkillData();
+	  (_data$concertEvent = data.concertEvent) === null || _data$concertEvent === void 0 ? void 0 : (_data$concertEvent$ab = _data$concertEvent.abilities) === null || _data$concertEvent$ab === void 0 ? void 0 : _data$concertEvent$ab.forEach(item => {
+	    transSkill(item, 'name');
+	  });
+	};
+
+	const produceAreaAbilitySkill = async data => {
+	  var _data$abilities;
+
+	  await ensureSkillData();
+	  (_data$abilities = data.abilities) === null || _data$abilities === void 0 ? void 0 : _data$abilities.forEach(item => {
+	    transSkill(item, 'acquireComment');
+	    transSkill(item, 'name');
+	    transSkill(item, 'comment');
+	    transSkill(item, 'releaseComment');
 	  });
 	};
 
@@ -2330,7 +2387,12 @@
 
 	  await ensureMissionData();
 	  (_data$teachingHints = data.teachingHints) === null || _data$teachingHints === void 0 ? void 0 : _data$teachingHints.forEach(item => {
-	    item.userProduceTeachingHints.forEach(hint => {
+	    var _item$userProduceHint, _item$userProduceTeac;
+
+	    (_item$userProduceHint = item.userProduceHints) === null || _item$userProduceHint === void 0 ? void 0 : _item$userProduceHint.forEach(hint => {
+	      replaceMission(hint.produceTeachingHint, 'title');
+	    });
+	    (_item$userProduceTeac = item.userProduceTeachingHints) === null || _item$userProduceTeac === void 0 ? void 0 : _item$userProduceTeac.forEach(hint => {
 	      replaceMission(hint.produceTeachingHint, 'title');
 	    });
 	  });
@@ -2341,7 +2403,9 @@
 
 	  await ensureMissionData();
 	  (_data$teachingHints2 = data.teachingHints) === null || _data$teachingHints2 === void 0 ? void 0 : _data$teachingHints2.forEach(item => {
-	    item.userProduceHints.forEach(hint => {
+	    var _item$userProduceHint2;
+
+	    (_item$userProduceHint2 = item.userProduceHints) === null || _item$userProduceHint2 === void 0 ? void 0 : _item$userProduceHint2.forEach(hint => {
 	      replaceMission(hint.produceTeachingHint, 'title');
 	    });
 	  });
@@ -3022,6 +3086,10 @@
 	        return auditionKeys.map(key => item[key] || '').join('');
 	      }).join('').trim();
 	      await autoTrans(data.produceConcert.judges, name, true);
+	    }
+
+	    if (data.produceConcertFanSkillComments) {
+	      await autoTransText(data.produceConcertFanSkillComments, 'comment1');
 	    }
 	  } catch (e) {
 	    log(e);
@@ -5665,8 +5733,8 @@
 	  }
 	};
 
-	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, userSupportIdolsTitle]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, userIdolsTitle]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, reserveUserIdolsSkill], [/^userFesIdols\/\d+$/, userFesIdolsSkill], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], ['userProduceTeachings', teachingMission2], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], albumTopTitle], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, produceActiveItem]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [beginnerMission, idolProfiles]], ['tutorialIdols', idolProfiles], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission], [/^produces\/\d+\/decks$/, producesDecksSkill]];
-	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete, homeProduceActiveItem, homeProduceTitle]], [/^characterAlbums\/characters\/\d+$/, [characterAlbumTitle, idolProfiles, albumTrustLevel]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, [transUserItem, producesActionReadySkill]], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [produceEventTitle, ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill, produceIdolName]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill, produceEventTitle]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill, produceEventTitle]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment, produceIdolName]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission], [/^produceMarathons\/\d+\/top$/, marathonTitle]];
+	const requestOfGet = [[[/^userSupportIdols\/\d+$/, /^userSupportIdols\/statusMax/, /^produceTeachingSupportIdols\/\d+$/], [supportSkill, userSptIdolsSkill, userSupportIdolsTitle]], [/^userProduce(Teaching)?SupportIdols\/\d+$/, [supportSkill, userProSptIdolsSkill]], [/^userReserveSupportIdols\/userSupportIdol\/\d+$/, [supportSkill, reserveUserSptIdolsSkill]], [/^userIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [/^userSupportIdols\/\d+\/produceExSkillTop$/, produceExSkillTop], [[/^userIdols\/\d+$/, /^userIdols\/statusMax$/, /^produceTeachingIdols\/\d+$/], [userIdolsSkill, userIdolsTitle]], [[/^userProduce(Teaching)?Idols\/\d+$/, 'userProduceTeachingIdol'], userProIdolsSkill], [/^userReserveIdols\/userIdol\/\d+$/, reserveUserIdolsSkill], [/^userFesIdols\/\d+$/, userFesIdolsSkill], [['userProduces/skillPanels', 'userProduceTeachings/skillPanels'], proSkillPanels], ['userMissions', transMission], ['userProduceTeachings', teachingMission2], [/^fesRaidEvents\/\d+\/rewards$/, fesRaidMission], [['characterAlbums', 'album/top'], albumTopTitle], [['userShops', 'userIdolPieceShops'], transShopItem], [userItemTypes, transUserItem], [[/^userPresents\?limit=/, /^userPresentHistories\?limit=/], transPresentItem], [/gashaGroups\/\d+\/rates/, 'cardName'], ['userProduces', [topCharacterReaction, produceActiveItem, teachingMission]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], [/earthUsers\/[^\/]+\/userFesIdols\/\d+$/, otherFesIdolSkill], ['userBeginnerMissions/top', [beginnerMission, idolProfiles]], ['tutorialIdols', idolProfiles], ['userRaidDecks', userRaidDeck], ['idolRoads/top', idolRoadMission], [/^produces\/\d+\/decks$/, producesDecksSkill], ['userProduceAbilities', produceAbilitiySkill], ['userProduceAreas', produceAreaAbilitySkill]];
+	const requestOfPost = [['myPage', [reportMission, mypageComments, beginnerMissionComplete, homeProduceActiveItem, homeProduceTitle]], [/^characterAlbums\/characters\/\d+$/, [characterAlbumTitle, idolProfiles, albumTrustLevel]], [/^(produceMarathons|fesMarathons|trainingEvents)\/\d+\/top$/, [fesRecomMission, transAccumulatedPresent]], [/userIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, userIdolsSkill], ['userShops/actions/purchase', transShopPurchase], [/produces\/\d+\/actions\/ready/, [transUserItem, producesActionReadySkill]], [/userPresents\/\d+\/actions\/receive/, transReceivePresent], [/userMissions\/\d+\/actions\/receive/, transReceiveMission], ['userLoginBonuses', transLoginBonus], ['fesTop', [transFesReward, fesDeckReactions]], [[/^userProduce(Teaching)?s\/skillPanels\/\d+$/, /^userProduces\/limitedSkills\/\d+$/], proSkillPanels], [/userSupportIdols\/\d+\/produceExSkills\/\d+\/actions\/set/, [userSptIdolsSkill, supportSkill]], [/^produces\/actions\/(resume|next)$/, [produceEventTitle, ideaNotesSkill, topCharacterReaction, produceEndWeek, resumeGamedata, characterComment, produceAudition, produceReporterAnswer, supportSkill, produceIdolName]], [['produces/actions/resume', 'produces/actions/finish', 'produceTeachings/resume'], [produceFinish, resumeGameSkill, produceEventTitle]], ['produces/actions/endWeek', produceEndWeek], ['produces/actions/act', [lessonResult, noteResultSkill, produceEventTitle]], [/^fes(Match|Raid)?Concert\/actions\/start$/, [fesMatchConcert, fesMatchConcertSkill]], [/^fes(Match)?Concert\/actions\/resume$/, [resumeGamedata, resumeGameSkill]], ['fesRaidConcert/actions/resume', [resumeRaidGamedata, resumeRaidGameSkill]], ['produces/actions/result', [trustLevelUp, produceResultSkill]], [[/^produce(Teaching)?s\/(\d+\/audition|concert)\/actions\/start$/, /^produceTeachings\/(auditions|concerts)\/start$/], [auditionSkill]], [/^produces\/(\d+\/audition|concert)\/actions\/(start|finish)$/, [produceAudition, characterComment, produceIdolName, finishAbility]], ['userProduceHelperSupportIdols', helperSupportIdols], [['produceTeachings/resume', 'produceTeachings/next'], [teachingMission, supportSkill]], [/^userSelectLoginBonuses\/\d+$/, selectLoginBonus], [/^userLectureMissions\/\d+\/actions\/receive$/, beginnerMission], [/^produceMarathons\/\d+\/top$/, marathonTitle], ['userProduceAbilities', produceAbilitiySkill]];
 	const requestOfPatch = [[/^userSupportIdols\/\d+$/, supportSkill], ['userFesDecks', userFesDeck]];
 	const requestOfPut = [['userIdolRoads', idolRoadForward]];
 	async function requestHook() {
