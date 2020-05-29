@@ -2,8 +2,8 @@
 // @name         샤니마스 한글 패치 임시 긴급판
 // @namespace    https://github.com/newbiepr/shinycolors-trans-kr
 // @version      1.1.1
-// @description  샤니마스 한글 패치 스크립트입니다. (긴급급)
-// @icon         https://shinycolors.enza.fun/icon_192x1급2.png
+// @description  샤니마스 한글 패치 스크립트입니다. (긴급)
+// @icon         https://shinycolors.enza.fun/icon_192x192.png
 // @author       Source : biuuu(https://github.com/biuuu/ShinyColors)
 // @match        https://shinycolors.enza.fun/*
 // @run-at       document-start
