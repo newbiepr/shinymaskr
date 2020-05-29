@@ -482,7 +482,7 @@
 
 	var isPlainObject_1 = isPlainObject;
 
-	var version = "0.11.13";
+	var version = "1.1.1";
 
 	const PREVIEW_COUNT = 5;
 	const config = {
@@ -743,13 +743,7 @@
 
 	const getPhrase = async (full = false) => {
 	  if (!loaded) {
-	    let csv = await getLocalData('phrase');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/phrase.csv');
-	      setLocalData('phrase', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/phrase.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.name) {
@@ -887,13 +881,7 @@
 
 	const getItem = async () => {
 	  if (!loaded$1) {
-	    let csv = await getLocalData('item');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/item.csv');
-	      setLocalData('item', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/item.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.text) {
@@ -927,13 +915,7 @@
 
 	const getName = async () => {
 	  if (!loaded$2) {
-	    let csv = await getLocalData('name');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/name.csv');
-	      setLocalData('name', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/name.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      const name = trim(item.name);
@@ -954,13 +936,7 @@
 
 	const getCommMap = async () => {
 	  if (!loaded$3) {
-	    let csv = await getLocalData('common');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/common.csv');
-	      setLocalData('common', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/common.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.ja) {
@@ -1374,23 +1350,16 @@
 
 	const getStory = async name => {
 	  if (!storyIndex) {
-	    let storyIndexStr = await getLocalData('story-index');
-
-	    if (!storyIndexStr) {
-	      const storyIndexData = await fetchWithHash('/story.json');
-	      storyIndex = new Map(storyIndexData);
-	      setLocalData('story-index', JSON.stringify(storyIndexStr));
-	    } else {
-	      storyIndex = new Map(JSON.parse(storyIndexStr));
-	    }
+	    const storyIndexData = await fetchWithHash('/story.json');
+		storyIndex = new Map(storyIndexData);
 	  }
 
 	  if (storyIndex.has(name)) {
 	    if (storyTemp.has(name)) {
 	      return storyTemp.get(name);
 	    } else {
-	      const csvPath = storyIndex.get(name);
-	      const csvStr = await fetchWithHash(csvPath);
+			const fileName = storyIndex.get(name);
+			const csvStr = await fetchWithHash(`/data/story/${fileName}.csv`);
 	      const storyMap = getStoryMap(csvStr);
 	      storyTemp.set(name, storyMap);
 	      return storyMap;
@@ -1402,13 +1371,7 @@
 
 	const getCommStory = async () => {
 	  if (!commStoryLoaded) {
-	    let csv = await getLocalData('comm-story');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/comm-story.csv');
-	      setLocalData('comm-story', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/comm-story.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.ja) {
@@ -1432,13 +1395,7 @@
 
 	const getTypeTextMap = async () => {
 	  if (!loaded$4) {
-	    let csv = await getLocalData('type-text');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/type-text.csv');
-	      setLocalData('type-text', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/type-text.csv');
 	    const list = parseCsv(csv);
 	    list.forEach(item => {
 	      if (item && item.ja) {
@@ -1674,13 +1631,7 @@
 	  } = supportSkillCache;
 
 	  if (!loaded) {
-	    let csv = await getLocalData('support-skill');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/support-skill.csv');
-	      setLocalData('support-skill', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/support-skill.csv');
 	    const list = parseCsv(csv);
 	    const reMap = new Map();
 	    sortWords(list, 'text').forEach(item => {
@@ -1744,13 +1695,7 @@
 	  } = skillCache;
 
 	  if (!loaded) {
-	    let csv = await getLocalData('skill');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/skill.csv');
-	      setLocalData('skill', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/skill.csv');
 	    const list = parseCsv(csv);
 	    const reMap = new Map();
 	    sortWords(list, 'text').forEach(item => {
@@ -2242,13 +2187,7 @@
 
 	const getMission = async (full = false) => {
 	  if (!loaded$5) {
-	    let csv = await getLocalData('mission');
-
-	    if (!csv) {
-	      csv = await fetchWithHash('/data/mission-re.csv');
-	      setLocalData('mission', csv);
-	    }
-
+	    let csv = await fetchWithHash('/data/mission-re.csv');
 	    const list = parseCsv(csv);
 	    const nounArr = [];
 	    const nameArr = [];
