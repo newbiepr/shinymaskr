@@ -11,7 +11,7 @@
 // @connect      api.interpreter.caiyunai.com
 // @connect      translate.google.com
 // @connect      fanyi.baidu.com
-// @updateURL    https://newbiepr.github.io/shinymaskr/Hotfix.js
+// @updateURL    https://newbiepr.github.io/shinymaskr/Hotfix.user.js
 // @supportURL   https://github.com/newbiepr/shinymaskr/issues
 // ==/UserScript==
 (function () {
