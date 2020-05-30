@@ -1,6 +1,4 @@
-출처 : https://github.com/biuuu/ShinyColors
-
-github, 개발 잘 모릅니다. 삽질이 많아도 양해부탁드립니다.
+현재 이 리포지토리는 임시중지되었습니다.
 
 ### License
 기본적으로 해당 자료는 [MIT](https://github.com/snowyivu/ShinyColors/blob/master/LICENSE) license를 따릅니다,
